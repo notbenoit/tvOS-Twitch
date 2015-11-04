@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9059" systemVersion="15C27e" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Xr8-Ku-ug7">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <scenes>
+        <!--Twitch Home View Controller-->
+        <scene sceneID="b3A-jX-sLw">
+            <objects>
+                <viewController id="Xr8-Ku-ug7" customClass="TwitchHomeViewController" customModule="TwitchTV_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CIo-Km-57E"/>
+                        <viewControllerLayoutGuide type="bottom" id="5lR-ij-r7R"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Ov-a6-N8h">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xb8-PN-Y42" userLabel="Games container">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="350"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="aR8-nG-gQS"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="BOP-1J-k9R" kind="embed" id="e00-JH-9uo"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2r-Lb-8Dq" userLabel="Channels container">
+                                <rect key="frame" x="0.0" y="350" width="1920" height="730"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="aQZ-pu-Z1x" kind="embed" id="Lfp-b9-h1p"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <animations/>
+                        <constraints>
+                            <constraint firstItem="Xb8-PN-Y42" firstAttribute="top" secondItem="CIo-Km-57E" secondAttribute="bottom" id="Nkt-5G-q3N"/>
+                            <constraint firstItem="Xb8-PN-Y42" firstAttribute="centerX" secondItem="2Ov-a6-N8h" secondAttribute="centerX" id="QyZ-kJ-HDT"/>
+                            <constraint firstItem="Xb8-PN-Y42" firstAttribute="width" secondItem="2Ov-a6-N8h" secondAttribute="width" id="YQv-CX-3Yi"/>
+                            <constraint firstItem="g2r-Lb-8Dq" firstAttribute="width" secondItem="Xb8-PN-Y42" secondAttribute="width" id="Zft-G9-yoi"/>
+                            <constraint firstItem="g2r-Lb-8Dq" firstAttribute="top" secondItem="Xb8-PN-Y42" secondAttribute="bottom" id="bbW-Nj-MZ5"/>
+                            <constraint firstItem="5lR-ij-r7R" firstAttribute="top" secondItem="g2r-Lb-8Dq" secondAttribute="bottom" id="fvo-j9-IHH"/>
+                            <constraint firstItem="g2r-Lb-8Dq" firstAttribute="centerX" secondItem="Xb8-PN-Y42" secondAttribute="centerX" id="sVJ-vb-iDx"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jfw-4f-Uqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="474" y="104"/>
+        </scene>
+        <!--Games View Controller-->
+        <scene sceneID="Ivo-rh-IED">
+            <objects>
+                <viewController id="BOP-1J-k9R" customClass="GamesViewController" customModule="TwitchTV_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xbz-mc-KkD">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="350"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NSH-RD-wL1">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="350"/>
+                                <animations/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cPB-Yv-xdW">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NSH-RD-wL1" firstAttribute="width" secondItem="xbz-mc-KkD" secondAttribute="width" id="12D-qj-0xj"/>
+                            <constraint firstItem="NSH-RD-wL1" firstAttribute="centerY" secondItem="xbz-mc-KkD" secondAttribute="centerY" id="28D-3G-cQP"/>
+                            <constraint firstItem="NSH-RD-wL1" firstAttribute="height" secondItem="xbz-mc-KkD" secondAttribute="height" id="XZV-5J-qJ8"/>
+                            <constraint firstItem="NSH-RD-wL1" firstAttribute="centerX" secondItem="xbz-mc-KkD" secondAttribute="centerX" id="thx-5i-3S5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="NSH-RD-wL1" id="bcA-Lu-SIE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Evh-dn-4q4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2492" y="-316"/>
+        </scene>
+        <!--Streams View Controller-->
+        <scene sceneID="jKL-3S-g99">
+            <objects>
+                <viewController id="aQZ-pu-Z1x" customClass="StreamsViewController" customModule="TwitchTV_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Oyh-UX-ED0">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="730"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IL6-Dk-QJ4">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="730"/>
+                                <animations/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NhO-oj-i9r">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <animations/>
+                        <constraints>
+                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="centerX" secondItem="Oyh-UX-ED0" secondAttribute="centerX" id="4jG-nM-V4X"/>
+                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="width" secondItem="Oyh-UX-ED0" secondAttribute="width" id="CNB-TJ-2j4"/>
+                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="height" secondItem="Oyh-UX-ED0" secondAttribute="height" id="F4i-bD-X0N"/>
+                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="centerY" secondItem="Oyh-UX-ED0" secondAttribute="centerY" id="dZB-Ec-r2b"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="IL6-Dk-QJ4" id="fek-UU-Wzw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XTz-jX-BY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2477" y="329"/>
+        </scene>
+    </scenes>
+</document>
