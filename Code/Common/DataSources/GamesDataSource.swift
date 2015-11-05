@@ -32,7 +32,7 @@ class GamesDataSource: NSObject {
 extension GamesDataSource: UICollectionViewDataSource {
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(GameCell.identifier, forIndexPath: indexPath) as! GameCell
-		cell.bindViewModel(GameViewModel(game: gameListViewModel.orderedGames[indexPath.row].game))
+		cell.bindViewModel(GameViewModel(game: gameListViewModel.orderedGames.value[indexPath.row].game))
 		return cell
 	}
 	

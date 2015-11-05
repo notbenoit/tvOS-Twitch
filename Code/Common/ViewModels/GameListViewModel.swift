@@ -34,9 +34,7 @@ struct GameListViewModel {
 	let data = MutableProperty<Set<TopGame>>(Set<TopGame>())
 	let totalCount = MutableProperty<Int>(0)
 	
-	var orderedGames: [TopGame] {
-		return data.value.sort(>)
-	}
+	let orderedGames = MutableProperty<[TopGame]>([])
 	
 	private let page = MutableProperty<Int>(0)
 	
@@ -46,6 +44,7 @@ struct GameListViewModel {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = state == .Loading
 		}
 		#endif
+		orderedGames <~ data.producer.map { $0.sort(>) }
 	}
 	
 	func loadMore() {
