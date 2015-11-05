@@ -26,12 +26,16 @@ class StreamCell: UICollectionViewCell {
 	static let identifier: String = "cellIdentifierStream"
 	
 	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var placeholder: UIImageView!
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		#if os(tvOS)
 			imageView.adjustsImageWhenAncestorFocused = true
 		#endif
+		self.backgroundColor = UIColor.twitchLightColor()
+		placeholder.image = placeholder.image?.imageWithRenderingMode(.AlwaysTemplate)
+		placeholder.tintColor = UIColor.twitchDarkColor()
 	}
 	
 	internal func bindViewModel(streamViewModel: StreamViewModel) {

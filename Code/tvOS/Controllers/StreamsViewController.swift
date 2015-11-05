@@ -29,12 +29,15 @@ class StreamsViewController: UIViewController {
 	var onStreamSelected: (Stream -> ())?
 	
 	@IBOutlet weak var collectionView: UICollectionView!
+	@IBOutlet weak var noItemsLabel: UILabel!
+	
 	var streamListDataSource: StreamsDataSource? {
 		didSet {
 			collectionView.dataSource = streamListDataSource
 			streamListDataSource?.streamListViewModel.data.producer.startWithNext {
 				[weak self] data in
 				self?.collectionView.reloadData()
+				self?.noItemsLabel.hidden = data.count > 0
 			}
 			streamListDataSource?.loadMore()
 		}
@@ -42,7 +45,11 @@ class StreamsViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.twitchColor()
+		self.view.backgroundColor = UIColor.twitchDarkColor()
+		
+		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
+		noItemsLabel.font = UIFont.systemFontOfSize(42)
+		noItemsLabel.textColor = UIColor.whiteColor()
 		
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .Vertical

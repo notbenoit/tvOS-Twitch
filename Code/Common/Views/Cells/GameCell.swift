@@ -35,6 +35,7 @@ class GameCell: UICollectionViewCell {
 		#if os(tvOS)
 		imageView.adjustsImageWhenAncestorFocused = true
 		#endif
+		self.backgroundColor = UIColor.twitchLightColor()
 	}
 	
 	internal func bindViewModel(gameViewModel: GameViewModel) {
