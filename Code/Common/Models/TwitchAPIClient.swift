@@ -96,8 +96,8 @@ final class TwitchAPIClient {
 		}
 	}
 	
-	func getTopGames(page: Int) -> SignalProducer<(objects: [Game], count: Int), NSError> {
-		return request(TwitchRouter.GamesTop(page: page)).map({ (result: (objects: [Game], totalCount: Int)) in
+	func getTopGames(page: Int) -> SignalProducer<(objects: [TopGame], count: Int), NSError> {
+		return request(TwitchRouter.GamesTop(page: page)).map({ (result: (objects: [TopGame], totalCount: Int)) in
 			return (result.objects, result.totalCount)
 		})
 	}

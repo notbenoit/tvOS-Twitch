@@ -76,6 +76,8 @@
 		FCCC308E1BE97D02009DEEC7 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */; };
 		FCCC308F1BE97D02009DEEC7 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */; };
 		FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCCC30901BE984E3009DEEC7 /* AVKit.framework */; };
+		FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
+		FCE769D41BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -182,6 +184,7 @@
 		FCCC308A1BE974C0009DEEC7 /* StreamsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsDataSource.swift; sourceTree = "<group>"; };
 		FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		FCCC30901BE984E3009DEEC7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
+		FCE769D21BEC09D800119B19 /* TopGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +384,7 @@
 				FCCC30781BE96D17009DEEC7 /* Channel.swift */,
 				FCCC307B1BE96DEC009DEEC7 /* Preview.swift */,
 				FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */,
+				FCE769D21BEC09D800119B19 /* TopGame.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -636,6 +640,7 @@
 				FCCC30821BE972CE009DEEC7 /* StreamCell.swift in Sources */,
 				FCCC30291BE7E039009DEEC7 /* TwitchRouter.swift in Sources */,
 				FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
+				FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */,
 				FCCC30281BE7E039009DEEC7 /* TwitchAPIClient.swift in Sources */,
 				FCCC30681BE951FD009DEEC7 /* ViewController.swift in Sources */,
 				FCCC302A1BE7E039009DEEC7 /* GameListViewModel.swift in Sources */,
@@ -678,6 +683,7 @@
 				FCCC303B1BE7E045009DEEC7 /* GamesViewController.swift in Sources */,
 				FCCC30561BE9458D009DEEC7 /* Constants.swift in Sources */,
 				FCCC30741BE95304009DEEC7 /* GameCell.swift in Sources */,
+				FCE769D41BEC09D800119B19 /* TopGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

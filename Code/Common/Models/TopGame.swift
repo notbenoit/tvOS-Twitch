@@ -18,48 +18,64 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 import ReactiveCocoa
+import ObjectMapper
 
-enum LoadingState {
-	case Available
-	case Loading
-	case Error
+struct TopGame {
+	var game: Game!
+	var viewers: Int!
+	var channels: Int!
 }
 
-struct GameListViewModel {
-	let loadingState = MutableProperty<LoadingState>(.Available)
-	let twitchClient = TwitchAPIClient.sharedInstance
+extension TopGame: CustomStringConvertible {
+	internal var description: String {
+		return game.gameNameString + "\nViewers =>" + String(viewers)
+	}
+}
+
+// MARK: Mappable
+
+extension TopGame: Mappable {
 	
-	let data = MutableProperty<Set<TopGame>>(Set<TopGame>())
-	let totalCount = MutableProperty<Int>(0)
-	
-	var orderedGames: [TopGame] {
-		return data.value.sort(>)
+	init?(_ map: Map) {
 	}
 	
-	private let page = MutableProperty<Int>(0)
-	
-	init() {
-		#if os(iOS)
-		self.loadingState.producer.startWithNext { state in
-			UIApplication.sharedApplication().networkActivityIndicatorVisible = state == .Loading
-		}
-		#endif
+	mutating func mapping(map: Map) {
+		game			<- map["game"]
+		viewers		<- map["viewers"]
+		channels	<- map["channels"]
 	}
-	
-	func loadMore() {
-		twitchClient.getTopGames(page.value)
-			.on(started: {
-				self.loadingState.value = .Loading
-			})
-			.on(completed: {
-				self.loadingState.value = .Available
-				self.page.value = self.page.value + 1
-			})
-			.startWithNext { response in
-				self.data.value = self.data.value.union(response.objects)
-				self.totalCount.value = response.count
-			}
+}
+
+// MARK: Hashable
+
+extension TopGame: Hashable {
+	var hashValue: Int {
+		return game.hashValue
 	}
+}
+
+// MARK: Equatable
+
+func ==(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.hashValue == rhs.hashValue
+}
+
+// MARK: Comparable
+
+func <(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers < rhs.viewers
+}
+
+func <=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers <= rhs.viewers
+}
+
+func >=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers >= rhs.viewers
+}
+
+func >(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers > rhs.viewers
 }

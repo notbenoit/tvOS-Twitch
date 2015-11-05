@@ -57,7 +57,7 @@ class GamesViewController: UIViewController {
 
 extension GamesViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		let game = gameListDataSource.gameListViewModel.data.value[indexPath.row]
+		let game = gameListDataSource.gameListViewModel.orderedGames[indexPath.row].game
 		onGameSelected?(game)
 	}
 }

@@ -23,8 +23,12 @@ import ReactiveCocoa
 import ObjectMapper
 
 struct Game {
-	var imageURLString: String
-	var gameNameString: String
+	var gameNameString: String!
+	var id: Int!
+	var giantBombId: Int!
+	var box: Preview!
+	var logo: Preview!
+	var popularity: Int?
 }
 
 extension Game: CustomStringConvertible {
@@ -36,16 +40,23 @@ extension Game: CustomStringConvertible {
 extension Game: Mappable {
 	
 	init?(_ map: Map) {
-		imageURLString = ""
-		gameNameString = ""
 	}
 	
 	mutating func mapping(map: Map) {
-		gameNameString     <- map["game.name"]
-		imageURLString  <- map["game.box.large"]
-		
-		// Game might not be in a game key
-		gameNameString     <- map["name"]
-		imageURLString  <- map["box.large"]
+		id								<- map["_id"]
+		giantBombId				<- map["giantbomb_id"]
+		gameNameString    <- map["name"]
+		box								<- map["box"]
+		logo							<- map["logo"]
 	}
+}
+
+extension Game: Hashable {
+	var hashValue: Int {
+		return id
+	}
+}
+
+func ==(lhs: Game, rhs: Game) -> Bool {
+	return lhs.hashValue == rhs.hashValue
 }
