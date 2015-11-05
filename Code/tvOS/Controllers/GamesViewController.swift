@@ -57,8 +57,19 @@ class GamesViewController: UIViewController {
 
 extension GamesViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		let game = gameListDataSource.gameListViewModel.orderedGames[indexPath.row].game
+		let game = gameListDataSource.gameListViewModel.orderedGames.value[indexPath.row].game
 		onGameSelected?(game)
+	}
+	
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		let contentOffsetX = scrollView.contentOffset.x + scrollView.bounds.size.width
+		let wholeWidth = scrollView.contentSize.width
+		
+		let remainingDistanceToRight = wholeWidth - contentOffsetX
+		
+		if remainingDistanceToRight <= 1920 && gameListDataSource.gameListViewModel.loadingState.value == .Available {
+			gameListDataSource.gameListViewModel.loadMore()
+		}
 	}
 }
 

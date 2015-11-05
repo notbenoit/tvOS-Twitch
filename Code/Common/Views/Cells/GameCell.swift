@@ -30,6 +30,11 @@ class GameCell: UICollectionViewCell {
 	
 	private let scheduler = QueueScheduler()
 	
+	override func prepareForReuse() {
+		imageView.image = nil
+		labelName.text = nil
+	}
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		#if os(tvOS)
