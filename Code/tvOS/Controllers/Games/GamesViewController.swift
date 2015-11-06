@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import ReactiveCocoa
 
 class GamesViewController: UIViewController {
 
@@ -29,6 +30,8 @@ class GamesViewController: UIViewController {
 	var onGameSelected: (Game -> ())?
 	
 	@IBOutlet weak var collectionView: UICollectionView!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	
 	let gameListDataSource = GamesDataSource()
 	
 	override func viewDidLoad() {
@@ -45,6 +48,11 @@ class GamesViewController: UIViewController {
 		collectionView.collectionViewLayout = layout
 		collectionView.dataSource = gameListDataSource
 		collectionView.delegate = self
+		
+		activityIndicator.rac_hidden <~ gameListDataSource.gameListViewModel.loadingState.producer
+			.map { $0 != .Loading }
+			.combineLatestWith(gameListDataSource.gameListViewModel.data.producer.map { $0.count > 0 })
+			.map { $0.0 || $0.1 }
 		
 		gameListDataSource.gameListViewModel.data.producer.startWithNext {
 			[weak self] games in

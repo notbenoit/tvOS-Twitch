@@ -74,17 +74,30 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-4b-Dgn">
+                                <rect key="frame" x="810" y="30" width="300" height="300"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gDd-4b-Dgn" secondAttribute="height" multiplier="1:1" id="cdD-XC-kbu"/>
+                                    <constraint firstAttribute="width" constant="300" id="eAv-C5-BsB"/>
+                                </constraints>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="width" secondItem="xbz-mc-KkD" secondAttribute="width" id="12D-qj-0xj"/>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="centerY" secondItem="xbz-mc-KkD" secondAttribute="centerY" id="28D-3G-cQP"/>
+                            <constraint firstItem="gDd-4b-Dgn" firstAttribute="centerY" secondItem="xbz-mc-KkD" secondAttribute="centerY" id="MFa-FQ-jLM"/>
+                            <constraint firstItem="gDd-4b-Dgn" firstAttribute="width" secondItem="gDd-4b-Dgn" secondAttribute="height" multiplier="1:1" id="PVJ-qc-QaB"/>
+                            <constraint firstItem="gDd-4b-Dgn" firstAttribute="centerX" secondItem="xbz-mc-KkD" secondAttribute="centerX" id="Pkm-2z-aPu"/>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="height" secondItem="xbz-mc-KkD" secondAttribute="height" id="XZV-5J-qJ8"/>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="centerX" secondItem="xbz-mc-KkD" secondAttribute="centerX" id="thx-5i-3S5"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="gDd-4b-Dgn" id="AYo-gS-gik"/>
                         <outlet property="collectionView" destination="NSH-RD-wL1" id="bcA-Lu-SIE"/>
                     </connections>
                 </viewController>
