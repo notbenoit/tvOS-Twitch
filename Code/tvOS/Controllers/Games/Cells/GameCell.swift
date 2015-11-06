@@ -28,7 +28,7 @@ class GameCell: UICollectionViewCell {
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var labelName: UILabel!
 	
-	private let textDefaultFont = UIFont.boldSystemFontOfSize(18)
+	private let textDefaultFont = UIFont.boldSystemFontOfSize(22)
 	private let textDefaultColor = UIColor.lightGrayColor()
 	
 	override func prepareForReuse() {

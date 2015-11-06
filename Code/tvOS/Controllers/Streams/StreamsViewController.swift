@@ -64,7 +64,7 @@ class StreamsViewController: UIViewController {
 		
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .Vertical
-		layout.itemSize = CGSize(width: streamCellWidth, height: streamCellWidth/Constants.streamImageRatio)
+		layout.itemSize = CGSize(width: streamCellWidth, height: 250.0)
 		layout.sectionInset = UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90)
 		layout.minimumInteritemSpacing = horizontalSpacing
 		layout.minimumLineSpacing = verticalSpacing

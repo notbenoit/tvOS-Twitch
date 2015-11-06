@@ -32,13 +32,13 @@ class StreamCell: UICollectionViewCell {
 	
 	private let defaultTextColor = UIColor.lightGrayColor()
 	private let focusedTextColor = UIColor.whiteColor()
-	private let defaultStreamFont = UIFont.boldSystemFontOfSize(18)
-	private let defaultViewersFont = UIFont.systemFontOfSize(18)
+	private let defaultStreamFont = UIFont.boldSystemFontOfSize(22)
+	private let defaultViewersFont = UIFont.systemFontOfSize(22)
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		imageView.layer.borderWidth = 1.0
-		self.backgroundColor = UIColor.twitchLightColor()
+		imageView.layer.borderColor = UIColor.clearColor().CGColor
 		placeholder.image = placeholder.image?.imageWithRenderingMode(.AlwaysTemplate)
 		placeholder.tintColor = UIColor.twitchDarkColor()
 		streamNameLabel.textColor = defaultTextColor
@@ -60,7 +60,7 @@ class StreamCell: UICollectionViewCell {
 		let color = self.focused ? focusedTextColor : defaultTextColor
 		let borderColor = self.focused ? UIColor.whiteColor().CGColor : UIColor.clearColor().CGColor
 		if focused {
-			applyMotionEffectForX(5, y: 5)
+			applyMotionEffectForX(10, y: 10)
 		} else {
 			removeMotionEffects()
 		}
