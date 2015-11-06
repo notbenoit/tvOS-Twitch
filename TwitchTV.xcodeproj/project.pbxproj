@@ -28,11 +28,8 @@
 		FCCC30311BE7E039009DEEC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCCC30141BE7E039009DEEC7 /* LaunchScreen.storyboard */; };
 		FCCC30321BE7E039009DEEC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCCC30161BE7E039009DEEC7 /* Main.storyboard */; };
 		FCCC303A1BE7E03F009DEEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC301B1BE7E039009DEEC7 /* AppDelegate.swift */; };
-		FCCC303B1BE7E045009DEEC7 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC301D1BE7E039009DEEC7 /* GamesViewController.swift */; };
-		FCCC303C1BE7E045009DEEC7 /* StreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC301E1BE7E039009DEEC7 /* StreamsViewController.swift */; };
 		FCCC303D1BE7E04B009DEEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCCC30211BE7E039009DEEC7 /* Assets.xcassets */; };
 		FCCC303E1BE7E053009DEEC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCCC30221BE7E039009DEEC7 /* Main.storyboard */; };
-		FCCC30411BE93DCE009DEEC7 /* TwitchHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30401BE93DCE009DEEC7 /* TwitchHomeViewController.swift */; };
 		FCCC30431BE94152009DEEC7 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30421BE94152009DEEC7 /* UIColor+RGB.swift */; };
 		FCCC30461BE9441C009DEEC7 /* GamesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30451BE9441C009DEEC7 /* GamesDataSource.swift */; };
 		FCCC30471BE9441C009DEEC7 /* GamesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30451BE9441C009DEEC7 /* GamesDataSource.swift */; };
@@ -55,9 +52,6 @@
 		FCCC305C1BE945A7009DEEC7 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC300B1BE7E039009DEEC7 /* GameViewModel.swift */; };
 		FCCC30661BE951FD009DEEC7 /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCCC30641BE951FD009DEEC7 /* GameCell.xib */; };
 		FCCC30681BE951FD009DEEC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30651BE951FD009DEEC7 /* ViewController.swift */; };
-		FCCC306C1BE95233009DEEC7 /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCCC306B1BE95233009DEEC7 /* GameCell.xib */; };
-		FCCC30731BE95304009DEEC7 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30721BE95304009DEEC7 /* GameCell.swift */; };
-		FCCC30741BE95304009DEEC7 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30721BE95304009DEEC7 /* GameCell.swift */; };
 		FCCC30761BE96C2F009DEEC7 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30751BE96C2F009DEEC7 /* Stream.swift */; };
 		FCCC30771BE96C2F009DEEC7 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30751BE96C2F009DEEC7 /* Stream.swift */; };
 		FCCC30791BE96D17009DEEC7 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30781BE96D17009DEEC7 /* Channel.swift */; };
@@ -66,11 +60,8 @@
 		FCCC307D1BE96DEC009DEEC7 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC307B1BE96DEC009DEEC7 /* Preview.swift */; };
 		FCCC307F1BE971EE009DEEC7 /* StreamListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC307E1BE971EE009DEEC7 /* StreamListViewModel.swift */; };
 		FCCC30801BE971EE009DEEC7 /* StreamListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC307E1BE971EE009DEEC7 /* StreamListViewModel.swift */; };
-		FCCC30821BE972CE009DEEC7 /* StreamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30811BE972CE009DEEC7 /* StreamCell.swift */; };
-		FCCC30831BE972CE009DEEC7 /* StreamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30811BE972CE009DEEC7 /* StreamCell.swift */; };
 		FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30841BE972FE009DEEC7 /* StreamViewModel.swift */; };
 		FCCC30861BE972FE009DEEC7 /* StreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30841BE972FE009DEEC7 /* StreamViewModel.swift */; };
-		FCCC30891BE9738A009DEEC7 /* StreamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCCC30871BE9738A009DEEC7 /* StreamCell.xib */; };
 		FCCC308B1BE974C0009DEEC7 /* StreamsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC308A1BE974C0009DEEC7 /* StreamsDataSource.swift */; };
 		FCCC308C1BE974C0009DEEC7 /* StreamsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC308A1BE974C0009DEEC7 /* StreamsDataSource.swift */; };
 		FCCC308E1BE97D02009DEEC7 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */; };
@@ -78,6 +69,14 @@
 		FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCCC30901BE984E3009DEEC7 /* AVKit.framework */; };
 		FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
 		FCE769D41BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
+		FCE769DF1BECFEB500119B19 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769DD1BECFEAE00119B19 /* GameCell.swift */; };
+		FCE769EF1BECFF6500119B19 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769E51BECFF6500119B19 /* GameCell.swift */; };
+		FCE769F01BECFF6500119B19 /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCE769E61BECFF6500119B19 /* GameCell.xib */; };
+		FCE769F11BECFF6500119B19 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769E71BECFF6500119B19 /* GamesViewController.swift */; };
+		FCE769F21BECFF6500119B19 /* TwitchHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769E91BECFF6500119B19 /* TwitchHomeViewController.swift */; };
+		FCE769F31BECFF6500119B19 /* StreamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EC1BECFF6500119B19 /* StreamCell.swift */; };
+		FCE769F41BECFF6500119B19 /* StreamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCE769ED1BECFF6500119B19 /* StreamCell.xib */; };
+		FCE769F51BECFF6500119B19 /* StreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -160,31 +159,32 @@
 		FCCC30171BE7E039009DEEC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FCCC30181BE7E039009DEEC7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCCC301B1BE7E039009DEEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FCCC301D1BE7E039009DEEC7 /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
-		FCCC301E1BE7E039009DEEC7 /* StreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsViewController.swift; sourceTree = "<group>"; };
 		FCCC30211BE7E039009DEEC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCCC30231BE7E039009DEEC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FCCC303F1BE927BD009DEEC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCCC30401BE93DCE009DEEC7 /* TwitchHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitchHomeViewController.swift; sourceTree = "<group>"; };
 		FCCC30421BE94152009DEEC7 /* UIColor+RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		FCCC30451BE9441C009DEEC7 /* GamesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesDataSource.swift; sourceTree = "<group>"; };
 		FCCC304C1BE9454E009DEEC7 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "Carthage/Checkouts/ReactiveCocoa/build/Debug-appletvos/ReactiveCocoa.framework"; sourceTree = "<group>"; };
 		FCCC304D1BE9454E009DEEC7 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = "Carthage/Checkouts/Result/build/Debug-appletvos/Result.framework"; sourceTree = "<group>"; };
 		FCCC30641BE951FD009DEEC7 /* GameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
 		FCCC30651BE951FD009DEEC7 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FCCC306B1BE95233009DEEC7 /* GameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
-		FCCC30721BE95304009DEEC7 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		FCCC30751BE96C2F009DEEC7 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		FCCC30781BE96D17009DEEC7 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		FCCC307B1BE96DEC009DEEC7 /* Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		FCCC307E1BE971EE009DEEC7 /* StreamListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamListViewModel.swift; sourceTree = "<group>"; };
-		FCCC30811BE972CE009DEEC7 /* StreamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamCell.swift; sourceTree = "<group>"; };
 		FCCC30841BE972FE009DEEC7 /* StreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewModel.swift; sourceTree = "<group>"; };
-		FCCC30871BE9738A009DEEC7 /* StreamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamCell.xib; sourceTree = "<group>"; };
 		FCCC308A1BE974C0009DEEC7 /* StreamsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsDataSource.swift; sourceTree = "<group>"; };
 		FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		FCCC30901BE984E3009DEEC7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
 		FCE769D21BEC09D800119B19 /* TopGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopGame.swift; sourceTree = "<group>"; };
+		FCE769DD1BECFEAE00119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
+		FCE769E51BECFF6500119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
+		FCE769E61BECFF6500119B19 /* GameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
+		FCE769E71BECFF6500119B19 /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
+		FCE769E91BECFF6500119B19 /* TwitchHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitchHomeViewController.swift; sourceTree = "<group>"; };
+		FCE769EC1BECFF6500119B19 /* StreamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamCell.swift; sourceTree = "<group>"; };
+		FCE769ED1BECFF6500119B19 /* StreamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamCell.xib; sourceTree = "<group>"; };
+		FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -441,22 +441,11 @@
 			isa = PBXGroup;
 			children = (
 				FCCC301B1BE7E039009DEEC7 /* AppDelegate.swift */,
-				FCCC301C1BE7E039009DEEC7 /* Controllers */,
+				FCE769E21BECFF6500119B19 /* Controllers */,
 				FCCC30201BE7E039009DEEC7 /* Resources */,
 				FCCC30241BE7E039009DEEC7 /* Views */,
 			);
 			path = tvOS;
-			sourceTree = "<group>";
-		};
-		FCCC301C1BE7E039009DEEC7 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				FCCC306A1BE95223009DEEC7 /* Cells */,
-				FCCC301D1BE7E039009DEEC7 /* GamesViewController.swift */,
-				FCCC301E1BE7E039009DEEC7 /* StreamsViewController.swift */,
-				FCCC30401BE93DCE009DEEC7 /* TwitchHomeViewController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		FCCC30201BE7E039009DEEC7 /* Resources */ = {
@@ -488,18 +477,8 @@
 		FCCC30601BE951C3009DEEC7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FCCC30611BE951C3009DEEC7 /* Cells */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		FCCC30611BE951C3009DEEC7 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				FCCC30721BE95304009DEEC7 /* GameCell.swift */,
-				FCCC30811BE972CE009DEEC7 /* StreamCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		FCCC30621BE951FD009DEEC7 /* Home */ = {
@@ -514,16 +493,62 @@
 		FCCC30631BE951FD009DEEC7 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				FCE769DD1BECFEAE00119B19 /* GameCell.swift */,
 				FCCC30641BE951FD009DEEC7 /* GameCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		FCCC306A1BE95223009DEEC7 /* Cells */ = {
+		FCE769E21BECFF6500119B19 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FCCC306B1BE95233009DEEC7 /* GameCell.xib */,
-				FCCC30871BE9738A009DEEC7 /* StreamCell.xib */,
+				FCE769E31BECFF6500119B19 /* Games */,
+				FCE769E81BECFF6500119B19 /* Home */,
+				FCE769EA1BECFF6500119B19 /* Streams */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FCE769E31BECFF6500119B19 /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				FCE769E41BECFF6500119B19 /* Cells */,
+				FCE769E71BECFF6500119B19 /* GamesViewController.swift */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		FCE769E41BECFF6500119B19 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FCE769E51BECFF6500119B19 /* GameCell.swift */,
+				FCE769E61BECFF6500119B19 /* GameCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		FCE769E81BECFF6500119B19 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FCE769E91BECFF6500119B19 /* TwitchHomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FCE769EA1BECFF6500119B19 /* Streams */ = {
+			isa = PBXGroup;
+			children = (
+				FCE769EB1BECFF6500119B19 /* Cells */,
+				FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */,
+			);
+			path = Streams;
+			sourceTree = "<group>";
+		};
+		FCE769EB1BECFF6500119B19 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FCE769EC1BECFF6500119B19 /* StreamCell.swift */,
+				FCE769ED1BECFF6500119B19 /* StreamCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -623,8 +648,8 @@
 			files = (
 				FCCC303D1BE7E04B009DEEC7 /* Assets.xcassets in Resources */,
 				FCCC303E1BE7E053009DEEC7 /* Main.storyboard in Resources */,
-				FCCC306C1BE95233009DEEC7 /* GameCell.xib in Resources */,
-				FCCC30891BE9738A009DEEC7 /* StreamCell.xib in Resources */,
+				FCE769F01BECFF6500119B19 /* GameCell.xib in Resources */,
+				FCE769F41BECFF6500119B19 /* StreamCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,7 +662,6 @@
 			files = (
 				FCCC30461BE9441C009DEEC7 /* GamesDataSource.swift in Sources */,
 				FCCC302C1BE7E039009DEEC7 /* AppDelegate.swift in Sources */,
-				FCCC30821BE972CE009DEEC7 /* StreamCell.swift in Sources */,
 				FCCC30291BE7E039009DEEC7 /* TwitchRouter.swift in Sources */,
 				FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
 				FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */,
@@ -652,9 +676,9 @@
 				FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */,
 				FCCC30271BE7E039009DEEC7 /* Game.swift in Sources */,
 				FCCC30761BE96C2F009DEEC7 /* Stream.swift in Sources */,
+				FCE769DF1BECFEB500119B19 /* GameCell.swift in Sources */,
 				FCCC308B1BE974C0009DEEC7 /* StreamsDataSource.swift in Sources */,
 				FCCC302B1BE7E039009DEEC7 /* GameViewModel.swift in Sources */,
-				FCCC30731BE95304009DEEC7 /* GameCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,26 +687,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCCC305A1BE945A0009DEEC7 /* TwitchAPIClient.swift in Sources */,
+				FCE769F31BECFF6500119B19 /* StreamCell.swift in Sources */,
 				FCCC307A1BE96D17009DEEC7 /* Channel.swift in Sources */,
 				FCCC30801BE971EE009DEEC7 /* StreamListViewModel.swift in Sources */,
-				FCCC30831BE972CE009DEEC7 /* StreamCell.swift in Sources */,
 				FCCC305B1BE945A0009DEEC7 /* TwitchRouter.swift in Sources */,
 				FCCC30481BE944FC009DEEC7 /* GameListViewModel.swift in Sources */,
 				FCCC30591BE945A0009DEEC7 /* Game.swift in Sources */,
 				FCCC308F1BE97D02009DEEC7 /* AccessToken.swift in Sources */,
-				FCCC30411BE93DCE009DEEC7 /* TwitchHomeViewController.swift in Sources */,
+				FCE769F51BECFF6500119B19 /* StreamsViewController.swift in Sources */,
 				FCCC307D1BE96DEC009DEEC7 /* Preview.swift in Sources */,
 				FCCC305C1BE945A7009DEEC7 /* GameViewModel.swift in Sources */,
 				FCCC30431BE94152009DEEC7 /* UIColor+RGB.swift in Sources */,
-				FCCC303C1BE7E045009DEEC7 /* StreamsViewController.swift in Sources */,
 				FCCC308C1BE974C0009DEEC7 /* StreamsDataSource.swift in Sources */,
+				FCE769F11BECFF6500119B19 /* GamesViewController.swift in Sources */,
+				FCE769EF1BECFF6500119B19 /* GameCell.swift in Sources */,
 				FCCC303A1BE7E03F009DEEC7 /* AppDelegate.swift in Sources */,
 				FCCC30771BE96C2F009DEEC7 /* Stream.swift in Sources */,
 				FCCC30471BE9441C009DEEC7 /* GamesDataSource.swift in Sources */,
+				FCE769F21BECFF6500119B19 /* TwitchHomeViewController.swift in Sources */,
 				FCCC30861BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
-				FCCC303B1BE7E045009DEEC7 /* GamesViewController.swift in Sources */,
 				FCCC30561BE9458D009DEEC7 /* Constants.swift in Sources */,
-				FCCC30741BE95304009DEEC7 /* GameCell.swift in Sources */,
 				FCE769D41BEC09D800119B19 /* TopGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
