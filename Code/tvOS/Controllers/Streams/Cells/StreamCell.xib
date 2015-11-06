@@ -14,9 +14,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="222" height="201"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="joystick" translatesAutoresizingMaskIntoConstraints="NO" id="YAl-cq-uJK" userLabel="placeholder">
-                        <rect key="frame" x="0.0" y="0.0" width="222" height="128"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="joystick" translatesAutoresizingMaskIntoConstraints="NO" id="YAl-cq-uJK" userLabel="placeholder">
+                        <rect key="frame" x="81" y="34" width="60" height="60"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="NFa-Ua-vqV"/>
+                            <constraint firstAttribute="height" constant="60" id="V9I-9o-3gL"/>
+                        </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bQC-cp-512" userLabel="stream image">
                         <rect key="frame" x="0.0" y="0.0" width="222" height="128"/>
@@ -50,13 +54,11 @@
                 <constraint firstItem="vUB-JE-Fs7" firstAttribute="centerX" secondItem="dTH-oE-6eo" secondAttribute="centerX" id="KSE-vo-zM9"/>
                 <constraint firstItem="YAl-cq-uJK" firstAttribute="centerX" secondItem="bQC-cp-512" secondAttribute="centerX" id="M2i-DS-xnK"/>
                 <constraint firstItem="dTH-oE-6eo" firstAttribute="top" secondItem="bQC-cp-512" secondAttribute="bottom" constant="4" id="MZ4-N8-5vk"/>
-                <constraint firstItem="YAl-cq-uJK" firstAttribute="height" secondItem="bQC-cp-512" secondAttribute="height" id="OLc-pA-DsB"/>
                 <constraint firstItem="bQC-cp-512" firstAttribute="centerX" secondItem="ZV5-Jt-5LA" secondAttribute="centerX" id="WtR-ga-Ih0"/>
                 <constraint firstItem="vUB-JE-Fs7" firstAttribute="top" secondItem="dTH-oE-6eo" secondAttribute="bottom" constant="4" id="XQY-EW-rfy"/>
                 <constraint firstItem="dTH-oE-6eo" firstAttribute="centerX" secondItem="bQC-cp-512" secondAttribute="centerX" id="bAj-I3-xp5"/>
                 <constraint firstItem="bQC-cp-512" firstAttribute="top" secondItem="ZV5-Jt-5LA" secondAttribute="top" id="hk2-WV-qhB"/>
                 <constraint firstItem="YAl-cq-uJK" firstAttribute="centerY" secondItem="bQC-cp-512" secondAttribute="centerY" id="tlY-Cb-PRB"/>
-                <constraint firstItem="YAl-cq-uJK" firstAttribute="width" secondItem="bQC-cp-512" secondAttribute="width" id="x3a-AS-q8V"/>
                 <constraint firstItem="vUB-JE-Fs7" firstAttribute="width" secondItem="dTH-oE-6eo" secondAttribute="width" id="xZU-xC-Ytv"/>
             </constraints>
             <size key="customSize" width="222" height="201"/>
