@@ -69,5 +69,18 @@ extension StreamsViewController: UICollectionViewDelegate {
 		guard let streamListDataSource = streamListDataSource else { return }
 		onStreamSelected?(streamListDataSource.streamListViewModel.data.value[indexPath.row])
 	}
+	
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		guard let streamListViewModel = streamListDataSource?.streamListViewModel else { return }
+		let contentOffsetY = scrollView.contentOffset.y + scrollView.bounds.size.height
+		let wholeHeight = scrollView.contentSize.height
+		
+		let remainingDistanceToBottom = wholeHeight - contentOffsetY
+		
+		if remainingDistanceToBottom <= 200 && streamListViewModel.loadingState.value == .Available {
+			streamListViewModel.loadMore()
+		}
+	}
 }
+
 

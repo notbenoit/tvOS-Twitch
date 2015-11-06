@@ -116,6 +116,7 @@ final class TwitchAPIClient {
 			return SignalProducer {
 				observer, disposable in
 				observer.sendNext((result.items, result.count))
+				observer.sendCompleted()
 			}
 		}
 	}
