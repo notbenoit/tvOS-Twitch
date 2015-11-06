@@ -21,12 +21,19 @@
 import Foundation
 import ReactiveCocoa
 
-class StreamViewModel {
+internal class StreamViewModel {
 	private let stream: Stream
-	internal let streamImageURL: ConstantProperty<String>
+	let streamImageURL: ConstantProperty<String>
+	let streamTitle = MutableProperty<String>("")
+	let viewersCount = MutableProperty<String>("")
 	
 	init(stream: Stream) {
 		self.stream = stream
 		self.streamImageURL = ConstantProperty<String>(stream.preview.large)
+		self.streamTitle.value = stream.channel.status
+		self.viewersCount.value = String(stream.viewers) + " "
+			+ NSLocalizedString("viewers", comment: "") + " "
+			+ NSLocalizedString("on", comment: "") + " "
+			+ stream.channel.displayName
 	}
 }

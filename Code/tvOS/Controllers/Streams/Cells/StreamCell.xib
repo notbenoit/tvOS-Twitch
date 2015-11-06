@@ -8,43 +8,65 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" id="ZV5-Jt-5LA" customClass="StreamCell" customModule="TwitchTV_tvOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="142" height="145"/>
+            <rect key="frame" x="0.0" y="0.0" width="222" height="201"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="142" height="145"/>
+                <rect key="frame" x="0.0" y="0.0" width="222" height="201"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="joystick" translatesAutoresizingMaskIntoConstraints="NO" id="YAl-cq-uJK" userLabel="placeholder">
-                        <rect key="frame" x="46" y="48" width="50" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="222" height="128"/>
+                        <animations/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bQC-cp-512" userLabel="stream image">
+                        <rect key="frame" x="0.0" y="0.0" width="222" height="128"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="AhJ-05-uii"/>
-                            <constraint firstAttribute="width" secondItem="YAl-cq-uJK" secondAttribute="height" id="Gld-oS-7Ut"/>
+                            <constraint firstAttribute="width" secondItem="bQC-cp-512" secondAttribute="height" multiplier="1.739" id="yPx-R9-ggf"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bQC-cp-512">
-                        <rect key="frame" x="0.0" y="-1" width="142" height="146"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTH-oE-6eo" userLabel="Stream name">
+                        <rect key="frame" x="0.0" y="132" width="222" height="21"/>
                         <animations/>
-                    </imageView>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUB-JE-Fs7" userLabel="viewers count">
+                        <rect key="frame" x="0.0" y="157" width="222" height="21"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <animations/>
             <constraints>
-                <constraint firstItem="bQC-cp-512" firstAttribute="centerY" secondItem="ZV5-Jt-5LA" secondAttribute="centerY" id="DCg-Zo-e49"/>
-                <constraint firstItem="YAl-cq-uJK" firstAttribute="centerX" secondItem="ZV5-Jt-5LA" secondAttribute="centerX" id="IbY-1N-56y"/>
-                <constraint firstItem="bQC-cp-512" firstAttribute="height" secondItem="ZV5-Jt-5LA" secondAttribute="height" id="Tka-Gq-Wgx"/>
-                <constraint firstItem="bQC-cp-512" firstAttribute="width" secondItem="ZV5-Jt-5LA" secondAttribute="width" id="beQ-2s-aeD"/>
-                <constraint firstItem="YAl-cq-uJK" firstAttribute="centerY" secondItem="ZV5-Jt-5LA" secondAttribute="centerY" id="eKN-bv-BUA"/>
-                <constraint firstItem="bQC-cp-512" firstAttribute="centerX" secondItem="ZV5-Jt-5LA" secondAttribute="centerX" id="l2m-Du-4hf"/>
+                <constraint firstItem="bQC-cp-512" firstAttribute="width" secondItem="ZV5-Jt-5LA" secondAttribute="width" id="F9u-Nl-WUn"/>
+                <constraint firstItem="dTH-oE-6eo" firstAttribute="width" secondItem="bQC-cp-512" secondAttribute="width" id="HCa-nu-q0s"/>
+                <constraint firstItem="vUB-JE-Fs7" firstAttribute="centerX" secondItem="dTH-oE-6eo" secondAttribute="centerX" id="KSE-vo-zM9"/>
+                <constraint firstItem="YAl-cq-uJK" firstAttribute="centerX" secondItem="bQC-cp-512" secondAttribute="centerX" id="M2i-DS-xnK"/>
+                <constraint firstItem="dTH-oE-6eo" firstAttribute="top" secondItem="bQC-cp-512" secondAttribute="bottom" constant="4" id="MZ4-N8-5vk"/>
+                <constraint firstItem="YAl-cq-uJK" firstAttribute="height" secondItem="bQC-cp-512" secondAttribute="height" id="OLc-pA-DsB"/>
+                <constraint firstItem="bQC-cp-512" firstAttribute="centerX" secondItem="ZV5-Jt-5LA" secondAttribute="centerX" id="WtR-ga-Ih0"/>
+                <constraint firstItem="vUB-JE-Fs7" firstAttribute="top" secondItem="dTH-oE-6eo" secondAttribute="bottom" constant="4" id="XQY-EW-rfy"/>
+                <constraint firstItem="dTH-oE-6eo" firstAttribute="centerX" secondItem="bQC-cp-512" secondAttribute="centerX" id="bAj-I3-xp5"/>
+                <constraint firstItem="bQC-cp-512" firstAttribute="top" secondItem="ZV5-Jt-5LA" secondAttribute="top" id="hk2-WV-qhB"/>
+                <constraint firstItem="YAl-cq-uJK" firstAttribute="centerY" secondItem="bQC-cp-512" secondAttribute="centerY" id="tlY-Cb-PRB"/>
+                <constraint firstItem="YAl-cq-uJK" firstAttribute="width" secondItem="bQC-cp-512" secondAttribute="width" id="x3a-AS-q8V"/>
+                <constraint firstItem="vUB-JE-Fs7" firstAttribute="width" secondItem="dTH-oE-6eo" secondAttribute="width" id="xZU-xC-Ytv"/>
             </constraints>
-            <size key="customSize" width="142" height="145"/>
+            <size key="customSize" width="222" height="201"/>
             <connections>
                 <outlet property="imageView" destination="bQC-cp-512" id="CpQ-wK-bg4"/>
                 <outlet property="placeholder" destination="YAl-cq-uJK" id="b1h-w8-k2V"/>
+                <outlet property="streamNameLabel" destination="dTH-oE-6eo" id="GUV-Uh-ARZ"/>
+                <outlet property="viewersCountLabel" destination="vUB-JE-Fs7" id="j3s-7j-TEm"/>
             </connections>
-            <point key="canvasLocation" x="387" y="419.5"/>
+            <point key="canvasLocation" x="427" y="447.5"/>
         </collectionViewCell>
     </objects>
     <resources>

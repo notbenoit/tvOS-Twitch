@@ -27,15 +27,24 @@ class StreamCell: UICollectionViewCell {
 	
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var placeholder: UIImageView!
+	@IBOutlet weak var streamNameLabel: UILabel!
+	@IBOutlet weak var viewersCountLabel: UILabel!
+	
+	private let defaultTextColor = UIColor.lightGrayColor()
+	private let focusedTextColor = UIColor.whiteColor()
+	private let defaultStreamFont = UIFont.boldSystemFontOfSize(18)
+	private let defaultViewersFont = UIFont.systemFontOfSize(18)
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		#if os(tvOS)
-			imageView.adjustsImageWhenAncestorFocused = true
-		#endif
+		imageView.layer.borderWidth = 1.0
 		self.backgroundColor = UIColor.twitchLightColor()
 		placeholder.image = placeholder.image?.imageWithRenderingMode(.AlwaysTemplate)
 		placeholder.tintColor = UIColor.twitchDarkColor()
+		streamNameLabel.textColor = defaultTextColor
+		viewersCountLabel.textColor = defaultTextColor
+		streamNameLabel.font = defaultStreamFont
+		viewersCountLabel.font = defaultViewersFont
 	}
 	
 	internal func bindViewModel(streamViewModel: StreamViewModel) {
@@ -43,5 +52,18 @@ class StreamCell: UICollectionViewCell {
 		if let url = NSURL(string: streamViewModel.streamImageURL.value) {
 			imageView.af_setImageWithURL(url)
 		}
+		streamNameLabel.rac_text <~ streamViewModel.streamTitle
+		viewersCountLabel.rac_text <~ streamViewModel.viewersCount
+	}
+	
+	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+		let color = self.focused ? focusedTextColor : defaultTextColor
+		let borderColor = self.focused ? UIColor.whiteColor().CGColor : UIColor.clearColor().CGColor
+		coordinator.addCoordinatedAnimations({
+			[weak self] in
+			self?.viewersCountLabel.textColor = color
+			self?.streamNameLabel.textColor = color
+			self?.imageView.layer.borderColor = borderColor
+			}, completion: nil)
 	}
 }
