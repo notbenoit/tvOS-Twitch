@@ -59,6 +59,11 @@ class StreamCell: UICollectionViewCell {
 	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
 		let color = self.focused ? focusedTextColor : defaultTextColor
 		let borderColor = self.focused ? UIColor.whiteColor().CGColor : UIColor.clearColor().CGColor
+		if focused {
+			applyMotionEffectForX(5, y: 5)
+		} else {
+			removeMotionEffects()
+		}
 		coordinator.addCoordinatedAnimations({
 			[weak self] in
 			self?.viewersCountLabel.textColor = color

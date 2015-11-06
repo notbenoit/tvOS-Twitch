@@ -79,6 +79,8 @@
 		FCE769F51BECFF6500119B19 /* StreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */; };
 		FCE769F71BED122100119B19 /* UIKitAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F61BED122100119B19 /* UIKitAdditions.swift */; };
 		FCE769F81BED122100119B19 /* UIKitAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F61BED122100119B19 /* UIKitAdditions.swift */; };
+		FCE769FA1BED275100119B19 /* UIView+MotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */; };
+		FCE769FB1BED275100119B19 /* UIView+MotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -188,6 +190,7 @@
 		FCE769ED1BECFF6500119B19 /* StreamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamCell.xib; sourceTree = "<group>"; };
 		FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsViewController.swift; sourceTree = "<group>"; };
 		FCE769F61BED122100119B19 /* UIKitAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitAdditions.swift; sourceTree = "<group>"; };
+		FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+MotionEffect.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +377,7 @@
 			children = (
 				FCCC30421BE94152009DEEC7 /* UIColor+RGB.swift */,
 				FCE769F61BED122100119B19 /* UIKitAdditions.swift */,
+				FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -665,6 +669,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCCC30461BE9441C009DEEC7 /* GamesDataSource.swift in Sources */,
+				FCE769FA1BED275100119B19 /* UIView+MotionEffect.swift in Sources */,
 				FCCC302C1BE7E039009DEEC7 /* AppDelegate.swift in Sources */,
 				FCCC30291BE7E039009DEEC7 /* TwitchRouter.swift in Sources */,
 				FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
@@ -710,6 +715,7 @@
 				FCCC303A1BE7E03F009DEEC7 /* AppDelegate.swift in Sources */,
 				FCCC30771BE96C2F009DEEC7 /* Stream.swift in Sources */,
 				FCCC30471BE9441C009DEEC7 /* GamesDataSource.swift in Sources */,
+				FCE769FB1BED275100119B19 /* UIView+MotionEffect.swift in Sources */,
 				FCE769F21BECFF6500119B19 /* TwitchHomeViewController.swift in Sources */,
 				FCCC30861BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
 				FCCC30561BE9458D009DEEC7 /* Constants.swift in Sources */,
