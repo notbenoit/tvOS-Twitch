@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import ReactiveCocoa
 
 class StreamsViewController: UIViewController {
 
@@ -30,14 +31,22 @@ class StreamsViewController: UIViewController {
 	
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var noItemsLabel: UILabel!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
 	var streamListDataSource: StreamsDataSource? {
 		didSet {
 			collectionView.dataSource = streamListDataSource
-			streamListDataSource?.streamListViewModel.data.producer.startWithNext {
+			guard let listViewModel = streamListDataSource?.streamListViewModel else { return }
+			self.noItemsLabel.rac_hidden <~ listViewModel.data.producer
+				.map { $0.count > 0 }
+				.combineLatestWith(listViewModel.loadingState.producer.map { $0 == LoadingState.Loading })
+				.map { $0.0 || $0.1 }
+			self.activityIndicator.rac_hidden <~ listViewModel.loadingState.producer
+				.combineLatestWith(listViewModel.data.producer)
+				.map { $0.0 != .Loading || $0.1.count > 0 }
+			listViewModel.data.producer.startWithNext {
 				[weak self] data in
 				self?.collectionView.reloadData()
-				self?.noItemsLabel.hidden = data.count > 0
 			}
 			streamListDataSource?.loadMore()
 		}
@@ -50,6 +59,8 @@ class StreamsViewController: UIViewController {
 		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
 		noItemsLabel.font = UIFont.systemFontOfSize(42)
 		noItemsLabel.textColor = UIColor.whiteColor()
+		
+		activityIndicator.hidden = true
 		
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .Vertical

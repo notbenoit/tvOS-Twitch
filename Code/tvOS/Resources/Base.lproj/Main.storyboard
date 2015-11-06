@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9059" systemVersion="15C31f" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Xr8-Ku-ug7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Twitch Home View Controller-->
@@ -124,18 +125,30 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6cX-CS-Crl">
+                                <rect key="frame" x="810" y="210" width="300" height="300"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="0Ec-sH-UCz"/>
+                                    <constraint firstAttribute="width" secondItem="6cX-CS-Crl" secondAttribute="height" multiplier="1:1" id="Ghu-TL-sTm"/>
+                                </constraints>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <constraints>
                             <constraint firstItem="IL6-Dk-QJ4" firstAttribute="centerX" secondItem="Oyh-UX-ED0" secondAttribute="centerX" id="4jG-nM-V4X"/>
                             <constraint firstItem="IL6-Dk-QJ4" firstAttribute="width" secondItem="Oyh-UX-ED0" secondAttribute="width" id="CNB-TJ-2j4"/>
                             <constraint firstItem="IL6-Dk-QJ4" firstAttribute="height" secondItem="Oyh-UX-ED0" secondAttribute="height" id="F4i-bD-X0N"/>
+                            <constraint firstItem="6cX-CS-Crl" firstAttribute="centerX" secondItem="Oyh-UX-ED0" secondAttribute="centerX" id="Owa-jA-OXc"/>
                             <constraint firstItem="JDk-oS-v4a" firstAttribute="centerX" secondItem="Oyh-UX-ED0" secondAttribute="centerX" id="aZD-Ml-iSJ"/>
+                            <constraint firstItem="6cX-CS-Crl" firstAttribute="centerY" secondItem="Oyh-UX-ED0" secondAttribute="centerY" id="ald-GP-yke"/>
                             <constraint firstItem="IL6-Dk-QJ4" firstAttribute="centerY" secondItem="Oyh-UX-ED0" secondAttribute="centerY" id="dZB-Ec-r2b"/>
                             <constraint firstItem="JDk-oS-v4a" firstAttribute="centerY" secondItem="Oyh-UX-ED0" secondAttribute="centerY" id="pDn-uf-Kz4"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="6cX-CS-Crl" id="WBq-ec-j1x"/>
                         <outlet property="collectionView" destination="IL6-Dk-QJ4" id="fek-UU-Wzw"/>
                         <outlet property="noItemsLabel" destination="JDk-oS-v4a" id="aDw-Uc-bhV"/>
                     </connections>

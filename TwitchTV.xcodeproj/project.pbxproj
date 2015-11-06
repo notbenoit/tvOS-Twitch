@@ -77,6 +77,8 @@
 		FCE769F31BECFF6500119B19 /* StreamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EC1BECFF6500119B19 /* StreamCell.swift */; };
 		FCE769F41BECFF6500119B19 /* StreamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCE769ED1BECFF6500119B19 /* StreamCell.xib */; };
 		FCE769F51BECFF6500119B19 /* StreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */; };
+		FCE769F71BED122100119B19 /* UIKitAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F61BED122100119B19 /* UIKitAdditions.swift */; };
+		FCE769F81BED122100119B19 /* UIKitAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F61BED122100119B19 /* UIKitAdditions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -185,6 +187,7 @@
 		FCE769EC1BECFF6500119B19 /* StreamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamCell.swift; sourceTree = "<group>"; };
 		FCE769ED1BECFF6500119B19 /* StreamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamCell.xib; sourceTree = "<group>"; };
 		FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsViewController.swift; sourceTree = "<group>"; };
+		FCE769F61BED122100119B19 /* UIKitAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitAdditions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				FCCC30421BE94152009DEEC7 /* UIColor+RGB.swift */,
+				FCE769F61BED122100119B19 /* UIKitAdditions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -672,6 +676,7 @@
 				FCCC307C1BE96DEC009DEEC7 /* Preview.swift in Sources */,
 				FCCC307F1BE971EE009DEEC7 /* StreamListViewModel.swift in Sources */,
 				FCCC308E1BE97D02009DEEC7 /* AccessToken.swift in Sources */,
+				FCE769F71BED122100119B19 /* UIKitAdditions.swift in Sources */,
 				FCCC30791BE96D17009DEEC7 /* Channel.swift in Sources */,
 				FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */,
 				FCCC30271BE7E039009DEEC7 /* Game.swift in Sources */,
@@ -700,6 +705,7 @@
 				FCCC30431BE94152009DEEC7 /* UIColor+RGB.swift in Sources */,
 				FCCC308C1BE974C0009DEEC7 /* StreamsDataSource.swift in Sources */,
 				FCE769F11BECFF6500119B19 /* GamesViewController.swift in Sources */,
+				FCE769F81BED122100119B19 /* UIKitAdditions.swift in Sources */,
 				FCE769EF1BECFF6500119B19 /* GameCell.swift in Sources */,
 				FCCC303A1BE7E03F009DEEC7 /* AppDelegate.swift in Sources */,
 				FCCC30771BE96C2F009DEEC7 /* Stream.swift in Sources */,
