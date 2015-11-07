@@ -34,7 +34,7 @@ class TwitchHomeViewController: UIViewController {
 				observer, disposable in
 				let playerController = AVPlayerViewController()
 				let escapedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-				guard let url = NSURL(string: escapedURLString!) else { return }
+				guard let escapedString = escapedURLString, url = NSURL(string: escapedString) else { observer.sendFailed(Constants.genericError); return }
 				let avPlayer = AVPlayer(URL: url)
 				avPlayer.play()
 				playerController.player = avPlayer
@@ -45,13 +45,22 @@ class TwitchHomeViewController: UIViewController {
 		}
 	}
 	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		presentStream.errors.observeNext {
+			self.presentDefaultError($0)
+		}
+	}
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let controller = segue.destinationViewController as? GamesViewController {
 			gameController = controller
 			gameController?.onGameSelected = onGameSelected()
 		} else if let controller = segue.destinationViewController as? StreamsViewController {
 			streamsController = controller
-			streamsController?.onStreamSelected = onStreamSelected()
+			streamsController?.onStreamSelectedAction.values.observeNext {
+				self.presentStream.apply(($0, self)).start()
+			}
 		}
 	}
 	
@@ -59,14 +68,6 @@ class TwitchHomeViewController: UIViewController {
 		return {
 			[weak self] game in
 			self?.streamsController?.streamListDataSource = StreamsDataSource(streamListVM: StreamListViewModel(game: game.gameNameString))
-		}
-	}
-	
-	func onStreamSelected() -> Stream -> () {
-		return {
-			[weak self] stream in
-			guard let unwrappedSelf = self else { return }
-			unwrappedSelf.presentStream.apply((stream, unwrappedSelf)).start()
 		}
 	}
 }

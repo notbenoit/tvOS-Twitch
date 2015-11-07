@@ -81,6 +81,8 @@
 		FCE769F81BED122100119B19 /* UIKitAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F61BED122100119B19 /* UIKitAdditions.swift */; };
 		FCE769FA1BED275100119B19 /* UIView+MotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */; };
 		FCE769FB1BED275100119B19 /* UIView+MotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */; };
+		FCE76A031BEE26A900119B19 /* UIKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */; };
+		FCE76A041BEE26A900119B19 /* UIKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -191,6 +193,7 @@
 		FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsViewController.swift; sourceTree = "<group>"; };
 		FCE769F61BED122100119B19 /* UIKitAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitAdditions.swift; sourceTree = "<group>"; };
 		FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+MotionEffect.swift"; sourceTree = "<group>"; };
+		FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +381,7 @@
 				FCCC30421BE94152009DEEC7 /* UIColor+RGB.swift */,
 				FCE769F61BED122100119B19 /* UIKitAdditions.swift */,
 				FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */,
+				FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -674,6 +678,7 @@
 				FCCC30291BE7E039009DEEC7 /* TwitchRouter.swift in Sources */,
 				FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
 				FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */,
+				FCE76A031BEE26A900119B19 /* UIKitHelpers.swift in Sources */,
 				FCCC30281BE7E039009DEEC7 /* TwitchAPIClient.swift in Sources */,
 				FCCC30681BE951FD009DEEC7 /* ViewController.swift in Sources */,
 				FCCC302A1BE7E039009DEEC7 /* GameListViewModel.swift in Sources */,
@@ -712,6 +717,7 @@
 				FCE769F11BECFF6500119B19 /* GamesViewController.swift in Sources */,
 				FCE769F81BED122100119B19 /* UIKitAdditions.swift in Sources */,
 				FCE769EF1BECFF6500119B19 /* GameCell.swift in Sources */,
+				FCE76A041BEE26A900119B19 /* UIKitHelpers.swift in Sources */,
 				FCCC303A1BE7E03F009DEEC7 /* AppDelegate.swift in Sources */,
 				FCCC30771BE96C2F009DEEC7 /* Stream.swift in Sources */,
 				FCCC30471BE9441C009DEEC7 /* GamesDataSource.swift in Sources */,

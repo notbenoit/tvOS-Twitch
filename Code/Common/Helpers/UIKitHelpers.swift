@@ -20,10 +20,10 @@
 
 import UIKit
 
-struct Constants {
-	static let API_URL = "https://api.twitch.tv/kraken"
-	static let API_URL_TOKEN = "https://api.twitch.tv/api"
-	static let gameImageRatio: CGFloat = 0.716
-	static let streamImageRatio: CGFloat = 1.739
-	static let genericError = NSError(domain: "com.twitch.tv", code: 0, userInfo: nil)
+extension UIViewController {
+	func presentDefaultError(error: NSError) {
+		let alert = UIAlertController(title: NSLocalizedString("An error occured", comment: ""), message: nil, preferredStyle: .Alert)
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil))
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
 }

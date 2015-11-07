@@ -27,7 +27,14 @@ class StreamsViewController: UIViewController {
 	let horizontalSpacing: CGFloat = 50.0
 	let verticalSpacing: CGFloat = 100.0
 	
-	var onStreamSelected: (Stream -> ())?
+	let onStreamSelectedAction = Action<Stream, Stream, NoError> {
+		stream in
+		return SignalProducer {
+			observer, disposable in
+			observer.sendNext(stream)
+			observer.sendCompleted()
+		}
+	}
 	
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var noItemsLabel: UILabel!
@@ -78,7 +85,7 @@ class StreamsViewController: UIViewController {
 extension StreamsViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 		guard let streamListDataSource = streamListDataSource else { return }
-		onStreamSelected?(streamListDataSource.streamListViewModel.data.value[indexPath.row])
+		onStreamSelectedAction.apply(streamListDataSource.streamListViewModel.data.value[indexPath.row]).start()
 	}
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
