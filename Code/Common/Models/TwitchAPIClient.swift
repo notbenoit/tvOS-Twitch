@@ -86,6 +86,7 @@ final class TwitchAPIClient {
 			observer, disposable in
 			let urlString = "http://usher.justin.tv/api/channel/hls/\(channelName)?allow_source=true&token=\(accessToken.token)&sig=\(accessToken.sig)"
 			observer.sendNext(urlString)
+			observer.sendCompleted()
 		}
 	}
 	
@@ -107,6 +108,7 @@ final class TwitchAPIClient {
 			return SignalProducer {
 				observer, disposable in
 				observer.sendNext((result.items, result.count))
+				observer.sendCompleted()
 			}
 		}
 	}

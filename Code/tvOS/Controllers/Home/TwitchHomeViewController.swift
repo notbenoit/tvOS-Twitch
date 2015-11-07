@@ -20,10 +20,31 @@
 
 import UIKit
 import AVKit
+import ReactiveCocoa
 
 class TwitchHomeViewController: UIViewController {
 	var gameController: GamesViewController?
 	var streamsController: StreamsViewController?
+	
+	let presentStream: Action<(stream: Stream, controller: UIViewController), Void, NSError> = Action {
+		pair in
+		TwitchAPIClient.sharedInstance.m3u8URLForChannel(pair.stream.channel.channelName).flatMap(.Latest) {
+			urlString in
+			return SignalProducer {
+				observer, disposable in
+				let playerController = AVPlayerViewController()
+				let escapedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+				guard let url = NSURL(string: escapedURLString!) else { return }
+				let avPlayer = AVPlayer(URL: url)
+				avPlayer.play()
+				playerController.player = avPlayer
+				pair.controller.presentViewController(playerController, animated: true) {
+					observer.sendCompleted()
+				}
+			}
+		}
+	}
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let controller = segue.destinationViewController as? GamesViewController {
 			gameController = controller
@@ -44,16 +65,8 @@ class TwitchHomeViewController: UIViewController {
 	func onStreamSelected() -> Stream -> () {
 		return {
 			[weak self] stream in
-			TwitchAPIClient.sharedInstance.m3u8URLForChannel(stream.channel.channelName).startWithNext {
-				urlString in
-				let playerController = AVPlayerViewController()
-				let escapedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-				guard let url = NSURL(string: escapedURLString!) else { return }
-				let avPlayer = AVPlayer(URL: url)
-				avPlayer.play()
-				playerController.player = avPlayer
-				self?.presentViewController(playerController, animated: true, completion: nil)
-			}
+			guard let unwrappedSelf = self else { return }
+			unwrappedSelf.presentStream.apply((stream, unwrappedSelf)).start()
 		}
 	}
 }
