@@ -14,11 +14,13 @@ before_install:
 - gem install gym
 - gem install shenzhen
 - chmod +x ./meta/scripts/add-key.sh
+- chmod +x ./meta/scripts/build-number.sh
 - chmod +x ./meta/scripts/build.sh
 - chmod +x ./meta/scripts/remove-key.sh
 - chmod +x ./meta/scripts/testflight.sh
 before_script:
 - git submodule update --init --recursive
+- "./meta/scripts/build-number.sh"
 - "./meta/scripts/add-key.sh"
 script:
 - "./meta/scripts/build.sh"
