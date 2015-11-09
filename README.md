@@ -1,3 +1,4 @@
+![tvOS-Twitch](https://raw.githubusercontent.com/notbenoit/tvOS-Twitch/develop/Meta/Snapshots/snapshot.png)
 # Twitch tvOS client (WIP)
 This is a really raw Twitch client for tvOS.
 ## Building and running
