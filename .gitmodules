@@ -1,5 +1,6 @@
 [submodule "Carthage/Checkouts/Alamofire"]
 	url = https://github.com/Alamofire/Alamofire.git
+	path = Carthage/Checkouts/Alamofire
 [submodule "Carthage/Checkouts/AlamofireImage"]
 	path = Carthage/Checkouts/AlamofireImage
 	url = https://github.com/Alamofire/AlamofireImage.git
