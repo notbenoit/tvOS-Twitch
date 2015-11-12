@@ -1,8 +1,8 @@
 language: objective-c
 osx_image: xcode7.1
 before_install:
-- openssl aes-256-cbc -k $SECRET -in ./meta/scripts/profiles/Twitch_App_Store.mobileprovision.enc
-  -out ./meta/scripts/profiles/Twitch_App_Store.mobileprovision -d
+- openssl aes-256-cbc -k $SECRET -in ./meta/scripts/profiles/Twitch_App_Store.mobileprovision.enc -out ./meta/scripts/profiles/Twitch_App_Store.mobileprovision -d
+- openssl aes-256-cbc -k $SECRET -in ./meta/scripts/profiles/Twitch_App_Store_Extension.mobileprovision.enc -out ./meta/scripts/profiles/Twitch_App_Store_Extension.mobileprovision -d
 - openssl aes-256-cbc -k $SECRET -in ./meta/scripts/certs/dist.p12.enc -out ./meta/scripts/certs/dist.p12
   -d
 - openssl aes-256-cbc -k $SECRET -in ./meta/scripts/certs/dist.cer.enc -out ./meta/scripts/certs/dist.cer

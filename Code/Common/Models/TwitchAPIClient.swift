@@ -28,7 +28,7 @@ final class TwitchAPIClient {
 	static let sharedInstance: TwitchAPIClient = TwitchAPIClient()
 	
 	private var manager: Manager = {
-		let sessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.twitch.data")
+		let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
 		sessionConfiguration.HTTPAdditionalHeaders = ["Accept":"application/vnd.twitchtv.v3+json"]
 		return Alamofire.Manager(configuration: sessionConfiguration)
 	}()
