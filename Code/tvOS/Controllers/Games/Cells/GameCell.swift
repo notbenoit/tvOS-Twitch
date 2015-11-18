@@ -30,6 +30,7 @@ class GameCell: UICollectionViewCell {
 	
 	private let textDefaultFont = UIFont.boldSystemFontOfSize(22)
 	private let textDefaultColor = UIColor.lightGrayColor()
+	private let viewModel = MutableProperty<GameViewModel?>(nil)
 	
 	override func prepareForReuse() {
 		imageView.image = nil
@@ -43,11 +44,12 @@ class GameCell: UICollectionViewCell {
 		self.labelName.textColor = textDefaultColor
 		self.labelName.shadowOffset = CGSize(width: 0, height: 1)
 		self.backgroundColor = UIColor.twitchLightColor()
+		let vm = viewModel.producer.ignoreNil()
+		labelName.rac_text <~ vm.flatMap(.Latest) { $0.gameName.producer }
 	}
 	
 	internal func bindViewModel(gameViewModel: GameViewModel) {
-		imageView.image = nil
-		labelName.text = gameViewModel.gameName.value
+		self.viewModel.value = gameViewModel
 		if let url = NSURL(string: gameViewModel.gameImageURL.value) {
 			imageView.af_setImageWithURL(url)
 		}

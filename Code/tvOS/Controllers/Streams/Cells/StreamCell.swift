@@ -35,6 +35,8 @@ class StreamCell: UICollectionViewCell {
 	private let defaultStreamFont = UIFont.boldSystemFontOfSize(22)
 	private let defaultViewersFont = UIFont.systemFontOfSize(22)
 	
+	private let viewModel = MutableProperty<StreamViewModel?>(nil)
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		imageView.layer.borderWidth = 1.0
@@ -45,15 +47,22 @@ class StreamCell: UICollectionViewCell {
 		viewersCountLabel.textColor = defaultTextColor
 		streamNameLabel.font = defaultStreamFont
 		viewersCountLabel.font = defaultViewersFont
+		
+		let vm = viewModel.producer.ignoreNil()
+		streamNameLabel.rac_text <~ vm.flatMap(.Latest) { $0.streamTitle.producer }
+		viewersCountLabel.rac_text <~ vm.flatMap(.Latest) { $0.viewersCount.producer }
+	}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		imageView.image = nil
 	}
 	
 	internal func bindViewModel(streamViewModel: StreamViewModel) {
-		imageView.image = nil
+		self.viewModel.value = streamViewModel
 		if let url = NSURL(string: streamViewModel.streamImageURL.value) {
 			imageView.af_setImageWithURL(url)
 		}
-		streamNameLabel.rac_text <~ streamViewModel.streamTitle
-		viewersCountLabel.rac_text <~ streamViewModel.viewersCount
 	}
 	
 	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
