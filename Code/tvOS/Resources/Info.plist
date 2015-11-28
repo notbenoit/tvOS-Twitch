@@ -33,5 +33,16 @@
 	<array>
 		<string>arm64</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Twitch URL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twitch</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

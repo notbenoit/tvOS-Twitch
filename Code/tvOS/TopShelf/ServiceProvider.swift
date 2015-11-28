@@ -36,7 +36,12 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
 			.startWithNext {
 				items += $0.objects.map {
 					let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: String($0.game.id), container: nil)!)
+					let components = NSURLComponents()
+					components.scheme = "twitch"
+					components.path = "game"
+					components.queryItems = [NSURLQueryItem(name: "name", value: $0.game.gameNameString)]
 					item?.imageShape = .Poster
+					item?.displayURL = components.URL!
 					item?.imageURL = NSURL(string: $0.game.box.large)!
 					item?.title = $0.game.gameNameString
 					return item!
@@ -48,6 +53,6 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
 		topGamesItem.topShelfItems = items
 		return [topGamesItem]
 	}
-
+	
 }
 

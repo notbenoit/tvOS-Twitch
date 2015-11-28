@@ -64,10 +64,14 @@ class TwitchHomeViewController: UIViewController {
 		}
 	}
 	
+	func selectGame(gameName: String) {
+		self.streamsController?.streamListDataSource = StreamsDataSource(streamListVM: StreamListViewModel(game: gameName))
+	}
+	
 	func onGameSelected() -> Game -> () {
 		return {
 			[weak self] game in
-			self?.streamsController?.streamListDataSource = StreamsDataSource(streamListVM: StreamListViewModel(game: game.gameNameString))
+			self?.selectGame(game.gameNameString)
 		}
 	}
 }
