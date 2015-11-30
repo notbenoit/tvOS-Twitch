@@ -1,8 +1,10 @@
 language: objective-c
 osx_image: xcode7.1
 before_install:
-- openssl aes-256-cbc -k $SECRET -in ./meta/scripts/profiles/Twitch_App_Store.mobileprovision.enc -out ./meta/scripts/profiles/Twitch_App_Store.mobileprovision -d
-- openssl aes-256-cbc -k $SECRET -in ./meta/scripts/profiles/Twitch_App_Store_Extension.mobileprovision.enc -out ./meta/scripts/profiles/Twitch_App_Store_Extension.mobileprovision -d
+- openssl aes-256-cbc -k $SECRET -in ./meta/scripts/profiles/Twitch_App_Store.mobileprovision.enc
+  -out ./meta/scripts/profiles/Twitch_App_Store.mobileprovision -d
+- openssl aes-256-cbc -k $SECRET -in ./meta/scripts/profiles/Twitch_App_Store_Extension.mobileprovision.enc
+  -out ./meta/scripts/profiles/Twitch_App_Store_Extension.mobileprovision -d
 - openssl aes-256-cbc -k $SECRET -in ./meta/scripts/certs/dist.p12.enc -out ./meta/scripts/certs/dist.p12
   -d
 - openssl aes-256-cbc -k $SECRET -in ./meta/scripts/certs/dist.cer.enc -out ./meta/scripts/certs/dist.cer
@@ -12,7 +14,7 @@ before_install:
 - openssl aes-256-cbc -k $SECRET -in ./meta/scripts/certs/dev.cer.enc -out ./meta/scripts/certs/dev.cer
   -d
 - gem install gym
-- gem install shenzhen
+- gem install pilot
 - chmod +x ./meta/scripts/add-key.sh
 - chmod +x ./meta/scripts/build-number.sh
 - chmod +x ./meta/scripts/build.sh
@@ -40,3 +42,5 @@ env:
   - secure: mnx3vTY0JmhtKJJn551MFEG4+rQO3metVFPVn01HcuHnO+k+R0zfa1Q70WxOhmruXX29x4vhlO20Z/sBrDrOoJXLoX64NlvaxeVhuZSVLDUHtWUFWfUnMFC6SwURJEcbWF1YYxzvKC8YNEajkDsnkBjB83GA+DZb2Pq5hzvuPZFIgtYZWMczMcFAmruAjMpVm/oygsyP72PySU8iTL0gHgpt/OwmKs+Zk+SlDb6YtmtBkhjGKHX6Vbh7ADutSghQPijiR+Zx8t/428TExWR6DSlEOlgrU1pxx2KAmjmoFenGkQR9WobpphlJZ+96pdnLoP+8a2ww2XIDOhSrfC95+JKJuCBR3EgCdLm8AOT32JSyr46MTBdn4WUN5Iq9KB827TZGmW3hocoQBqSzbGivh/qwM2L6SfQUyX4LebfPk8JIqh8vqfMU6sf577IQMBQSAhIBPW3knr+CKQ8XYyRLTTM2nobFuWr9pVRav24FryCSmG5hnnrjJAr3BJBgaq9F12pQeEMvYZuJKFGVbDzp/af05sP/Bspot+YSmCYUiNWPJ0whyXBCeryVmIbZQsDx84tFvZjzdyFlRpMXp3BSD0eHKwWmRNrF/adFko1kXTd2US8iHC6fT20WAMsko7HS2IGvEzc7J4zWIlztP80CxC/XX8uj8geilnsrXpfDwGo=
   - secure: IC/pkIswyvhyfxvXBG3iKIqaJewnEp7g37w8qjxO/nzcu88ZJrImJu6MlcOtzqENtkxqjuHntL17v8UsYWImdmqACaKniPIGbvSyApxzNrBXFzbFylq0IP4L7Ye1FNC3fnBwB9+bBnM+gK0sT/Z+FV40WX2ZMVAzSfaMz1VH0UtpIhdDpP4pyZs87jKVhK7zUPEsK+NRJmEl8KYbd2x9vQjRNMeFh4x7akdySgZZ408+Y/R7y2em2gZJ32BiazqgM6mIS6Z0i274Yz8AAhqQJdDs3OvJuVp3z9b/sR8EblZb13luBXXQ+e+/v9op4inWs2u/6fl5XdR/VhgZCHu7C3A8ALZgxwFPOSeYi1TTF9DaV4zpkbXE3bvpvia9Un44iOt7K+JkvKLHjDAn9OFnUjmeUGEKCp2L63Vef4vPQU1Mqdo+R5jLwJ4lljA9fY0F9Gd3ny1oTWE0EMH8Q1xeAbFmlPqOZme7e9uRzjqg/IsRSOHuiTLDEtgorLQkdlNcG+MUmJtS7HYkD0pDojbgpgiol0N5lJtgjvzb79LMzQI6o0bY0UwNnDukEjfFW1lXBE4FVWR8Slyxew8aEhiiV2EDWq5PrUoFGVKx04bwAF5ATba4PniV0Tbmd+pvijRXD3ac8XYn8zMpZAkTnHgl26LqMf4LOyJyG2x/3NZlC/Y=
   - secure: J6Pr/cjUsBcOpadROWWxZsfFsITWc04X9djmXnRflXhrxiwhVUwRTQ40hlc2wDxSsAaU/0utTws4IlCya5LCEsP1plhUmJhaHZlV0mMSDvYK0NGOr3JJu6zAdr8lfKH+CV3iv6bBjvy+hDz2COhc8tycw9aqh12Ocb94q9eZXD08kRLHrq4Fg+vJnjRCiiQNQuZ5FK4uskcu85lAysxNUnuTZdUtPOjAaPVVqfV85GL4m7TvXwIGsZPL44YFHt0EVOxlG493W4Q9FcGTVFUBauwi4VZGPP/PiMJy5bvKfuqCIFJk6YzlqwzNqueT3nFEzcGBgKIv9wro5hsivTlMsNCm0wDl9LZt7knQg64YH+8hosyhOLbiKZfg2s10VpcFjecmWVWFJ5O/0NUcpPH+ywtk14LYI8wIrS2MzRlo0U4EVV2h26K1lKKCkn7ZhSww9/XiLPwqXkCCS3Ovirq45pa4sI7020FLzq7LuOZJv5bpYplvFETY8tysHwmw4gioWIEQu7r0WGCYVQ7HL6DD/8ieABYE64XDVNSMeIne68FrxE3Ekafu3ihwkNpJT0F+70kxYqmFQXK3cDQ101ZcikWFu69eJmXa7AlRzAZN/B2Y1+QF/V3/OZs1DkefPyY71IHqiZvdhtG1DJgY0nmTBt11pP41TFKFSVHttBC0nE4=
+  - secure: DKiLowSDGwfXpf9gbV+Sf2hgG28OzL6uH5TePrXmdM1d3eTr1xpjoFx+sNlWzkjqPI7WLrX/AWo+iNEIfCafW55P3bB2pzZuc5/wfL1MWPPmB1PrQ1c3um+xZ7weLzTzu6clkaQOAuBYP2rEdFkg9A9S112/wJC+H9U9OXC28VdZl3RkQ4VojQX0dBSirVYi5AbI1bKkyX1PXOxeAY70wW8bwMmFprp5FqH8lthFhbKTvFs8qXtDpHguza2c6pz+jnhIlHV3/kvGD0dmQP3z9vTfswsyw3H4Z0vT8aCdbQz1/9JBNeg0kpYEbGf4ulsfxDQmSFOx0+AZzu0s+0LpTQQ627W4FigS4UnEMwIGdzeOcSu8ASvbd9P1D7iw7Lyb39omKOm1XA2PSkdgJlbdtnB2OVlW8NV1ZBSqWUDtuqAII+vtC4N+id0wTZko6KJx4iq1Otd2v/Cq/NeyJSBZ9ZkZ75R9SH0KUH6EBt2kINLVzpxCy3d7IbR7am/hPc94p/ku9bVPAPJET8gNDJsedNPaswLj1eupwZ4tsQ60oZ5URbGX7aIRl5pI6itvditmMUsldA7/EymwRuwElSnQtFe6ers4n3IWMD4KiAyt223WsrHxkVBbQFNx4jUK3wwoNPJIV73k9Y2eXNPeYuDAHoB7BTzuWmwMQhYtFuZLzTo=
+  - secure: DrlXX3bDvUn3Xt43ukO7JoVkfzHXge2dxJa4PgRR8x4d9iaWaNfhVZ6PrtL/hJ+NBLkKw10O0nX7hZT6kXO3V8Gf8IQPTG9aobwhUhZjBfKEhnZ+GW9URjfXdpf1CjVS63mPeVPk+dx9p5g2KrAIQOSF/8XxQWkY76onXJEKq72v/HSDayW1iMKtJn5qFXlKb8SzHUxFGg41zrfroe3q2HOjp8i/tS9hToQPxpKdpl5ANzchIA4EBt6L+51UkOpPvbiFhS9xzQG0tGgN/u+cQwwO0QegK7f8rHQ0HMJPFeznbchm70bFZLrQlCLA3rLP9gnbOgOhOkamoKFNExOCtHEWIF/vLi+FeoB7M+SYSJl5y98xR16kOREkCW/+22ORx/5kFZ7V9EgZhcXnc57S/9LglQRW9nNXvO+H8kOTvNi8UQ1+p6uYd2NShDm17PkWr7Lbpfw1/oQ+xtE8KpPmQAjmeUQ82HE2YLTNRetvCGLXvIQEsolL6GZb9B0Bw03+6R5LM8f+/Ld0DO6V81xXn1WX5j6+dcb943Clxm+q5ucs/nTj8OuEpXDGM75bFUP2wlgfIxP8a2vPmYxojswaUiHJigRSz7vwwzBU97X3+61was6y+B+kbf+bBJ6es3pKOM+BuOe4khm0Ut57pD0miyX53enl8Py2OXlV/La1xUc=
