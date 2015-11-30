@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FCCC2FE51BE7DC80009DEEC7"
-               BuildableName = "TwitchTV-tvOS.app"
+               BuildableName = "Game Theater.app"
                BlueprintName = "TwitchTV-tvOS"
                ReferencedContainer = "container:TwitchTV.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FCCC2FE51BE7DC80009DEEC7"
-            BuildableName = "TwitchTV-tvOS.app"
+            BuildableName = "Game Theater.app"
             BlueprintName = "TwitchTV-tvOS"
             ReferencedContainer = "container:TwitchTV.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FCCC2FE51BE7DC80009DEEC7"
-            BuildableName = "TwitchTV-tvOS.app"
+            BuildableName = "Game Theater.app"
             BlueprintName = "TwitchTV-tvOS"
             ReferencedContainer = "container:TwitchTV.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FCCC2FE51BE7DC80009DEEC7"
-            BuildableName = "TwitchTV-tvOS.app"
+            BuildableName = "Game Theater.app"
             BlueprintName = "TwitchTV-tvOS"
             ReferencedContainer = "container:TwitchTV.xcodeproj">
          </BuildableReference>
