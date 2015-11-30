@@ -26,6 +26,9 @@
 		FC09EA211BF40490009E7DB6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA1E1BF40490009E7DB6 /* Alamofire.framework */; };
 		FC09EA221BF40490009E7DB6 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA1F1BF40490009E7DB6 /* ObjectMapper.framework */; };
 		FC09EA231BF40490009E7DB6 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA201BF40490009E7DB6 /* ReactiveCocoa.framework */; };
+		FC3970241C0C42E400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
+		FC3970251C0C42E400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
+		FC3970261C0C437400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
 		FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
 		FCCC30271BE7E039009DEEC7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30061BE7E039009DEEC7 /* Game.swift */; };
 		FCCC30281BE7E039009DEEC7 /* TwitchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30071BE7E039009DEEC7 /* TwitchAPIClient.swift */; };
@@ -176,6 +179,7 @@
 		FC1D63151BEA06A400403CC4 /* watchOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Base.xcconfig"; sourceTree = "<group>"; };
 		FC1D63161BEA06A400403CC4 /* watchOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		FC1D63171BEA06A400403CC4 /* watchOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		FC3970231C0C42E400C380A4 /* ListResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListResponse.swift; sourceTree = "<group>"; };
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCCC2FE61BE7DC80009DEEC7 /* TwitchTV-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TwitchTV-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCCC30011BE7E039009DEEC7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -441,6 +445,7 @@
 				FCCC307B1BE96DEC009DEEC7 /* Preview.swift */,
 				FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */,
 				FCE769D21BEC09D800119B19 /* TopGame.swift */,
+				FC3970231C0C42E400C380A4 /* ListResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -754,6 +759,7 @@
 				FC09EA1C1BF40384009E7DB6 /* StreamListViewModel.swift in Sources */,
 				FC09EA141BF4037E009E7DB6 /* TwitchRouter.swift in Sources */,
 				FC09EA111BF40371009E7DB6 /* Constants.swift in Sources */,
+				FC3970261C0C437400C380A4 /* ListResponse.swift in Sources */,
 				FC09EA121BF4037E009E7DB6 /* Game.swift in Sources */,
 				FC09EA1B1BF40384009E7DB6 /* GameViewModel.swift in Sources */,
 				FC09EA131BF4037E009E7DB6 /* TwitchAPIClient.swift in Sources */,
@@ -777,6 +783,7 @@
 				FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */,
 				FCE76A031BEE26A900119B19 /* UIKitHelpers.swift in Sources */,
 				FCCC30281BE7E039009DEEC7 /* TwitchAPIClient.swift in Sources */,
+				FC3970241C0C42E400C380A4 /* ListResponse.swift in Sources */,
 				FCCC30681BE951FD009DEEC7 /* ViewController.swift in Sources */,
 				FCCC302A1BE7E039009DEEC7 /* GameListViewModel.swift in Sources */,
 				FCCC30571BE94592009DEEC7 /* UIColor+RGB.swift in Sources */,
@@ -808,6 +815,7 @@
 				FCCC308F1BE97D02009DEEC7 /* AccessToken.swift in Sources */,
 				FCE769F51BECFF6500119B19 /* StreamsViewController.swift in Sources */,
 				FCCC307D1BE96DEC009DEEC7 /* Preview.swift in Sources */,
+				FC3970251C0C42E400C380A4 /* ListResponse.swift in Sources */,
 				FCCC305C1BE945A7009DEEC7 /* GameViewModel.swift in Sources */,
 				FCCC30431BE94152009DEEC7 /* UIColor+RGB.swift in Sources */,
 				FCCC308C1BE974C0009DEEC7 /* StreamsDataSource.swift in Sources */,
@@ -1053,6 +1061,7 @@
 				FC09EA0E1BF40322009E7DB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FC858B091B7E40FF007A9B54 /* Build configuration list for PBXProject "TwitchTV" */ = {
 			isa = XCConfigurationList;

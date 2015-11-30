@@ -19,16 +19,23 @@
 // THE SOFTWARE.
 
 import Foundation
+import UIKit
 import ReactiveCocoa
 
-struct StreamListViewModel {
+final class StreamListViewModel {
+	
 	let loadingState = MutableProperty<LoadingState>(.Available)
+	let showBigLoader = MutableProperty<Bool>(false)
+	let hideLabel = MutableProperty<Bool>(false)
 	let twitchClient = TwitchAPIClient.sharedInstance
 	
 	let data = MutableProperty<[Stream]>([Stream]())
 	let totalCount = MutableProperty<Int>(0)
 	
 	let gameName: String
+	let refreshAction: Action<(gameName: String, page: Int), ListResponse<Stream>, NSError> = Action { pair in
+		TwitchAPIClient.sharedInstance.streamForGame(pair.0, page: pair.1)
+	}
 	
 	private let page = MutableProperty<Int>(0)
 	
@@ -39,20 +46,20 @@ struct StreamListViewModel {
 				UIApplication.sharedApplication().networkActivityIndicatorVisible = state == .Loading
 			}
 		#endif
+		loadingState <~ refreshAction.executing.producer.map { $0 ? .Loading : .Available }
+		data <~ refreshAction.values.scan([]) { $0 + $1.objects }
+		page <~ refreshAction.values.scan(0) { $0.0 + 1 }
+		totalCount <~ refreshAction.values.map { $0.count }
+		hideLabel <~ refreshAction.executing.producer
+			.combineLatestWith(data.producer)
+			.map { $0.0 || $0.1.count > 0 }
+		showBigLoader <~ refreshAction.executing.producer
+			.combineLatestWith(data.producer)
+			.map { $0.0 && $0.1.count == 0 }
+		loadMore()
 	}
 	
 	func loadMore() {
-		twitchClient.streamForGame(gameName, page: page.value)
-			.on(started: {
-				self.loadingState.value = .Loading
-			})
-			.on(completed: {
-				self.loadingState.value = .Available
-				self.page.value = self.page.value + 1
-			})
-			.startWithNext { response in
-				self.data.value = self.data.value + response.objects
-				self.totalCount.value = response.count
-		}
+		refreshAction.apply((gameName, page.value)).start()
 	}
 }

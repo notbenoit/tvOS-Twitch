@@ -97,27 +97,29 @@ final class TwitchAPIClient {
 		}
 	}
 	
-	func getTopGames(page: Int) -> SignalProducer<(objects: [TopGame], count: Int), NSError> {
-		return request(TwitchRouter.GamesTop(page: page)).map({ (result: (objects: [TopGame], totalCount: Int)) in
-			return (result.objects, result.totalCount)
-		})
+	func getTopGames(page: Int) -> SignalProducer<ListResponse<TopGame>, NSError> {
+		return request(TwitchRouter.GamesTop(page: page))
+			.map({ (result: (objects: [TopGame], totalCount: Int)) in
+				return ListResponse(objects: result.objects, count: result.totalCount)
+			})
 	}
 	
-	func searchGames(query: String) -> SignalProducer<(objects: [Game], count: Int), NSError> {
-		return request(TwitchRouter.SearchGames(query: query), resultPath: "games").flatMap(.Latest) { (result: (items: [Game], count: Int)) in
+	func searchGames(query: String) -> SignalProducer<ListResponse<Game>, NSError> {
+		return request(TwitchRouter.SearchGames(query: query), resultPath: "games")
+			.flatMap(.Latest) { (result: (items: [Game], count: Int)) in
 			return SignalProducer {
 				observer, disposable in
-				observer.sendNext((result.items, result.count))
+				observer.sendNext(ListResponse(objects: result.items, count: result.count))
 				observer.sendCompleted()
 			}
 		}
 	}
 	
-	func streamForGame(gameName: String, page: Int) -> SignalProducer<(objects: [Stream], count: Int), NSError> {
+	func streamForGame(gameName: String, page: Int) -> SignalProducer<ListResponse<Stream>, NSError> {
 		return request(TwitchRouter.Streams(gameName: gameName, page: page), resultPath: "streams").flatMap(.Latest) { (result: (items: [Stream], count: Int)) in
 			return SignalProducer {
 				observer, disposable in
-				observer.sendNext((result.items, result.count))
+				observer.sendNext(ListResponse(objects: result.items, count: result.count))
 				observer.sendCompleted()
 			}
 		}

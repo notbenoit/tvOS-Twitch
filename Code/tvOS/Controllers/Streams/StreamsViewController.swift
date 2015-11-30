@@ -40,28 +40,19 @@ class StreamsViewController: UIViewController {
 	@IBOutlet weak var noItemsLabel: UILabel!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
-	var streamListDataSource: StreamsDataSource? {
-		didSet {
-			collectionView.dataSource = streamListDataSource
-			guard let listViewModel = streamListDataSource?.streamListViewModel else { return }
-			self.noItemsLabel.rac_hidden <~ listViewModel.data.producer
-				.map { $0.count > 0 }
-				.combineLatestWith(listViewModel.loadingState.producer.map { $0 == LoadingState.Loading })
-				.map { $0.0 || $0.1 }
-			self.activityIndicator.rac_hidden <~ listViewModel.loadingState.producer
-				.combineLatestWith(listViewModel.data.producer)
-				.map { $0.0 != .Loading || $0.1.count > 0 }
-			listViewModel.data.producer.startWithNext {
-				[weak self] data in
-				self?.collectionView.reloadData()
-			}
-			streamListDataSource?.loadMore()
-		}
-	}
+	var streamListDataSource = MutableProperty<StreamsDataSource?>(nil)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.twitchDarkColor()
+		
+		let nonNilDataSource = streamListDataSource.producer.ignoreNil()
+		let streamListVm = nonNilDataSource.flatMap(.Latest) { $0.streamListViewModel.producer }
+		nonNilDataSource.startWithNext { [weak self] in self?.collectionView.dataSource = $0 }
+		noItemsLabel.rac_hidden <~ streamListVm.producer.flatMap(.Latest) { $0.hideLabel.producer }
+		activityIndicator.rac_hidden <~ streamListVm.producer.flatMap(.Latest) { $0.showBigLoader.producer }.map { !$0 }
+		streamListVm.producer.flatMap(.Latest) { $0.data.producer }
+			.startWithNext { [weak self] _ in self?.collectionView.reloadData() }
 		
 		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
 		noItemsLabel.font = UIFont.systemFontOfSize(42)
@@ -84,19 +75,19 @@ class StreamsViewController: UIViewController {
 
 extension StreamsViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		guard let streamListDataSource = streamListDataSource else { return }
-		onStreamSelectedAction.apply(streamListDataSource.streamListViewModel.data.value[indexPath.row]).start()
+		guard let streamListDataSource = streamListDataSource.value else { return }
+		onStreamSelectedAction.apply(streamListDataSource.streamListViewModel.value.data.value[indexPath.row]).start()
 	}
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
-		guard let streamListViewModel = streamListDataSource?.streamListViewModel else { return }
+		guard let streamListDataSource = streamListDataSource.value else { return }
 		let contentOffsetY = scrollView.contentOffset.y + scrollView.bounds.size.height
 		let wholeHeight = scrollView.contentSize.height
 		
 		let remainingDistanceToBottom = wholeHeight - contentOffsetY
 		
-		if remainingDistanceToBottom <= 200 && streamListViewModel.loadingState.value == .Available {
-			streamListViewModel.loadMore()
+		if remainingDistanceToBottom <= 200 {
+			streamListDataSource.loadMore()
 		}
 	}
 }

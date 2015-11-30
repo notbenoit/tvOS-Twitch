@@ -49,11 +49,7 @@ class GamesViewController: UIViewController {
 		collectionView.dataSource = gameListDataSource
 		collectionView.delegate = self
 		
-		activityIndicator.rac_hidden <~ gameListDataSource.gameListViewModel.loadingState.producer
-			.map { $0 != .Loading }
-			.combineLatestWith(gameListDataSource.gameListViewModel.data.producer.map { $0.count > 0 })
-			.map { $0.0 || $0.1 }
-		
+		activityIndicator.rac_hidden <~ gameListDataSource.gameListViewModel.showLoader.producer.map { !$0 }
 		gameListDataSource.gameListViewModel.data.producer.startWithNext {
 			[weak self] games in
 			self?.collectionView.reloadData()
