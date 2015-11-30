@@ -69,6 +69,10 @@
 		FCCC308E1BE97D02009DEEC7 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */; };
 		FCCC308F1BE97D02009DEEC7 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */; };
 		FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCCC30901BE984E3009DEEC7 /* AVKit.framework */; };
+		FCE077B81C0CF79F005A7889 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B61C0CF79F005A7889 /* Alamofire.framework */; };
+		FCE077B91C0CF79F005A7889 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B71C0CF79F005A7889 /* WebImage.framework */; };
+		FCE077BA1C0CF7AE005A7889 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A051BF127A800119B19 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE077BB1C0CF7B8005A7889 /* WebImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE077AE1C0CF2B2005A7889 /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
 		FCE769D41BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
 		FCE769DF1BECFEB500119B19 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769DD1BECFEAE00119B19 /* GameCell.swift */; };
@@ -85,13 +89,9 @@
 		FCE769FB1BED275100119B19 /* UIView+MotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */; };
 		FCE76A031BEE26A900119B19 /* UIKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */; };
 		FCE76A041BEE26A900119B19 /* UIKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */; };
-		FCE76A0A1BF127A800119B19 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A051BF127A800119B19 /* Alamofire.framework */; };
-		FCE76A0B1BF127A800119B19 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A061BF127A800119B19 /* AlamofireImage.framework */; };
 		FCE76A0C1BF127A800119B19 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A071BF127A800119B19 /* ObjectMapper.framework */; };
 		FCE76A0D1BF127A800119B19 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A081BF127A800119B19 /* ReactiveCocoa.framework */; };
 		FCE76A0E1BF127A800119B19 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A091BF127A800119B19 /* Result.framework */; };
-		FCE76A0F1BF127B900119B19 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A051BF127A800119B19 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCE76A101BF127B900119B19 /* AlamofireImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A061BF127A800119B19 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCE76A111BF127B900119B19 /* ObjectMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A071BF127A800119B19 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCE76A121BF127B900119B19 /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A081BF127A800119B19 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCE76A131BF127B900119B19 /* Result.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A091BF127A800119B19 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -134,8 +134,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FCE76A0F1BF127B900119B19 /* Alamofire.framework in CopyFiles */,
-				FCE76A101BF127B900119B19 /* AlamofireImage.framework in CopyFiles */,
+				FCE077BB1C0CF7B8005A7889 /* WebImage.framework in CopyFiles */,
+				FCE077BA1C0CF7AE005A7889 /* Alamofire.framework in CopyFiles */,
 				FCE76A111BF127B900119B19 /* ObjectMapper.framework in CopyFiles */,
 				FCE76A121BF127B900119B19 /* ReactiveCocoa.framework in CopyFiles */,
 				FCE76A131BF127B900119B19 /* Result.framework in CopyFiles */,
@@ -209,6 +209,11 @@
 		FCCC308A1BE974C0009DEEC7 /* StreamsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamsDataSource.swift; sourceTree = "<group>"; };
 		FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		FCCC30901BE984E3009DEEC7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
+		FCE077AE1C0CF2B2005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCE077B11C0CF5E3005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCE077B41C0CF658005A7889 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
+		FCE077B61C0CF79F005A7889 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Carthage/Checkouts/Alamofire/build/Debug-appletvos/Alamofire.framework"; sourceTree = "<group>"; };
+		FCE077B71C0CF79F005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = "Carthage/Checkouts/SDWebImage/build/Debug-iphoneos/WebImage.framework"; sourceTree = "<group>"; };
 		FCE769D21BEC09D800119B19 /* TopGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopGame.swift; sourceTree = "<group>"; };
 		FCE769DD1BECFEAE00119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		FCE769E51BECFF6500119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
@@ -251,8 +256,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCE76A0A1BF127A800119B19 /* Alamofire.framework in Frameworks */,
-				FCE76A0B1BF127A800119B19 /* AlamofireImage.framework in Frameworks */,
+				FCE077B81C0CF79F005A7889 /* Alamofire.framework in Frameworks */,
+				FCE077B91C0CF79F005A7889 /* WebImage.framework in Frameworks */,
 				FCE76A0C1BF127A800119B19 /* ObjectMapper.framework in Frameworks */,
 				FCE76A0D1BF127A800119B19 /* ReactiveCocoa.framework in Frameworks */,
 				FCE76A0E1BF127A800119B19 /* Result.framework in Frameworks */,
@@ -386,6 +391,11 @@
 		FCBAD4411B7E48DB00B8A7BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FCE077B61C0CF79F005A7889 /* Alamofire.framework */,
+				FCE077B71C0CF79F005A7889 /* WebImage.framework */,
+				FCE077B41C0CF658005A7889 /* ImageIO.framework */,
+				FCE077B11C0CF5E3005A7889 /* WebImage.framework */,
+				FCE077AE1C0CF2B2005A7889 /* WebImage.framework */,
 				FC09EA1E1BF40490009E7DB6 /* Alamofire.framework */,
 				FC09EA1F1BF40490009E7DB6 /* ObjectMapper.framework */,
 				FC09EA201BF40490009E7DB6 /* ReactiveCocoa.framework */,
@@ -942,6 +952,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -981,6 +992,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";

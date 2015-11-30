@@ -20,7 +20,7 @@
 
 import UIKit
 import ReactiveCocoa
-import AlamofireImage
+import WebImage
 
 class StreamCell: UICollectionViewCell {
 	static let identifier: String = "cellIdentifierStream"
@@ -61,7 +61,7 @@ class StreamCell: UICollectionViewCell {
 	internal func bindViewModel(streamViewModel: StreamViewModel) {
 		self.viewModel.value = streamViewModel
 		if let url = NSURL(string: streamViewModel.streamImageURL.value) {
-			imageView.af_setImageWithURL(url)
+			imageView.sd_setImageWithURL(url)
 		}
 	}
 	

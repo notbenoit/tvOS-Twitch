@@ -20,7 +20,7 @@
 
 import UIKit
 import ReactiveCocoa
-import AlamofireImage
+import WebImage
 
 class GameCell: UICollectionViewCell {
 	static let identifier: String = "cellIdentifierGame"
@@ -51,7 +51,7 @@ class GameCell: UICollectionViewCell {
 	internal func bindViewModel(gameViewModel: GameViewModel) {
 		self.viewModel.value = gameViewModel
 		if let url = NSURL(string: gameViewModel.gameImageURL.value) {
-			imageView.af_setImageWithURL(url)
+			imageView.sd_setImageWithURL(url)
 		}
 	}
 	

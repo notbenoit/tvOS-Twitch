@@ -14,7 +14,7 @@
       location = "group:Carthage/Checkouts/ObjectMapper/ObjectMapper.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/AlamofireImage/AlamofireImage.xcodeproj">
+      location = "group:Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:TwitchTV.xcodeproj">
