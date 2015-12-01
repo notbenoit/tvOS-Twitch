@@ -29,7 +29,7 @@ script:
 after_script:
 - "./meta/scripts/remove-key.sh"
 after_success:
-- "./meta/scripts/testflight.sh"
+- "./meta/scripts/upload.sh"
 env:
   global:
   - IPA_NAME="TwitchTV"
