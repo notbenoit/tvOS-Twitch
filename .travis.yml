@@ -13,8 +13,7 @@ before_install:
   -d
 - openssl aes-256-cbc -k $SECRET -in ./meta/scripts/certs/dev.cer.enc -out ./meta/scripts/certs/dev.cer
   -d
-- gem install gym
-- gem install pilot
+- bundle install
 - chmod +x ./meta/scripts/add-key.sh
 - chmod +x ./meta/scripts/build-number.sh
 - chmod +x ./meta/scripts/build.sh
@@ -29,7 +28,7 @@ script:
 after_script:
 - "./meta/scripts/remove-key.sh"
 after_success:
-- "./meta/scripts/upload.sh"
+- "./meta/scripts/testflight.sh"
 env:
   global:
   - IPA_NAME="TwitchTV"
