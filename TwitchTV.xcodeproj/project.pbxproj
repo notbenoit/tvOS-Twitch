@@ -884,6 +884,7 @@
 /* Begin XCBuildConfiguration section */
 		FC09EA0D1BF40322009E7DB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC1D630F1BEA06A400403CC4 /* tvOS-Application.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -899,6 +900,7 @@
 		};
 		FC09EA0E1BF40322009E7DB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC1D630F1BEA06A400403CC4 /* tvOS-Application.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
