@@ -18,26 +18,64 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 import ReactiveCocoa
-import AlamofireImage
+import ObjectMapper
 
-class StreamCell: UICollectionViewCell {
-	static let identifier: String = "cellIdentifierStream"
+struct TopGame {
+	var game: Game!
+	var viewers: Int!
+	var channels: Int!
+}
+
+extension TopGame: CustomStringConvertible {
+	internal var description: String {
+		return game.gameNameString + "\nViewers =>" + String(viewers)
+	}
+}
+
+// MARK: Mappable
+
+extension TopGame: Mappable {
 	
-	@IBOutlet weak var imageView: UIImageView!
-	
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		#if os(tvOS)
-			imageView.adjustsImageWhenAncestorFocused = true
-		#endif
+	init?(_ map: Map) {
 	}
 	
-	internal func bindViewModel(streamViewModel: StreamViewModel) {
-		imageView.image = nil
-		if let url = NSURL(string: streamViewModel.streamImageURL.value) {
-			imageView.af_setImageWithURL(url)
-		}
+	mutating func mapping(map: Map) {
+		game			<- map["game"]
+		viewers		<- map["viewers"]
+		channels	<- map["channels"]
 	}
+}
+
+// MARK: Hashable
+
+extension TopGame: Hashable {
+	var hashValue: Int {
+		return game.hashValue
+	}
+}
+
+// MARK: Equatable
+
+func ==(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.hashValue == rhs.hashValue
+}
+
+// MARK: Comparable
+
+func <(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers < rhs.viewers
+}
+
+func <=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers <= rhs.viewers
+}
+
+func >=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers >= rhs.viewers
+}
+
+func >(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers > rhs.viewers
 }

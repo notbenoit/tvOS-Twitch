@@ -31,8 +31,15 @@ struct GameListViewModel {
 	let loadingState = MutableProperty<LoadingState>(.Available)
 	let twitchClient = TwitchAPIClient.sharedInstance
 	
-	let data = MutableProperty<[Game]>([Game]())
+	let refreshAction: Action<Int, ListResponse<TopGame>, NSError> = Action { page in
+		TwitchAPIClient.sharedInstance.getTopGames(page)
+	}
+	
+	let data = MutableProperty<Set<TopGame>>(Set<TopGame>())
 	let totalCount = MutableProperty<Int>(0)
+	
+	let orderedGames = MutableProperty<[TopGame]>([])
+	let showLoader = MutableProperty<Bool>(false)
 	
 	private let page = MutableProperty<Int>(0)
 	
@@ -42,20 +49,17 @@ struct GameListViewModel {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = state == .Loading
 		}
 		#endif
+		loadingState <~ refreshAction.executing.producer.map { $0 ? .Loading : .Available }
+		orderedGames <~ data.producer.map { $0.sort(>) }
+		showLoader <~ refreshAction.executing.producer
+			.combineLatestWith(data.producer)
+			.map { $0.0 && $0.1.count == 0 }
+		data <~ refreshAction.values.scan(Set<TopGame>()) { $0.0.union($0.1.objects) }
+		totalCount <~ refreshAction.values.map { $0.count }
+		page <~ refreshAction.values.scan(0) { $0.0 + 1 }
 	}
 	
 	func loadMore() {
-		twitchClient.getTopGames(page.value)
-			.on(started: {
-				self.loadingState.value = .Loading
-			})
-			.on(completed: {
-				self.loadingState.value = .Available
-				self.page.value = self.page.value + 1
-			})
-			.startWithNext { response in
-				self.data.value = self.data.value + response.objects
-				self.totalCount.value = response.count
-			}
+		refreshAction.apply(page.value).start()
 	}
 }

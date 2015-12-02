@@ -28,7 +28,7 @@ class GameViewModel {
     
     init(game: Game) {
         self.game = game
-        self.gameImageURL = ConstantProperty<String>(game.imageURLString)
+        self.gameImageURL = ConstantProperty<String>(game.box.medium)
         self.gameName = ConstantProperty<String>(game.gameNameString)
     }
 }

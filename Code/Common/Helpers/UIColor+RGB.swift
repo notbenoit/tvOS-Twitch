@@ -46,4 +46,12 @@ extension UIColor {
 	static func twitchColor() -> UIColor {
 		return UIColor(rgbValue: 0x512B94)
 	}
+	
+	static func twitchDarkColor() -> UIColor {
+		return UIColor(rgbValue: 0x19191F)
+	}
+	
+	static func twitchLightColor() -> UIColor {
+		return UIColor(rgbValue: 0x888898)
+	}
 }

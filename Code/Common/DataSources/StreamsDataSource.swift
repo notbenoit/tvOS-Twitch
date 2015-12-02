@@ -19,28 +19,29 @@
 // THE SOFTWARE.
 
 import UIKit
+import ReactiveCocoa
 
-class StreamsDataSource: NSObject {
+final class StreamsDataSource: NSObject {
 	
-	let streamListViewModel: StreamListViewModel
+	let streamListViewModel: MutableProperty<StreamListViewModel>
 	
 	init(streamListVM: StreamListViewModel) {
-		streamListViewModel = streamListVM
+		streamListViewModel = MutableProperty<StreamListViewModel>(streamListVM)
 	}
 	
 	func loadMore() {
-		streamListViewModel.loadMore()
+		streamListViewModel.value.loadMore()
 	}
 }
 
 extension StreamsDataSource: UICollectionViewDataSource {
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(StreamCell.identifier, forIndexPath: indexPath) as! StreamCell
-		cell.bindViewModel(StreamViewModel(stream: streamListViewModel.data.value[indexPath.row]))
+		cell.bindViewModel(StreamViewModel(stream: streamListViewModel.value.data.value[indexPath.row]))
 		return cell
 	}
 	
 	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return streamListViewModel.data.value.count
+		return streamListViewModel.value.data.value.count
 	}
 }

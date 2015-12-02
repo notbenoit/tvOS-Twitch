@@ -19,48 +19,61 @@
 // THE SOFTWARE.
 
 import UIKit
+import ReactiveCocoa
 
-class StreamsViewController: UIViewController {
+class GamesViewController: UIViewController {
 
-	let streamCellWidth: CGFloat = 308.0
-	let horizontalSpacing: CGFloat = 50.0
+	let gameCellWidth: CGFloat = 148.0
+	let horizontalSpacing: CGFloat = 51.0
 	let verticalSpacing: CGFloat = 100.0
 	
-	var onStreamSelected: (Stream -> ())?
+	var onGameSelected: (Game -> ())?
 	
 	@IBOutlet weak var collectionView: UICollectionView!
-	var streamListDataSource: StreamsDataSource? {
-		didSet {
-			collectionView.dataSource = streamListDataSource
-			streamListDataSource?.streamListViewModel.data.producer.startWithNext {
-				[weak self] data in
-				self?.collectionView.reloadData()
-			}
-			streamListDataSource?.loadMore()
-		}
-	}
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	
+	let gameListDataSource = GamesDataSource()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.twitchColor()
-		
+		self.view.backgroundColor = UIColor.whiteColor()
 		let layout = UICollectionViewFlowLayout()
-		layout.scrollDirection = .Vertical
-		layout.itemSize = CGSize(width: streamCellWidth, height: streamCellWidth/Constants.streamImageRatio)
+		layout.scrollDirection = .Horizontal
+		layout.itemSize = CGSize(width: gameCellWidth, height: gameCellWidth/Constants.gameImageRatio)
 		layout.sectionInset = UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90)
 		layout.minimumInteritemSpacing = horizontalSpacing
 		layout.minimumLineSpacing = verticalSpacing
 		
-		collectionView.registerNib(UINib(nibName: "StreamCell", bundle: nil), forCellWithReuseIdentifier: StreamCell.identifier)
+		collectionView.registerNib(UINib(nibName: "GameCell", bundle: nil), forCellWithReuseIdentifier: GameCell.identifier)
 		collectionView.collectionViewLayout = layout
+		collectionView.dataSource = gameListDataSource
 		collectionView.delegate = self
+		
+		activityIndicator.rac_hidden <~ gameListDataSource.gameListViewModel.showLoader.producer.map { !$0 }
+		gameListDataSource.gameListViewModel.data.producer.startWithNext {
+			[weak self] games in
+			self?.collectionView.reloadData()
+		}
+		
+		gameListDataSource.loadMore()
 	}
 }
 
-extension StreamsViewController: UICollectionViewDelegate {
+extension GamesViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		guard let streamListDataSource = streamListDataSource else { return }
-		onStreamSelected?(streamListDataSource.streamListViewModel.data.value[indexPath.row])
+		let game = gameListDataSource.gameListViewModel.orderedGames.value[indexPath.row].game
+		onGameSelected?(game)
+	}
+	
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		let contentOffsetX = scrollView.contentOffset.x + scrollView.bounds.size.width
+		let wholeWidth = scrollView.contentSize.width
+		
+		let remainingDistanceToRight = wholeWidth - contentOffsetX
+		
+		if remainingDistanceToRight <= 1920 && gameListDataSource.gameListViewModel.loadingState.value == .Available {
+			gameListDataSource.gameListViewModel.loadMore()
+		}
 	}
 }
 

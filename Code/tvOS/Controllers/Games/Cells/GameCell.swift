@@ -20,7 +20,7 @@
 
 import UIKit
 import ReactiveCocoa
-import AlamofireImage
+import WebImage
 
 class GameCell: UICollectionViewCell {
 	static let identifier: String = "cellIdentifierGame"
@@ -28,38 +28,41 @@ class GameCell: UICollectionViewCell {
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var labelName: UILabel!
 	
-	private let scheduler = QueueScheduler()
+	private let textDefaultFont = UIFont.boldSystemFontOfSize(22)
+	private let textDefaultColor = UIColor.lightGrayColor()
+	private let viewModel = MutableProperty<GameViewModel?>(nil)
+	
+	override func prepareForReuse() {
+		imageView.image = nil
+		labelName.text = nil
+	}
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		#if os(tvOS)
 		imageView.adjustsImageWhenAncestorFocused = true
-		#endif
+		self.labelName.font = textDefaultFont
+		self.labelName.textColor = textDefaultColor
+		self.labelName.shadowOffset = CGSize(width: 0, height: 1)
+		self.backgroundColor = UIColor.twitchLightColor()
+		let vm = viewModel.producer.ignoreNil()
+		labelName.rac_text <~ vm.flatMap(.Latest) { $0.gameName.producer }
 	}
 	
 	internal func bindViewModel(gameViewModel: GameViewModel) {
-		imageView.image = nil
-		labelName.text = gameViewModel.gameName.value
+		self.viewModel.value = gameViewModel
 		if let url = NSURL(string: gameViewModel.gameImageURL.value) {
-			imageView.af_setImageWithURL(url)
+			imageView.sd_setImageWithURL(url)
 		}
 	}
 	
-	private func gameImageSignalProducer(imageURL: String) -> SignalProducer<UIImage, NSError> {
-		return SignalProducer {
-			observer, dispoable in
-			let data = NSData(contentsOfURL: NSURL(string: imageURL)!)
-			guard let unwrappedData = data else {
-				observer.sendFailed(NSError(domain: "0", code: 1, userInfo: nil))
-				return
-			}
-			let image = UIImage(data: unwrappedData)
-			guard let unwrappedImage = image else {
-				observer.sendFailed(NSError(domain: "0", code: 1, userInfo: nil))
-				return
-			}
-			observer.sendNext(unwrappedImage)
-			observer.sendCompleted()
-		}
+	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+		let transform = self.focused ? CGAffineTransformMakeTranslation(0, 35) : CGAffineTransformIdentity
+		let labelShadowColor = self.focused ? UIColor.darkGrayColor() : UIColor.clearColor()
+		let labelTextColor = self.focused ? UIColor.whiteColor() : textDefaultColor
+		coordinator.addCoordinatedAnimations({
+			self.labelName.transform = transform
+			self.labelName.shadowColor = labelShadowColor
+			self.labelName.textColor = labelTextColor
+		}, completion: nil)
 	}
 }

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Carthage/Checkouts/Result/Result.xcodeproj">
    </FileRef>
    <FileRef
@@ -11,10 +14,7 @@
       location = "group:Carthage/Checkouts/ObjectMapper/ObjectMapper.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/AlamofireImage/AlamofireImage.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
+      location = "group:Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:TwitchTV.xcodeproj">

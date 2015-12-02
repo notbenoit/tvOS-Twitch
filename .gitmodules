@@ -1,8 +1,6 @@
 [submodule "Carthage/Checkouts/Alamofire"]
 	url = https://github.com/Alamofire/Alamofire.git
-[submodule "Carthage/Checkouts/AlamofireImage"]
-	path = Carthage/Checkouts/AlamofireImage
-	url = https://github.com/Alamofire/AlamofireImage.git
+	path = Carthage/Checkouts/Alamofire
 [submodule "Carthage/Checkouts/Result"]
 	path = Carthage/Checkouts/Result
 	url = https://github.com/antitypical/Result.git
@@ -15,3 +13,6 @@
 [submodule "Carthage/Checkouts/xcconfigs"]
 	path = Carthage/Checkouts/xcconfigs
 	url = https://github.com/jspahrsummers/xcconfigs.git
+[submodule "Carthage/Checkouts/SDWebImage"]
+	path = Carthage/Checkouts/SDWebImage
+	url = https://github.com/rs/SDWebImage.git
