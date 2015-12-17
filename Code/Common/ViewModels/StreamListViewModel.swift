@@ -32,14 +32,14 @@ final class StreamListViewModel {
 	let data = MutableProperty<[Stream]>([Stream]())
 	let totalCount = MutableProperty<Int>(0)
 	
-	let gameName: String
-	let refreshAction: Action<(gameName: String, page: Int), ListResponse<Stream>, NSError> = Action { pair in
+	let gameName: String?
+	let refreshAction: Action<(gameName: String?, page: Int), ListResponse<Stream>, NSError> = Action { pair in
 		TwitchAPIClient.sharedInstance.streamForGame(pair.0, page: pair.1)
 	}
 	
 	private let page = MutableProperty<Int>(0)
 	
-	init(game: String) {
+	init(game: String?) {
 		gameName = game
 		#if os(iOS)
 			self.loadingState.producer.startWithNext { state in

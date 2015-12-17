@@ -106,22 +106,15 @@ final class TwitchAPIClient {
 	
 	func searchGames(query: String) -> SignalProducer<ListResponse<Game>, NSError> {
 		return request(TwitchRouter.SearchGames(query: query), resultPath: "games")
-			.flatMap(.Latest) { (result: (items: [Game], count: Int)) in
-			return SignalProducer {
-				observer, disposable in
-				observer.sendNext(ListResponse(objects: result.items, count: result.count))
-				observer.sendCompleted()
-			}
+			.map { (result: (items: [Game], count: Int)) in
+				ListResponse(objects: result.items, count: result.count)
 		}
 	}
 	
-	func streamForGame(gameName: String, page: Int) -> SignalProducer<ListResponse<Stream>, NSError> {
-		return request(TwitchRouter.Streams(gameName: gameName, page: page), resultPath: "streams").flatMap(.Latest) { (result: (items: [Stream], count: Int)) in
-			return SignalProducer {
-				observer, disposable in
-				observer.sendNext(ListResponse(objects: result.items, count: result.count))
-				observer.sendCompleted()
-			}
+	func streamForGame(gameName: String?, page: Int) -> SignalProducer<ListResponse<Stream>, NSError> {
+		return request(TwitchRouter.Streams(gameName: gameName, page: page), resultPath: "streams")
+			.map { (result: (items: [Stream], count: Int)) in
+			ListResponse(objects: result.items, count: result.count)
 		}
 	}
 }

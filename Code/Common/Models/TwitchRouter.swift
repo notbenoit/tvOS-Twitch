@@ -28,7 +28,7 @@ enum TwitchRouter: URLRequestConvertible {
 	
 	case GamesTop(page: Int)
 	case SearchGames(query: String)
-	case Streams(gameName: String, page: Int)
+	case Streams(gameName: String?, page: Int)
 	case AccessToken(channelName: String)
 	
 	var URLRequest: NSMutableURLRequest {
@@ -39,7 +39,13 @@ enum TwitchRouter: URLRequestConvertible {
 			case .SearchGames(let query):
 				return ("/search/games", ["live":true, "type":"suggest", "query":query])
 			case .Streams(let gameName, let page):
-				return ("/streams", ["game":gameName, "limit":TwitchRouter.perPage, "offset":page*TwitchRouter.perPage])
+				var params: [String:AnyObject] = [:]
+				if let gameName = gameName {
+					params["game"] = gameName
+				}
+				params["limit"] = TwitchRouter.perPage
+				params["offset"] = page*TwitchRouter.perPage
+				return ("/streams", params)
 			case .AccessToken(let channelName):
 				return ("/channels/\(channelName)/access_token", [:])
 			}

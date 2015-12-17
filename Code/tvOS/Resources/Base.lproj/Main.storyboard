@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9060" systemVersion="15C47a" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Xr8-Ku-ug7">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N2j-HQ-ubJ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Twitch Home View Controller-->
+        <!--Games-->
         <scene sceneID="b3A-jX-sLw">
             <objects>
-                <viewController id="Xr8-Ku-ug7" customClass="TwitchHomeViewController" customModule="TwitchTV_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Xr8-Ku-ug7" customClass="TwitchHomeViewController" customModule="Game_Theater" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CIo-Km-57E"/>
                         <viewControllerLayoutGuide type="bottom" id="5lR-ij-r7R"/>
@@ -19,7 +19,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xb8-PN-Y42" userLabel="Games container">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="360"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="360" id="aR8-nG-gQS"/>
                                 </constraints>
@@ -29,13 +28,11 @@
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2r-Lb-8Dq" userLabel="Channels container">
                                 <rect key="frame" x="0.0" y="360" width="1920" height="720"/>
-                                <animations/>
                                 <connections>
                                     <segue destination="aQZ-pu-Z1x" kind="embed" id="Lfp-b9-h1p"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <animations/>
                         <constraints>
                             <constraint firstItem="Xb8-PN-Y42" firstAttribute="top" secondItem="CIo-Km-57E" secondAttribute="bottom" id="Nkt-5G-q3N"/>
                             <constraint firstItem="Xb8-PN-Y42" firstAttribute="centerX" secondItem="2Ov-a6-N8h" secondAttribute="centerX" id="QyZ-kJ-HDT"/>
@@ -46,15 +43,26 @@
                             <constraint firstItem="g2r-Lb-8Dq" firstAttribute="centerX" secondItem="Xb8-PN-Y42" secondAttribute="centerX" id="sVJ-vb-iDx"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Games" id="HaU-mT-n57"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jfw-4f-Uqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="474" y="104"/>
+            <point key="canvasLocation" x="2606" y="104"/>
+        </scene>
+        <!--Streams-->
+        <scene sceneID="7GV-i3-dUT">
+            <objects>
+                <viewController storyboardIdentifier="Streams" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nq4-L6-dq0" customClass="StreamsViewController" customModule="Game_Theater" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Streams" id="d6o-PY-Skq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UqX-IX-ENs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2578" y="1465"/>
         </scene>
         <!--Games View Controller-->
         <scene sceneID="Ivo-rh-IED">
             <objects>
-                <viewController id="BOP-1J-k9R" customClass="GamesViewController" customModule="TwitchTV_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BOP-1J-k9R" customClass="GamesViewController" customModule="Game_Theater" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YUq-pF-YKh"/>
                         <viewControllerLayoutGuide type="bottom" id="FOK-sO-Mwx"/>
@@ -65,7 +73,6 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NSH-RD-wL1">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="360"/>
-                                <animations/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cPB-Yv-xdW">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -76,7 +83,6 @@
                             </collectionView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-4b-Dgn">
                                 <rect key="frame" x="810" y="30" width="300" height="300"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gDd-4b-Dgn" secondAttribute="height" multiplier="1:1" id="cdD-XC-kbu"/>
                                     <constraint firstAttribute="width" constant="300" id="eAv-C5-BsB"/>
@@ -84,7 +90,6 @@
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="width" secondItem="xbz-mc-KkD" secondAttribute="width" id="12D-qj-0xj"/>
@@ -103,72 +108,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Evh-dn-4q4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2492" y="-316"/>
+            <point key="canvasLocation" x="4624" y="-316"/>
         </scene>
         <!--Streams View Controller-->
         <scene sceneID="jKL-3S-g99">
             <objects>
-                <viewController id="aQZ-pu-Z1x" customClass="StreamsViewController" customModule="TwitchTV_tvOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="DkN-dK-wja"/>
-                        <viewControllerLayoutGuide type="bottom" id="C6C-FJ-Sde"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Oyh-UX-ED0">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="720"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IL6-Dk-QJ4">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="720"/>
-                                <animations/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NhO-oj-i9r">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDk-oS-v4a" userLabel="No items">
-                                <rect key="frame" x="460" y="349" width="1000" height="21"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="1000" id="XqH-Wn-QqQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6cX-CS-Crl">
-                                <rect key="frame" x="810" y="210" width="300" height="300"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="0Ec-sH-UCz"/>
-                                    <constraint firstAttribute="width" secondItem="6cX-CS-Crl" secondAttribute="height" multiplier="1:1" id="Ghu-TL-sTm"/>
-                                </constraints>
-                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <animations/>
-                        <constraints>
-                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="centerX" secondItem="Oyh-UX-ED0" secondAttribute="centerX" id="4jG-nM-V4X"/>
-                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="width" secondItem="Oyh-UX-ED0" secondAttribute="width" id="CNB-TJ-2j4"/>
-                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="height" secondItem="Oyh-UX-ED0" secondAttribute="height" id="F4i-bD-X0N"/>
-                            <constraint firstItem="6cX-CS-Crl" firstAttribute="centerX" secondItem="Oyh-UX-ED0" secondAttribute="centerX" id="Owa-jA-OXc"/>
-                            <constraint firstItem="JDk-oS-v4a" firstAttribute="centerX" secondItem="Oyh-UX-ED0" secondAttribute="centerX" id="aZD-Ml-iSJ"/>
-                            <constraint firstItem="6cX-CS-Crl" firstAttribute="centerY" secondItem="Oyh-UX-ED0" secondAttribute="centerY" id="ald-GP-yke"/>
-                            <constraint firstItem="IL6-Dk-QJ4" firstAttribute="centerY" secondItem="Oyh-UX-ED0" secondAttribute="centerY" id="dZB-Ec-r2b"/>
-                            <constraint firstItem="JDk-oS-v4a" firstAttribute="centerY" secondItem="Oyh-UX-ED0" secondAttribute="centerY" id="pDn-uf-Kz4"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="activityIndicator" destination="6cX-CS-Crl" id="WBq-ec-j1x"/>
-                        <outlet property="collectionView" destination="IL6-Dk-QJ4" id="fek-UU-Wzw"/>
-                        <outlet property="noItemsLabel" destination="JDk-oS-v4a" id="aDw-Uc-bhV"/>
-                    </connections>
-                </viewController>
+                <viewController id="aQZ-pu-Z1x" customClass="StreamsViewController" customModule="Game_Theater" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XTz-jX-BY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2477" y="329"/>
+            <point key="canvasLocation" x="4609" y="329"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="lIP-om-6FT">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="N2j-HQ-ubJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="X5o-Km-38t">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <outlet property="delegate" destination="kSF-hr-xhQ" id="ED2-nX-Y7y"/>
+                        <segue destination="Xr8-Ku-ug7" kind="relationship" relationship="viewControllers" id="zgR-Og-4We"/>
+                        <segue destination="nq4-L6-dq0" kind="relationship" relationship="viewControllers" id="3jX-i8-n0a"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eJ0-Gy-sqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="kSF-hr-xhQ" customClass="HomeTabBarDelegate" customModule="Game_Theater" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="290" y="692"/>
         </scene>
     </scenes>
 </document>
