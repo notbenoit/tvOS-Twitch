@@ -12,12 +12,9 @@ class HomeTabBarDelegate: NSObject, UITabBarControllerDelegate {
 	func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
 		if let
 			controller = viewController as? StreamsViewController,
-			identifier = controller.restorationIdentifier where identifier == "Streams" {
+			identifier = controller.restorationIdentifier where identifier == "Streams" && controller.streamListDataSource.value == nil {
 				let dataSource = StreamsDataSource(streamListVM: StreamListViewModel(game: nil))
 				controller.streamListDataSource.value = dataSource
-				controller.onStreamSelectedAction.values.observeNext {
-					presentStream.apply(($0, controller)).start()
-				}
 		}
 	}
 }
