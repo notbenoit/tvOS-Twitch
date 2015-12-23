@@ -15,6 +15,9 @@ class HomeTabBarDelegate: NSObject, UITabBarControllerDelegate {
 			identifier = controller.restorationIdentifier where identifier == "Streams" {
 				let dataSource = StreamsDataSource(streamListVM: StreamListViewModel(game: nil))
 				controller.streamListDataSource.value = dataSource
+				controller.onStreamSelectedAction.values.observeNext {
+					presentStream.apply(($0, controller)).start()
+				}
 		}
 	}
 }

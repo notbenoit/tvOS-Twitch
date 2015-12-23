@@ -22,28 +22,28 @@ import UIKit
 import AVKit
 import ReactiveCocoa
 
-class TwitchHomeViewController: UIViewController {
-	var gameController: GamesViewController?
-	var streamsController: StreamsViewController?
-	
-	let presentStream: Action<(stream: Stream, controller: UIViewController), Void, NSError> = Action {
-		pair in
-		TwitchAPIClient.sharedInstance.m3u8URLForChannel(pair.stream.channel.channelName).flatMap(.Latest) {
-			urlString in
-			return SignalProducer {
-				observer, disposable in
-				let playerController = AVPlayerViewController()
-				let escapedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-				guard let escapedString = escapedURLString, url = NSURL(string: escapedString) else { observer.sendFailed(Constants.genericError); return }
-				let avPlayer = AVPlayer(URL: url)
-				avPlayer.play()
-				playerController.player = avPlayer
-				pair.controller.presentViewController(playerController, animated: true) {
-					observer.sendCompleted()
-				}
+let presentStream: Action<(stream: Stream, controller: UIViewController), Void, NSError> = Action {
+	pair in
+	TwitchAPIClient.sharedInstance.m3u8URLForChannel(pair.stream.channel.channelName).flatMap(.Latest) {
+		urlString in
+		return SignalProducer {
+			observer, disposable in
+			let playerController = AVPlayerViewController()
+			let escapedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+			guard let escapedString = escapedURLString, url = NSURL(string: escapedString) else { observer.sendFailed(Constants.genericError); return }
+			let avPlayer = AVPlayer(URL: url)
+			avPlayer.play()
+			playerController.player = avPlayer
+			pair.controller.presentViewController(playerController, animated: true) {
+				observer.sendCompleted()
 			}
 		}
 	}
+}
+
+class TwitchHomeViewController: UIViewController {
+	var gameController: GamesViewController?
+	var streamsController: StreamsViewController?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -59,7 +59,7 @@ class TwitchHomeViewController: UIViewController {
 		} else if let controller = segue.destinationViewController as? StreamsViewController {
 			streamsController = controller
 			streamsController?.onStreamSelectedAction.values.observeNext {
-				self.presentStream.apply(($0, self)).start()
+				presentStream.apply(($0, self)).start()
 			}
 		}
 	}
