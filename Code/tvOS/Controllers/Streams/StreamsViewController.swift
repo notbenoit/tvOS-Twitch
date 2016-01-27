@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import AVKit
 import ReactiveCocoa
 
 class StreamsViewController: UIViewController {
@@ -27,12 +28,22 @@ class StreamsViewController: UIViewController {
 	let horizontalSpacing: CGFloat = 50.0
 	let verticalSpacing: CGFloat = 100.0
 	
-	let onStreamSelectedAction = Action<Stream, Stream, NoError> {
-		stream in
-		return SignalProducer {
-			observer, disposable in
-			observer.sendNext(stream)
-			observer.sendCompleted()
+	let presentStream: Action<(stream: Stream, controller: UIViewController), Void, NSError> = Action {
+		pair in
+		TwitchAPIClient.sharedInstance.m3u8URLForChannel(pair.stream.channel.channelName).flatMap(.Latest) {
+			urlString in
+			return SignalProducer {
+				observer, disposable in
+				let playerController = AVPlayerViewController()
+				let escapedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+				guard let escapedString = escapedURLString, url = NSURL(string: escapedString) else { observer.sendFailed(Constants.genericError); return }
+				let avPlayer = AVPlayer(URL: url)
+				avPlayer.play()
+				playerController.player = avPlayer
+				pair.controller.presentViewController(playerController, animated: true) {
+					observer.sendCompleted()
+				}
+			}
 		}
 	}
 	
@@ -45,6 +56,10 @@ class StreamsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.twitchDarkColor()
+		
+		presentStream.errors.observeNext {
+			self.presentDefaultError($0)
+		}
 		
 		let nonNilDataSource = streamListDataSource.producer.ignoreNil()
 		let streamListVm = nonNilDataSource.flatMap(.Latest) { $0.streamListViewModel.producer }
@@ -76,7 +91,7 @@ class StreamsViewController: UIViewController {
 extension StreamsViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 		guard let streamListDataSource = streamListDataSource.value else { return }
-		onStreamSelectedAction.apply(streamListDataSource.streamListViewModel.value.data.value[indexPath.row]).start()
+		presentStream.apply((streamListDataSource.streamListViewModel.value.data.value[indexPath.row], self)).start()
 	}
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
