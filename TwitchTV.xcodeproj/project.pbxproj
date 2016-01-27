@@ -29,6 +29,8 @@
 		FC3970241C0C42E400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
 		FC3970251C0C42E400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
 		FC3970261C0C437400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
+		FCC826AF1C2237140005BF14 /* StreamsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCC826AE1C2237140005BF14 /* StreamsViewController.xib */; };
+		FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */; };
 		FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
 		FCCC30271BE7E039009DEEC7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30061BE7E039009DEEC7 /* Game.swift */; };
 		FCCC30281BE7E039009DEEC7 /* TwitchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30071BE7E039009DEEC7 /* TwitchAPIClient.swift */; };
@@ -181,6 +183,8 @@
 		FC1D63171BEA06A400403CC4 /* watchOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		FC3970231C0C42E400C380A4 /* ListResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListResponse.swift; sourceTree = "<group>"; };
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCC826AE1C2237140005BF14 /* StreamsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamsViewController.xib; sourceTree = "<group>"; };
+		FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarDelegate.swift; sourceTree = "<group>"; };
 		FCCC2FE61BE7DC80009DEEC7 /* Game Theater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Theater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCCC30011BE7E039009DEEC7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FCCC30061BE7E039009DEEC7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -603,6 +607,7 @@
 			isa = PBXGroup;
 			children = (
 				FCE769E91BECFF6500119B19 /* TwitchHomeViewController.swift */,
+				FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -612,6 +617,7 @@
 			children = (
 				FCE769EB1BECFF6500119B19 /* Cells */,
 				FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */,
+				FCC826AE1C2237140005BF14 /* StreamsViewController.xib */,
 			);
 			path = Streams;
 			sourceTree = "<group>";
@@ -751,6 +757,7 @@
 			files = (
 				FCCC303D1BE7E04B009DEEC7 /* Assets.xcassets in Resources */,
 				FCCC303E1BE7E053009DEEC7 /* Main.storyboard in Resources */,
+				FCC826AF1C2237140005BF14 /* StreamsViewController.xib in Resources */,
 				FCE769F01BECFF6500119B19 /* GameCell.xib in Resources */,
 				FCE769F41BECFF6500119B19 /* StreamCell.xib in Resources */,
 			);
@@ -829,6 +836,7 @@
 				FCCC305C1BE945A7009DEEC7 /* GameViewModel.swift in Sources */,
 				FCCC30431BE94152009DEEC7 /* UIColor+RGB.swift in Sources */,
 				FCCC308C1BE974C0009DEEC7 /* StreamsDataSource.swift in Sources */,
+				FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */,
 				FCE769F11BECFF6500119B19 /* GamesViewController.swift in Sources */,
 				FCE769F81BED122100119B19 /* UIKitAdditions.swift in Sources */,
 				FCE769EF1BECFF6500119B19 /* GameCell.swift in Sources */,
@@ -894,7 +902,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
 		};
@@ -910,7 +918,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;
 		};
@@ -951,7 +959,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -993,7 +1001,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "";
@@ -1044,7 +1052,7 @@
 				PRODUCT_NAME = "Game Theater";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
 		};
@@ -1063,7 +1071,7 @@
 				PRODUCT_NAME = "Game Theater";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;
 		};

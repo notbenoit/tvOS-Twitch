@@ -54,7 +54,7 @@ struct GameListViewModel {
 		showLoader <~ refreshAction.executing.producer
 			.combineLatestWith(data.producer)
 			.map { $0.0 && $0.1.count == 0 }
-		data <~ refreshAction.values.scan(Set<TopGame>()) { $0.0.union($0.1.objects) }
+		data <~ refreshAction.values.scan(Set<TopGame>()) { $0.0.union($0.1.objects.filter(nintendoFilter)) }
 		totalCount <~ refreshAction.values.map { $0.count }
 		page <~ refreshAction.values.scan(0) { $0.0 + 1 }
 	}
@@ -62,4 +62,8 @@ struct GameListViewModel {
 	func loadMore() {
 		refreshAction.apply(page.value).start()
 	}
+}
+
+private func nintendoFilter(game: TopGame) -> Bool {
+	return !(game.game.gameNameString.containsString("Mario") || game.game.gameNameString.containsString("Bros"))
 }
