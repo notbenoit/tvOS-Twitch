@@ -58,7 +58,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 	
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifierGame, forIndexPath: indexPath) as! GameCell
-		cell.bindViewModel(GameViewModel(game: gameListViewModel.data.value[indexPath.row]))
+		cell.bindViewModel(GameViewModel(game: gameListViewModel.orderedGames.value[indexPath.row].game))
 		return cell
 	}
 	

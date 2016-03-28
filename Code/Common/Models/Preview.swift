@@ -19,24 +19,23 @@
 // THE SOFTWARE.
 
 import Foundation
-import ObjectMapper
+import JSONParsing
 
 struct Preview {
-	var small: String = ""
-	var medium: String = ""
-	var large: String = ""
-	var template: String = ""
+	let small: String
+	let medium: String
+	let large: String
+	let template: String
 }
 
-extension Preview: Mappable {
-	
-	init?(_ map: Map) {
-	}
-	
-	mutating func mapping(map: Map) {
-		small     <- map["small"]
-		medium  <- map["medium"]
-		large <- map["large"]
-		template <- map["template"]
+// MARK: JSONParsing
+
+extension Preview: JSONParsing {
+	static func parse(json: JSON) throws -> Preview {
+		return try Preview(
+			small: json["small"]^,
+			medium: json["medium"]^,
+			large: json["large"]^,
+			template: json["template"]^)
 	}
 }

@@ -19,8 +19,35 @@
 // THE SOFTWARE.
 
 import Foundation
+import JSONParsing
 
-struct ListResponse<T> {
-	let objects: [T]
+protocol ListResponseType: JSONParsing {
+	associatedtype T: JSONParsing
+	var objects: [T] { get }
+	var count: Int { get }
+	static var rootPath: String { get }
+	
+	init(objects: [T], count: Int)
+}
+
+extension ListResponseType {
+	static func parse(json: JSON) throws -> Self {
+		return try Self(
+			objects: json[self.rootPath].array.map(^),
+			count: json["_total"]^)
+	}
+}
+
+struct TopGamesResponse: ListResponseType {
+	let objects: [TopGame]
 	let count: Int
+	
+	static let rootPath: String = "top"
+}
+
+struct StreamsResponse: ListResponseType {
+	let objects: [Stream]
+	let count: Int
+	
+	static let rootPath: String = "streams"
 }

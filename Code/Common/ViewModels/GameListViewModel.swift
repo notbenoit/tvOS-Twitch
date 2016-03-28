@@ -31,7 +31,7 @@ struct GameListViewModel {
 	let loadingState = MutableProperty<LoadingState>(.Available)
 	let twitchClient = TwitchAPIClient.sharedInstance
 	
-	let refreshAction: Action<Int, ListResponse<TopGame>, NSError> = Action { page in
+	let refreshAction: Action<Int, TopGamesResponse, NSError> = Action { page in
 		TwitchAPIClient.sharedInstance.getTopGames(page)
 	}
 	

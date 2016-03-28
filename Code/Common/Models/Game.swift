@@ -19,16 +19,16 @@
 // THE SOFTWARE.
 
 import Foundation
+import JSONParsing
 import ReactiveCocoa
-import ObjectMapper
 
 struct Game {
-	var gameNameString: String!
-	var id: Int!
-	var giantBombId: Int!
-	var box: Preview!
-	var logo: Preview!
-	var popularity: Int?
+	let gameNameString: String
+	let id: Int
+	let giantBombId: Int
+	let box: Preview
+	let logo: Preview
+	let popularity: Int?
 }
 
 extension Game: CustomStringConvertible {
@@ -37,19 +37,21 @@ extension Game: CustomStringConvertible {
 	}
 }
 
-extension Game: Mappable {
-	
-	init?(_ map: Map) {
-	}
-	
-	mutating func mapping(map: Map) {
-		id								<- map["_id"]
-		giantBombId				<- map["giantbomb_id"]
-		gameNameString    <- map["name"]
-		box								<- map["box"]
-		logo							<- map["logo"]
+// MARK: JSONParsing
+
+extension Game: JSONParsing {
+	static func parse(json: JSON) throws -> Game {
+		return try Game(
+			gameNameString: json["name"]^,
+			id: json["_id"]^,
+			giantBombId: json["giantbomb_id"]^,
+			box: json["box"]^,
+			logo: json["logo"]^,
+			popularity: json["popularity"].optional.map(^))
 	}
 }
+
+// MARK: Hashable
 
 extension Game: Hashable {
 	var hashValue: Int {
@@ -57,6 +59,9 @@ extension Game: Hashable {
 	}
 }
 
+// MARK: Equatable
+
+extension Game: Equatable { }
 func ==(lhs: Game, rhs: Game) -> Bool {
 	return lhs.hashValue == rhs.hashValue
 }

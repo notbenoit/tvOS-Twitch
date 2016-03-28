@@ -20,12 +20,12 @@
 
 import Foundation
 import ReactiveCocoa
-import ObjectMapper
+import JSONParsing
 
 struct TopGame {
-	var game: Game!
-	var viewers: Int!
-	var channels: Int!
+	let game: Game
+	let viewers: Int
+	let channels: Int
 }
 
 extension TopGame: CustomStringConvertible {
@@ -34,17 +34,14 @@ extension TopGame: CustomStringConvertible {
 	}
 }
 
-// MARK: Mappable
+// MARK: JSONParsing
 
-extension TopGame: Mappable {
-	
-	init?(_ map: Map) {
-	}
-	
-	mutating func mapping(map: Map) {
-		game			<- map["game"]
-		viewers		<- map["viewers"]
-		channels	<- map["channels"]
+extension TopGame: JSONParsing {
+	static func parse(json: JSON) throws -> TopGame {
+		return try TopGame(
+			game: json["game"]^,
+			viewers: json["viewers"]^,
+			channels: json["channels"]^)
 	}
 }
 

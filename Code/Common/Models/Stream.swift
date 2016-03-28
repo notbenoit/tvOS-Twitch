@@ -19,21 +19,18 @@
 // THE SOFTWARE.
 
 import Foundation
-
-import Foundation
-import ReactiveCocoa
-import ObjectMapper
+import JSONParsing
 
 struct Stream {
-	var id: Int!
-	var gameNameString: String!
-	var viewers: Int!
-	var averageFPS: Double!
-	var delay: Int!
-	var videoHeight: Int!
-	var isPlaylist: Bool!
-	var channel: Channel!
-	var preview: Preview!
+	let id: Int
+	let gameNameString: String
+	let viewers: Int
+	let averageFPS: Double
+	let delay: Int
+	let videoHeight: Int
+	let isPlaylist: Bool
+	let channel: Channel
+	let preview: Preview
 }
 
 extension Stream: CustomStringConvertible {
@@ -42,20 +39,19 @@ extension Stream: CustomStringConvertible {
 	}
 }
 
-extension Stream: Mappable {
-	
-	init?(_ map: Map) {
-	}
-	
-	mutating func mapping(map: Map) {
-		id     <- map["_id"]
-		gameNameString <- map["game"]
-		viewers <- map["viewers"]
-		averageFPS <- map["average_fps"]
-		delay <- map["delay"]
-		videoHeight <- map["videoHeight"]
-		isPlaylist <- map["is_playlist"]
-		channel <- map["channel"]
-		preview <- map["preview"]
+// MARK: JSONParsing
+
+extension Stream: JSONParsing {
+	static func parse(json: JSON) throws -> Stream {
+		return try Stream(
+			id: json["_id"]^,
+			gameNameString: json["game"]^,
+			viewers: json["viewers"]^,
+			averageFPS: json["average_fps"]^,
+			delay: json["delay"]^,
+			videoHeight: json["video_height"]^,
+			isPlaylist: json["is_playlist"]^,
+			channel: json["channel"]^,
+			preview: json["preview"]^)
 	}
 }

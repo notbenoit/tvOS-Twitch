@@ -21,6 +21,7 @@
 import Foundation
 import UIKit
 import ReactiveCocoa
+import Result
 
 final class StreamListViewModel {
 	
@@ -33,7 +34,7 @@ final class StreamListViewModel {
 	let totalCount = MutableProperty<Int>(0)
 	
 	let gameName: String?
-	let refreshAction: Action<(gameName: String?, page: Int), ListResponse<Stream>, NSError> = Action { pair in
+	let refreshAction: Action<(gameName: String?, page: Int), StreamsResponse, NSError> = Action { pair in
 		TwitchAPIClient.sharedInstance.streamForGame(pair.0, page: pair.1)
 	}
 	
@@ -42,7 +43,7 @@ final class StreamListViewModel {
 	init(game: String?) {
 		gameName = game
 		#if os(iOS)
-			self.loadingState.producer.startWithNext { state in
+			self.loadingState.producer.startWithNext { (state: LoadingState) in
 				UIApplication.sharedApplication().networkActivityIndicatorVisible = state == .Loading
 			}
 		#endif

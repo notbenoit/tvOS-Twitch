@@ -19,16 +19,15 @@
 // THE SOFTWARE.
 
 import Foundation
-import ReactiveCocoa
-import ObjectMapper
+import JSONParsing
 
 struct Channel {
-	var id: Int
-	var mature: Bool
-	var status: String
-	var displayName: String
-	var gameName: String
-	var channelName: String
+	let id: Int
+	let mature: Bool
+	let status: String
+	let displayName: String
+	let gameName: String
+	let channelName: String
 }
 
 extension Channel: CustomStringConvertible {
@@ -37,24 +36,15 @@ extension Channel: CustomStringConvertible {
 	}
 }
 
-extension Channel: Mappable {
-	
-	init?(_ map: Map) {
-		id = 0
-		mature = false
-		status = ""
-		displayName = ""
-		gameName = ""
-		channelName = ""
-	}
-	
-	mutating func mapping(map: Map) {
-		id <- map["_id"]
-		mature <- map["mature"]
-		status <- map["status"]
-		displayName <- map["display_name"]
-		gameName <- map["game"]
-		channelName <- map["name"]
+extension Channel: JSONParsing {
+	static func parse(json: JSON) throws -> Channel {
+		return try Channel(
+			id: json["_id"]^,
+			mature: json["mature"]^,
+			status: json["status"]^,
+			displayName: json["display_name"]^,
+			gameName: json["game"]^,
+			channelName: json["name"]^)
 	}
 }
 

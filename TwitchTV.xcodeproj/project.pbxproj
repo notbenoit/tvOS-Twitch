@@ -24,7 +24,6 @@
 		FC09EA1C1BF40384009E7DB6 /* StreamListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC307E1BE971EE009DEEC7 /* StreamListViewModel.swift */; };
 		FC09EA1D1BF40384009E7DB6 /* StreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30841BE972FE009DEEC7 /* StreamViewModel.swift */; };
 		FC09EA211BF40490009E7DB6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA1E1BF40490009E7DB6 /* Alamofire.framework */; };
-		FC09EA221BF40490009E7DB6 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA1F1BF40490009E7DB6 /* ObjectMapper.framework */; };
 		FC09EA231BF40490009E7DB6 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA201BF40490009E7DB6 /* ReactiveCocoa.framework */; };
 		FC3970241C0C42E400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
 		FC3970251C0C42E400C380A4 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3970231C0C42E400C380A4 /* ListResponse.swift */; };
@@ -73,8 +72,25 @@
 		FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCCC30901BE984E3009DEEC7 /* AVKit.framework */; };
 		FCE077B81C0CF79F005A7889 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B61C0CF79F005A7889 /* Alamofire.framework */; };
 		FCE077B91C0CF79F005A7889 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B71C0CF79F005A7889 /* WebImage.framework */; };
-		FCE077BA1C0CF7AE005A7889 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A051BF127A800119B19 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCE077BB1C0CF7B8005A7889 /* WebImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE077AE1C0CF2B2005A7889 /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE077BA1C0CF7AE005A7889 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A051BF127A800119B19 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE077BB1C0CF7B8005A7889 /* WebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077AE1C0CF2B2005A7889 /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE5DA771CA9663A002AB4ED /* JSONParsing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA751CA9663A002AB4ED /* JSONParsing.framework */; };
+		FCE5DA781CA96657002AB4ED /* JSONParsing.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA751CA9663A002AB4ED /* JSONParsing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE5DA8A1CA97C5A002AB4ED /* TwitchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DA891CA97C5A002AB4ED /* TwitchError.swift */; };
+		FCE5DA8B1CA97C5A002AB4ED /* TwitchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DA891CA97C5A002AB4ED /* TwitchError.swift */; };
+		FCE5DA8C1CA9865B002AB4ED /* TwitchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DA891CA97C5A002AB4ED /* TwitchError.swift */; };
+		FCE5DA8E1CA98674002AB4ED /* JSONParsing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA8D1CA98674002AB4ED /* JSONParsing.framework */; };
+		FCE5DA941CA98C20002AB4ED /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA8F1CA98C20002AB4ED /* Alamofire.framework */; };
+		FCE5DA951CA98C20002AB4ED /* JSONParsing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA901CA98C20002AB4ED /* JSONParsing.framework */; };
+		FCE5DA961CA98C20002AB4ED /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA911CA98C20002AB4ED /* ReactiveCocoa.framework */; };
+		FCE5DA971CA98C20002AB4ED /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA921CA98C20002AB4ED /* Result.framework */; };
+		FCE5DA981CA98C20002AB4ED /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA931CA98C20002AB4ED /* WebImage.framework */; };
+		FCE5DA9C1CA98C47002AB4ED /* JSONParsing.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA751CA9663A002AB4ED /* JSONParsing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE5DA9D1CA98C47002AB4ED /* WebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B11C0CF5E3005A7889 /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE5DA9E1CA98C6D002AB4ED /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B61C0CF79F005A7889 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE5DA9F1CA98C6D002AB4ED /* ReactiveCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA201BF40490009E7DB6 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE5DAA01CA98C6D002AB4ED /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A091BF127A800119B19 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE5DAA11CA98D42002AB4ED /* StreamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EC1BECFF6500119B19 /* StreamCell.swift */; };
 		FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
 		FCE769D41BEC09D800119B19 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769D21BEC09D800119B19 /* TopGame.swift */; };
 		FCE769DF1BECFEB500119B19 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769DD1BECFEAE00119B19 /* GameCell.swift */; };
@@ -91,12 +107,10 @@
 		FCE769FB1BED275100119B19 /* UIView+MotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */; };
 		FCE76A031BEE26A900119B19 /* UIKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */; };
 		FCE76A041BEE26A900119B19 /* UIKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */; };
-		FCE76A0C1BF127A800119B19 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A071BF127A800119B19 /* ObjectMapper.framework */; };
 		FCE76A0D1BF127A800119B19 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A081BF127A800119B19 /* ReactiveCocoa.framework */; };
 		FCE76A0E1BF127A800119B19 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A091BF127A800119B19 /* Result.framework */; };
-		FCE76A111BF127B900119B19 /* ObjectMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A071BF127A800119B19 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCE76A121BF127B900119B19 /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A081BF127A800119B19 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCE76A131BF127B900119B19 /* Result.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FCE76A091BF127A800119B19 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE76A121BF127B900119B19 /* ReactiveCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A081BF127A800119B19 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCE76A131BF127B900119B19 /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A091BF127A800119B19 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,27 +135,34 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FCCC2FBA1BE7D8E8009DEEC7 /* CopyFiles */ = {
+		FCCC2FBA1BE7D8E8009DEEC7 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FCE5DA9E1CA98C6D002AB4ED /* Alamofire.framework in Copy Frameworks */,
+				FCE5DA9F1CA98C6D002AB4ED /* ReactiveCocoa.framework in Copy Frameworks */,
+				FCE5DAA01CA98C6D002AB4ED /* Result.framework in Copy Frameworks */,
+				FCE5DA9C1CA98C47002AB4ED /* JSONParsing.framework in Copy Frameworks */,
+				FCE5DA9D1CA98C47002AB4ED /* WebImage.framework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FCCC30501BE94559009DEEC7 /* CopyFiles */ = {
+		FCCC30501BE94559009DEEC7 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FCE077BB1C0CF7B8005A7889 /* WebImage.framework in CopyFiles */,
-				FCE077BA1C0CF7AE005A7889 /* Alamofire.framework in CopyFiles */,
-				FCE76A111BF127B900119B19 /* ObjectMapper.framework in CopyFiles */,
-				FCE76A121BF127B900119B19 /* ReactiveCocoa.framework in CopyFiles */,
-				FCE76A131BF127B900119B19 /* Result.framework in CopyFiles */,
+				FCE5DA781CA96657002AB4ED /* JSONParsing.framework in Copy Frameworks */,
+				FCE077BB1C0CF7B8005A7889 /* WebImage.framework in Copy Frameworks */,
+				FCE077BA1C0CF7AE005A7889 /* Alamofire.framework in Copy Frameworks */,
+				FCE76A121BF127B900119B19 /* ReactiveCocoa.framework in Copy Frameworks */,
+				FCE76A131BF127B900119B19 /* Result.framework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -150,9 +171,9 @@
 		FC09E9FC1BF3FF7F009E7DB6 /* ServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		FC09EA021BF40322009E7DB6 /* TopShelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TopShelf.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC09EA031BF40322009E7DB6 /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = Library/Frameworks/TVServices.framework; sourceTree = DEVELOPER_DIR; };
-		FC09EA1E1BF40490009E7DB6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Carthage/Checkouts/AlamofireImage/Carthage/Checkouts/Alamofire/build/Debug-appletvos/Alamofire.framework"; sourceTree = "<group>"; };
+		FC09EA1E1BF40490009E7DB6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC09EA1F1BF40490009E7DB6 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = "Carthage/Checkouts/ObjectMapper/build/Debug-appletvos/ObjectMapper.framework"; sourceTree = "<group>"; };
-		FC09EA201BF40490009E7DB6 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "Carthage/Checkouts/ReactiveCocoa/build/Debug-appletvos/ReactiveCocoa.framework"; sourceTree = "<group>"; };
+		FC09EA201BF40490009E7DB6 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC09EA241BF409C8009E7DB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC1D62F61BEA06A400403CC4 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		FC1D62F81BEA06A400403CC4 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
@@ -216,8 +237,17 @@
 		FCE077AE1C0CF2B2005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE077B11C0CF5E3005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE077B41C0CF658005A7889 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
-		FCE077B61C0CF79F005A7889 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Carthage/Checkouts/Alamofire/build/Debug-appletvos/Alamofire.framework"; sourceTree = "<group>"; };
-		FCE077B71C0CF79F005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = "Carthage/Checkouts/SDWebImage/build/Debug-iphoneos/WebImage.framework"; sourceTree = "<group>"; };
+		FCE077B61C0CF79F005A7889 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCE077B71C0CF79F005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCE5DA741CA9663A002AB4ED /* DataSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DataSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCE5DA751CA9663A002AB4ED /* JSONParsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSONParsing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCE5DA891CA97C5A002AB4ED /* TwitchError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitchError.swift; sourceTree = "<group>"; };
+		FCE5DA8D1CA98674002AB4ED /* JSONParsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONParsing.framework; path = "../../Library/Developer/Xcode/DerivedData/TwitchTV-dwvtydeuohanipbgeuocuoxcbiml/Build/Products/Debug-appletvsimulator/JSONParsing.framework"; sourceTree = "<group>"; };
+		FCE5DA8F1CA98C20002AB4ED /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Carthage/Checkouts/Alamofire/build/Debug-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
+		FCE5DA901CA98C20002AB4ED /* JSONParsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONParsing.framework; path = "Carthage/Checkouts/JSONParsing/build/Debug-iphoneos/JSONParsing.framework"; sourceTree = "<group>"; };
+		FCE5DA911CA98C20002AB4ED /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "Carthage/Checkouts/ReactiveCocoa/build/Debug-iphoneos/ReactiveCocoa.framework"; sourceTree = "<group>"; };
+		FCE5DA921CA98C20002AB4ED /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = "Carthage/Checkouts/Result/build/Debug-iphoneos/Result.framework"; sourceTree = "<group>"; };
+		FCE5DA931CA98C20002AB4ED /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = "Carthage/Checkouts/SDWebImage/build/Debug-iphoneos/WebImage.framework"; sourceTree = "<group>"; };
 		FCE769D21BEC09D800119B19 /* TopGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopGame.swift; sourceTree = "<group>"; };
 		FCE769DD1BECFEAE00119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		FCE769E51BECFF6500119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
@@ -242,8 +272,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE5DA8E1CA98674002AB4ED /* JSONParsing.framework in Frameworks */,
 				FC09EA211BF40490009E7DB6 /* Alamofire.framework in Frameworks */,
-				FC09EA221BF40490009E7DB6 /* ObjectMapper.framework in Frameworks */,
 				FC09EA231BF40490009E7DB6 /* ReactiveCocoa.framework in Frameworks */,
 				FC09EA041BF40322009E7DB6 /* TVServices.framework in Frameworks */,
 			);
@@ -253,6 +283,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE5DA941CA98C20002AB4ED /* Alamofire.framework in Frameworks */,
+				FCE5DA951CA98C20002AB4ED /* JSONParsing.framework in Frameworks */,
+				FCE5DA961CA98C20002AB4ED /* ReactiveCocoa.framework in Frameworks */,
+				FCE5DA971CA98C20002AB4ED /* Result.framework in Frameworks */,
+				FCE5DA981CA98C20002AB4ED /* WebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,9 +295,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE5DA771CA9663A002AB4ED /* JSONParsing.framework in Frameworks */,
 				FCE077B81C0CF79F005A7889 /* Alamofire.framework in Frameworks */,
 				FCE077B91C0CF79F005A7889 /* WebImage.framework in Frameworks */,
-				FCE76A0C1BF127A800119B19 /* ObjectMapper.framework in Frameworks */,
 				FCE76A0D1BF127A800119B19 /* ReactiveCocoa.framework in Frameworks */,
 				FCE76A0E1BF127A800119B19 /* Result.framework in Frameworks */,
 				FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */,
@@ -395,6 +430,14 @@
 		FCBAD4411B7E48DB00B8A7BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FCE5DA8F1CA98C20002AB4ED /* Alamofire.framework */,
+				FCE5DA901CA98C20002AB4ED /* JSONParsing.framework */,
+				FCE5DA911CA98C20002AB4ED /* ReactiveCocoa.framework */,
+				FCE5DA921CA98C20002AB4ED /* Result.framework */,
+				FCE5DA931CA98C20002AB4ED /* WebImage.framework */,
+				FCE5DA8D1CA98674002AB4ED /* JSONParsing.framework */,
+				FCE5DA741CA9663A002AB4ED /* DataSource.framework */,
+				FCE5DA751CA9663A002AB4ED /* JSONParsing.framework */,
 				FCE077B61C0CF79F005A7889 /* Alamofire.framework */,
 				FCE077B71C0CF79F005A7889 /* WebImage.framework */,
 				FCE077B41C0CF658005A7889 /* ImageIO.framework */,
@@ -460,6 +503,7 @@
 				FCCC308D1BE97D02009DEEC7 /* AccessToken.swift */,
 				FCE769D21BEC09D800119B19 /* TopGame.swift */,
 				FC3970231C0C42E400C380A4 /* ListResponse.swift */,
+				FCE5DA891CA97C5A002AB4ED /* TwitchError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -658,7 +702,7 @@
 				FC858B0A1B7E40FF007A9B54 /* Sources */,
 				FC858B0B1B7E40FF007A9B54 /* Frameworks */,
 				FC858B0C1B7E40FF007A9B54 /* Resources */,
-				FCCC2FBA1BE7D8E8009DEEC7 /* CopyFiles */,
+				FCCC2FBA1BE7D8E8009DEEC7 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -676,7 +720,7 @@
 				FCCC2FE21BE7DC80009DEEC7 /* Sources */,
 				FCCC2FE31BE7DC80009DEEC7 /* Frameworks */,
 				FCCC2FE41BE7DC80009DEEC7 /* Resources */,
-				FCCC30501BE94559009DEEC7 /* CopyFiles */,
+				FCCC30501BE94559009DEEC7 /* Copy Frameworks */,
 				FC09EA0F1BF40322009E7DB6 /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -779,6 +823,7 @@
 				FC3970261C0C437400C380A4 /* ListResponse.swift in Sources */,
 				FC09EA121BF4037E009E7DB6 /* Game.swift in Sources */,
 				FC09EA1B1BF40384009E7DB6 /* GameViewModel.swift in Sources */,
+				FCE5DA8C1CA9865B002AB4ED /* TwitchError.swift in Sources */,
 				FC09EA131BF4037E009E7DB6 /* TwitchAPIClient.swift in Sources */,
 				FC09EA171BF4037E009E7DB6 /* Preview.swift in Sources */,
 				FC09EA1A1BF40384009E7DB6 /* GameListViewModel.swift in Sources */,
@@ -796,6 +841,7 @@
 				FCE769FA1BED275100119B19 /* UIView+MotionEffect.swift in Sources */,
 				FCCC302C1BE7E039009DEEC7 /* AppDelegate.swift in Sources */,
 				FCCC30291BE7E039009DEEC7 /* TwitchRouter.swift in Sources */,
+				FCE5DAA11CA98D42002AB4ED /* StreamCell.swift in Sources */,
 				FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
 				FCE769D31BEC09D800119B19 /* TopGame.swift in Sources */,
 				FCE76A031BEE26A900119B19 /* UIKitHelpers.swift in Sources */,
@@ -805,6 +851,7 @@
 				FCCC302A1BE7E039009DEEC7 /* GameListViewModel.swift in Sources */,
 				FCCC30571BE94592009DEEC7 /* UIColor+RGB.swift in Sources */,
 				FCCC307C1BE96DEC009DEEC7 /* Preview.swift in Sources */,
+				FCE5DA8A1CA97C5A002AB4ED /* TwitchError.swift in Sources */,
 				FCCC307F1BE971EE009DEEC7 /* StreamListViewModel.swift in Sources */,
 				FCCC308E1BE97D02009DEEC7 /* AccessToken.swift in Sources */,
 				FCE769F71BED122100119B19 /* UIKitAdditions.swift in Sources */,
@@ -831,6 +878,7 @@
 				FCCC30591BE945A0009DEEC7 /* Game.swift in Sources */,
 				FCCC308F1BE97D02009DEEC7 /* AccessToken.swift in Sources */,
 				FCE769F51BECFF6500119B19 /* StreamsViewController.swift in Sources */,
+				FCE5DA8B1CA97C5A002AB4ED /* TwitchError.swift in Sources */,
 				FCCC307D1BE96DEC009DEEC7 /* Preview.swift in Sources */,
 				FC3970251C0C42E400C380A4 /* ListResponse.swift in Sources */,
 				FCCC305C1BE945A7009DEEC7 /* GameViewModel.swift in Sources */,

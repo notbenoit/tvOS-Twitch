@@ -1,5 +1,6 @@
-github "ReactiveCocoa/ReactiveCocoa" "v4.0.0-alpha.3"
+github "ReactiveCocoa/ReactiveCocoa" "master"
 github "Alamofire/Alamofire" ~> 3.0
-github "Hearst-DD/ObjectMapper" ~> 1.0
 github "rs/SDWebImage" "master"
 github "jspahrsummers/xcconfigs" "master"
+github "Vadim-Yelagin/DataSource"
+github "notbenoit/JSONParsing" "tvOS-target"

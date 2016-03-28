@@ -21,9 +21,9 @@
 import UIKit
 
 extension UIView {
-	func applyMotionEffectForX(var x: Float, var y: Float) {
-		x = abs(x)
-		y = abs(y)
+	func applyMotionEffectForX(x: Float, y: Float) {
+		let x = abs(x)
+		let y = abs(y)
 		let effectX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
 		effectX.minimumRelativeValue = NSNumber(float: -x)
 		effectX.maximumRelativeValue = NSNumber(float: x)

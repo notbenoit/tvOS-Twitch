@@ -21,7 +21,7 @@
 import UIKit
 import Alamofire
 import ReactiveCocoa
-import ObjectMapper
+import JSONParsing
 
 final class TwitchAPIClient {
 	
@@ -33,16 +33,15 @@ final class TwitchAPIClient {
 		return Alamofire.Manager(configuration: sessionConfiguration)
 	}()
 	
-	func request(route: TwitchRouter) -> SignalProducer<AnyObject?, NSError> {
+	private func request<T: JSONParsing>(route: TwitchRouter) -> SignalProducer<T, NSError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
 			let request = self.manager.request(route)
-			request.validate()
-			request.responseJSON { response in
+			print(request.debugDescription)
+			request.validate().responseJSON { response in
 				if case Result.Failure(let error) = response.result {
-					observer.sendFailed(error)
+					parseError(response.data, error, observer)
 				} else {
-					observer.sendNext(response.result.value)
-					observer.sendCompleted()
+					parse(response.result.value, observer)
 				}
 			}
 			disposable.addDisposable {
@@ -51,37 +50,11 @@ final class TwitchAPIClient {
 		}
 	}
 	
-	func request<T: Mappable>(route: TwitchRouter, resultPath: String = "top", countPath: String = "_total") -> SignalProducer<(items: [T], count: Int), NSError> {
-		return request(route).map{ resultObject in
-			guard let result = resultObject as? NSDictionary else {
-				print("\(route.URLRequest.description) : Expecting dictionary of JSON objects, received something else: \(resultObject)")
-				return ([], 0)
-			}
-			guard let resultArray = result.valueForKeyPath(resultPath) as? [[String:AnyObject]] else {
-				print("\(route.URLRequest.description) : Dictionary \(result) doesn't contain key path \(resultPath) for results array")
-				return ([], 0)
-			}
-			let count: Int
-			if let resultCount = result.valueForKeyPath(countPath) as? Int {
-				count = resultCount
-			} else {
-				print("\(route.URLRequest.description) : Keypath for count \(countPath) doesn't exist in \(result), using result array count \(resultArray.count)")
-				// In case the dictionary doesn't contain the relevant key, set the count to the number of fetched objects
-				count = resultArray.count
-			}
-			
-			return (Mapper<T>().mapArray(resultArray)!, count)
-		}
+	private func accessTokenForChannel(channelName: String) -> SignalProducer<AccessToken, NSError> {
+		return request(.AccessToken(channelName: channelName))
 	}
 	
-	func accessTokenForChannel(channelName: String) -> SignalProducer<AccessToken, NSError> {
-		return request(.AccessToken(channelName: channelName)).map {
-			resultObject in
-			return Mapper<AccessToken>().map(resultObject)!
-		}
-	}
-	
-	func m3u8URLForChannel(channelName: String, accessToken : AccessToken) -> SignalProducer<String, NSError> {
+	private func m3u8URLForChannel(channelName: String, accessToken : AccessToken) -> SignalProducer<String, NSError> {
 		return SignalProducer {
 			observer, disposable in
 			let urlString = "http://usher.justin.tv/api/channel/hls/\(channelName)?allow_source=true&token=\(accessToken.token)&sig=\(accessToken.sig)"
@@ -92,29 +65,63 @@ final class TwitchAPIClient {
 	
 	func m3u8URLForChannel(channelName: String) -> SignalProducer<String, NSError> {
 		return accessTokenForChannel(channelName).flatMap(.Latest) {
-			(accessToken) -> SignalProducer<String, NSError> in
-			return self.m3u8URLForChannel(channelName, accessToken: accessToken)
+			return self.m3u8URLForChannel(channelName, accessToken: $0)
 		}
 	}
 	
-	func getTopGames(page: Int) -> SignalProducer<ListResponse<TopGame>, NSError> {
+	func getTopGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
 		return request(TwitchRouter.GamesTop(page: page))
-			.map({ (result: (objects: [TopGame], totalCount: Int)) in
-				return ListResponse(objects: result.objects, count: result.totalCount)
-			})
 	}
 	
-	func searchGames(query: String) -> SignalProducer<ListResponse<Game>, NSError> {
-		return request(TwitchRouter.SearchGames(query: query), resultPath: "games")
-			.map { (result: (items: [Game], count: Int)) in
-				ListResponse(objects: result.items, count: result.count)
-		}
-	}
+//	func searchGames(query: String) -> SignalProducer<ListResponse<Game>, NSError> {
+//		return request(TwitchRouter.SearchGames(query: query), resultPath: "games")
+//			.map { (result: (items: [Game], count: Int)) in
+//				ListResponse(objects: result.items, count: result.count)
+//		}
+//	}
 	
-	func streamForGame(gameName: String?, page: Int) -> SignalProducer<ListResponse<Stream>, NSError> {
-		return request(TwitchRouter.Streams(gameName: gameName, page: page), resultPath: "streams")
-			.map { (result: (items: [Stream], count: Int)) in
-			ListResponse(objects: result.items, count: result.count)
-		}
+	func streamForGame(gameName: String?, page: Int) -> SignalProducer<StreamsResponse, NSError> {
+		return request(TwitchRouter.Streams(gameName: gameName, page: page))
+	}
+}
+
+private func parseError<T: JSONParsing> (data: NSData?, _ error: NSError, _ sink: Observer<T, NSError>) {
+	guard let data = data else {
+		sink.sendFailed(error)
+		return
+	}
+	do {
+		let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+		let error = try TwitchError.parse(JSON(json))
+		sink.sendFailed(error.toError)
+	} catch _ {
+		sink.sendFailed(error)
+	}
+}
+
+private func parse<T: JSONParsing> (object: AnyObject?, _ sink: Observer<T, NSError>) {
+	let errorDomain = "JSONParsing"
+	do {
+		let result = try T.parse(JSON(object))
+		sink.sendNext(result)
+		sink.sendCompleted()
+	} catch JSON.Error.NoValue(let json) {
+		let desc = "JSON value not found at key path \(json.pathFromRoot)"
+		let error = NSError(domain: errorDomain,
+		                    code: (-2),
+		                    userInfo: [NSLocalizedDescriptionKey: desc])
+		sink.sendFailed(error)
+	} catch JSON.Error.TypeMismatch(let json) {
+		let desc = "JSON value type mismatch at key path \(json.pathFromRoot)"
+		let error = NSError(domain: errorDomain,
+		                    code: (-3),
+		                    userInfo: [NSLocalizedDescriptionKey: desc])
+		sink.sendFailed(error)
+	} catch _ {
+		let desc = "Unknown error while parsing server response"
+		let error = NSError(domain: errorDomain,
+		                    code: (-1),
+		                    userInfo: [NSLocalizedDescriptionKey: desc])
+		sink.sendFailed(error)
 	}
 }

@@ -19,22 +19,21 @@
 // THE SOFTWARE.
 
 import Foundation
-import ObjectMapper
+import JSONParsing
 
 struct AccessToken {
-	var token: String = ""
-	var sig: String = ""
-	var mobileRestricted: Bool = false
+	let token: String
+	let sig: String
+	let mobileRestricted: Bool
 }
 
-extension AccessToken: Mappable {
-	
-	init?(_ map: Map) {
-	}
-	
-	mutating func mapping(map: Map) {
-		token     <- map["token"]
-		sig  <- map["sig"]
-		mobileRestricted <- map["mobile_restricted"]
+// MARK: JSONParsing
+
+extension AccessToken: JSONParsing {
+	static func parse(json: JSON) throws -> AccessToken {
+		return try AccessToken(
+			token: json["token"]^,
+			sig: json["sig"]^,
+			mobileRestricted: json["mobile_restricted"]^)
 	}
 }

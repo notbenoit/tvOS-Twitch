@@ -18,15 +18,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
+import JSONParsing
 
-class HomeTabBarDelegate: NSObject, UITabBarControllerDelegate {
-	func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-		if let
-			controller = viewController as? StreamsViewController,
-			identifier = controller.restorationIdentifier where identifier == "Streams" && controller.streamListDataSource.value == nil {
-				let dataSource = StreamsDataSource(streamListVM: StreamListViewModel(game: nil))
-				controller.streamListDataSource.value = dataSource
-		}
+struct TwitchError {
+	let message: String
+	let status: Int
+	let error: String
+	
+	var toError: NSError {
+		return NSError(domain: "com.twitch", code: status, userInfo: [NSLocalizedDescriptionKey: message, NSLocalizedFailureReasonErrorKey: message])
+	}
+}
+
+extension TwitchError: JSONParsing {
+	static func parse(json: JSON) throws -> TwitchError {
+		return try TwitchError(
+			message: json["message"]^,
+			status: json["status"]^,
+			error: json["error"]^)
 	}
 }
