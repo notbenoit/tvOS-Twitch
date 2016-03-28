@@ -2,5 +2,5 @@ github "ReactiveCocoa/ReactiveCocoa" "master"
 github "Alamofire/Alamofire" ~> 3.0
 github "rs/SDWebImage" "master"
 github "jspahrsummers/xcconfigs" "master"
-github "Vadim-Yelagin/DataSource"
+github "notbenoit/DataSource" "tvOS-target"
 github "notbenoit/JSONParsing" "tvOS-target"
