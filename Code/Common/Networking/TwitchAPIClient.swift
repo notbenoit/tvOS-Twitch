@@ -29,6 +29,8 @@ final class TwitchAPIClient {
 	
 	private var manager: Manager = {
 		let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+		sessionConfiguration.timeoutIntervalForRequest = 10
+		sessionConfiguration.timeoutIntervalForRequest = 10
 		sessionConfiguration.HTTPAdditionalHeaders = ["Accept":"application/vnd.twitchtv.v3+json"]
 		return Alamofire.Manager(configuration: sessionConfiguration)
 	}()

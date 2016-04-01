@@ -23,8 +23,8 @@ import JSONParsing
 
 struct Channel {
 	let id: Int
-	let mature: Bool
-	let status: String
+	let mature: Bool?
+	let status: String?
 	let displayName: String
 	let gameName: String
 	let channelName: String
@@ -40,8 +40,8 @@ extension Channel: JSONParsing {
 	static func parse(json: JSON) throws -> Channel {
 		return try Channel(
 			id: json["_id"]^,
-			mature: json["mature"]^,
-			status: json["status"]^,
+			mature: json["mature"].optional.map(^),
+			status: json["status"].optional.map(^),
 			displayName: json["display_name"]^,
 			gameName: json["game"]^,
 			channelName: json["name"]^)

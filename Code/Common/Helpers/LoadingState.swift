@@ -18,25 +18,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
+import ReactiveCocoa
+import Result
 
-class GamesDataSource: NSObject {
+enum LoadingState<E: ErrorType> {
+	case Default
+	case Loading
+	case Failed(error: E)
 	
-	let gameListViewModel: GameListViewModel = GameListViewModel()
+	var loading: Bool {
+		if case .Loading = self {
+			return true
+		}
+		return false
+	}
 	
-	func loadMore() {
-		gameListViewModel.loadMore()
+	var error: E? {
+		if case .Failed(let error) = self {
+			return error
+		}
+		return nil
 	}
 }
 
-extension GamesDataSource: UICollectionViewDataSource {
-	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(GameCell.identifier, forIndexPath: indexPath) as! GameCell
-		cell.bindViewModel(GameViewModel(game: gameListViewModel.orderedGames.value[indexPath.row].game))
-		return cell
-	}
-	
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return gameListViewModel.data.value.count
+extension Action {
+	var loadingState: SignalProducer<LoadingState<Error>, NoError> {
+		// Produces .Loading when Loading
+		let loadingProducer = self.executing.producer
+			.filter { $0 }
+			.map { _ in LoadingState<Error>.Loading }
+		// Produces error, or default if no error
+		let errorProducer = self.events.map {
+			(event: Event<Output, Error>) -> LoadingState<Error> in
+			switch event {
+			case .Failed(let error):
+				return LoadingState<Error>.Failed(error: error)
+			default:
+				return LoadingState<Error>.Default
+			}
+		}
+		return loadingProducer.lift { Signal<LoadingState<Error>, NoError>.merge([$0, errorProducer]) }
 	}
 }

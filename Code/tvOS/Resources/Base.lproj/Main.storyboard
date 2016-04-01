@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N2j-HQ-ubJ">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N2j-HQ-ubJ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Games-->
@@ -71,6 +70,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="360"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jq-Kq-Esl" customClass="LoadingStateView" customModule="Game_Theater" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="360"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="contentView" destination="NSH-RD-wL1" id="POc-er-Mz2"/>
+                                </connections>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NSH-RD-wL1">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="360"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cPB-Yv-xdW">
@@ -81,29 +87,22 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-4b-Dgn">
-                                <rect key="frame" x="810" y="30" width="300" height="300"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="gDd-4b-Dgn" secondAttribute="height" multiplier="1:1" id="cdD-XC-kbu"/>
-                                    <constraint firstAttribute="width" constant="300" id="eAv-C5-BsB"/>
-                                </constraints>
-                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="width" secondItem="xbz-mc-KkD" secondAttribute="width" id="12D-qj-0xj"/>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="centerY" secondItem="xbz-mc-KkD" secondAttribute="centerY" id="28D-3G-cQP"/>
-                            <constraint firstItem="gDd-4b-Dgn" firstAttribute="centerY" secondItem="xbz-mc-KkD" secondAttribute="centerY" id="MFa-FQ-jLM"/>
-                            <constraint firstItem="gDd-4b-Dgn" firstAttribute="width" secondItem="gDd-4b-Dgn" secondAttribute="height" multiplier="1:1" id="PVJ-qc-QaB"/>
-                            <constraint firstItem="gDd-4b-Dgn" firstAttribute="centerX" secondItem="xbz-mc-KkD" secondAttribute="centerX" id="Pkm-2z-aPu"/>
+                            <constraint firstItem="8jq-Kq-Esl" firstAttribute="centerY" secondItem="xbz-mc-KkD" secondAttribute="centerY" id="AOq-1l-M9o"/>
+                            <constraint firstItem="8jq-Kq-Esl" firstAttribute="width" secondItem="xbz-mc-KkD" secondAttribute="width" id="Q6Y-db-lmq"/>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="height" secondItem="xbz-mc-KkD" secondAttribute="height" id="XZV-5J-qJ8"/>
+                            <constraint firstItem="8jq-Kq-Esl" firstAttribute="height" secondItem="xbz-mc-KkD" secondAttribute="height" id="ck7-Ah-4i0"/>
+                            <constraint firstItem="8jq-Kq-Esl" firstAttribute="centerX" secondItem="xbz-mc-KkD" secondAttribute="centerX" id="sN9-DL-FU3"/>
                             <constraint firstItem="NSH-RD-wL1" firstAttribute="centerX" secondItem="xbz-mc-KkD" secondAttribute="centerX" id="thx-5i-3S5"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="gDd-4b-Dgn" id="AYo-gS-gik"/>
                         <outlet property="collectionView" destination="NSH-RD-wL1" id="bcA-Lu-SIE"/>
+                        <outlet property="loadingStateView" destination="8jq-Kq-Esl" id="ypU-8b-esg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Evh-dn-4q4" userLabel="First Responder" sceneMemberID="firstResponder"/>

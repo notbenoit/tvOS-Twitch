@@ -18,61 +18,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 import ReactiveCocoa
-import JSONParsing
+import DataSource
 
-struct TopGame {
-	let game: Game
-	let viewers: Int
-	let channels: Int
-}
-
-extension TopGame: CustomStringConvertible {
-	internal var description: String {
-		return game.gameNameString + "\nViewers =>" + String(viewers)
+final class LoadMoreCell: CollectionViewCell {
+	static let identifier: String = "LoadMoreCell"
+	static let nib: UINib = UINib(nibName: "LoadMoreCell", bundle: nil)
+	
+	@IBOutlet var loadingView: UIActivityIndicatorView!
+	
+	override func awakeFromNib() {
+		cellModel.producer
+			.map { $0 as? LoadMoreCellItem }
+			.ignoreNil()
+			.chain { $0.loadingState }
+			.start(self, LoadMoreCell.configureWithLoadingState)
+	}
+	
+	func configureWithLoadingState(state: LoadingState<NSError>) {
+		loadingView.hidden = !state.loading
+		state.loading ? loadingView.startAnimating() : loadingView.stopAnimating()
 	}
 }
 
-// MARK: JSONParsing
-
-extension TopGame: JSONParsing {
-	static func parse(json: JSON) throws -> TopGame {
-		return try TopGame(
-			game: json["game"]^,
-			viewers: json["viewers"]^,
-			channels: json["channels"]^)
-	}
-}
-
-// MARK: Hashable
-
-extension TopGame: Hashable {
-	var hashValue: Int {
-		return game.hashValue
-	}
-}
-
-// MARK: Equatable
-
-func ==(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.hashValue == rhs.hashValue
-}
-
-// MARK: Comparable
-
-func <(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers < rhs.viewers
-}
-
-func <=(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers <= rhs.viewers
-}
-
-func >=(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers >= rhs.viewers
-}
-
-func >(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers > rhs.viewers
-}

@@ -18,40 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import JSONParsing
+import UIKit
+import ReactiveCocoa
 
-struct Stream {
-	let id: Int
-	let gameNameString: String
-	let viewers: Int
-	let averageFPS: Double
-	let delay: Int
-	let videoHeight: Int
-	let isPlaylist: Bool
-	let channel: Channel
-	let preview: Preview
-}
-
-extension Stream: CustomStringConvertible {
-	internal var description: String {
-		return ""
+struct GameCellViewModel: ReuseIdentifierProvider {
+	let reuseIdentifier: String = GameCell.identifier
+	
+	let game: Game
+	let gameImageURL: String
+	let gameName: String
+	
+	init(game: Game) {
+		self.game = game
+		self.gameImageURL = game.box.medium
+		self.gameName = game.gameNameString
 	}
 }
 
-// MARK: JSONParsing
+// MARK: Equatable
 
-extension Stream: JSONParsing {
-	static func parse(json: JSON) throws -> Stream {
-		return try Stream(
-			id: json["_id"]^,
-			gameNameString: json["game"]^,
-			viewers: json["viewers"]^,
-			averageFPS: json["average_fps"]^,
-			delay: json["delay"]^,
-			videoHeight: json["video_height"]^,
-			isPlaylist: json["is_playlist"]^,
-			channel: json["channel"]^,
-			preview: json["preview"]^)
-	}
+extension GameCellViewModel: Equatable { }
+func == (lhs: GameCellViewModel, rhs: GameCellViewModel) -> Bool {
+	return lhs.game == rhs.game
 }

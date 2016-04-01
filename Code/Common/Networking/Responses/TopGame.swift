@@ -18,30 +18,63 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 import ReactiveCocoa
+import JSONParsing
 
-final class StreamsDataSource: NSObject {
-	
-	let streamListViewModel: MutableProperty<StreamListViewModel>
-	
-	init(streamListVM: StreamListViewModel) {
-		streamListViewModel = MutableProperty<StreamListViewModel>(streamListVM)
-	}
-	
-	func loadMore() {
-		streamListViewModel.value.loadMore()
+struct TopGame {
+	let game: Game
+	let viewers: Int
+	let channels: Int
+}
+
+extension TopGame: CustomStringConvertible {
+	internal var description: String {
+		return game.gameNameString + "\nViewers =>" + String(viewers)
 	}
 }
 
-extension StreamsDataSource: UICollectionViewDataSource {
-	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(StreamCell.identifier, forIndexPath: indexPath) as! StreamCell
-		cell.bindViewModel(StreamViewModel(stream: streamListViewModel.value.data.value[indexPath.row]))
-		return cell
+// MARK: JSONParsing
+
+extension TopGame: JSONParsing {
+	static func parse(json: JSON) throws -> TopGame {
+		return try TopGame(
+			game: json["game"]^,
+			viewers: json["viewers"]^,
+			channels: json["channels"]^)
 	}
-	
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return streamListViewModel.value.data.value.count
+}
+
+// MARK: Hashable
+
+extension TopGame: Hashable {
+	var hashValue: Int {
+		return game.hashValue
 	}
+}
+
+// MARK: Equatable
+
+extension TopGame: Equatable { }
+func ==(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.hashValue == rhs.hashValue
+}
+
+// MARK: Comparable
+
+extension TopGame: Comparable { }
+func <(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers < rhs.viewers
+}
+
+func <=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers <= rhs.viewers
+}
+
+func >=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers >= rhs.viewers
+}
+
+func >(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers > rhs.viewers
 }

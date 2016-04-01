@@ -36,7 +36,7 @@ class TwitchHomeViewController: UIViewController {
 	}
 	
 	func selectGame(gameName: String) {
-		self.streamsController?.streamListDataSource.value = StreamsDataSource(streamListVM: StreamListViewModel(game: gameName))
+		self.streamsController?.viewModel.value = StreamsListViewModel(gameName: gameName)
 	}
 	
 	func onGameSelected() -> Game -> () {

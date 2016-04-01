@@ -18,3 +18,4 @@
 	url = https://github.com/notbenoit/JSONParsing.git
 [submodule "Carthage/Checkouts/DataSource"]
 	url = https://github.com/notbenoit/DataSource.git
+    path = Carthage/Checkouts/DataSource

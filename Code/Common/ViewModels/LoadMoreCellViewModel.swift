@@ -18,17 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 import ReactiveCocoa
 
-class GameViewModel {
-    private let game: Game
-    internal let gameImageURL: ConstantProperty<String>
-    internal let gameName: ConstantProperty<String>
-    
-    init(game: Game) {
-        self.game = game
-        self.gameImageURL = ConstantProperty<String>(game.box.medium)
-        self.gameName = ConstantProperty<String>(game.gameNameString)
-    }
+struct LoadMoreCellItem: ReuseIdentifierProvider {
+	let reuseIdentifier = LoadMoreCell.identifier
+	
+	let loadingState = MutableProperty(LoadingState<NSError>.Default)
 }

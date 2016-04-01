@@ -27,3 +27,25 @@ extension UIViewController {
 		self.presentViewController(alert, animated: true, completion: nil)
 	}
 }
+
+extension UIView {
+	func addAndFitSubview(view: UIView) {
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.frame = self.bounds
+		self.addSubview(view)
+		let views = ["view": view]
+		let options = NSLayoutFormatOptions(rawValue: 0)
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: options, metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: options, metrics: nil, views: views))
+	}
+}
+
+extension UITableView {
+	func deselectAllRows(animated: Bool) {
+		if let indexPaths = self.indexPathsForSelectedRows {
+			for indexPath in indexPaths {
+				self.deselectRowAtIndexPath(indexPath, animated: animated)
+			}
+		}
+	}
+}

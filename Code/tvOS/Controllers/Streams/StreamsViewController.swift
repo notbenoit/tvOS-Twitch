@@ -21,8 +21,9 @@
 import UIKit
 import AVKit
 import ReactiveCocoa
+import DataSource
 
-class StreamsViewController: UIViewController {
+final class StreamsViewController: UIViewController {
 
 	let streamCellWidth: CGFloat = 308.0
 	let horizontalSpacing: CGFloat = 50.0
@@ -47,33 +48,33 @@ class StreamsViewController: UIViewController {
 		}
 	}
 	
-	@IBOutlet weak var collectionView: UICollectionView!
-	@IBOutlet weak var noItemsLabel: UILabel!
-	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet var collectionView: UICollectionView!
+	@IBOutlet var loadingView: LoadingStateView!
+	@IBOutlet var noItemsLabel: UILabel!
 	
-	var streamListDataSource = MutableProperty<StreamsDataSource?>(nil)
+	let viewModel = MutableProperty<StreamsListViewModel?>(nil)
+	let collectionDataSource = CollectionViewDataSource()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.twitchDarkColor()
 		
-		presentStream.errors.observeNext {
-			self.presentDefaultError($0)
+		collectionDataSource.reuseIdentifierForItem = { _, item in
+			if let item = item as? ReuseIdentifierProvider {
+				return item.reuseIdentifier
+			}
+			fatalError()
 		}
 		
-		let nonNilDataSource = streamListDataSource.producer.ignoreNil()
-		let streamListVm = nonNilDataSource.flatMap(.Latest) { $0.streamListViewModel.producer }
-		nonNilDataSource.startWithNext { [weak self] in self?.collectionView.dataSource = $0 }
-		noItemsLabel.rac_hidden <~ streamListVm.producer.flatMap(.Latest) { $0.hideLabel.producer }
-		activityIndicator.rac_hidden <~ streamListVm.producer.flatMap(.Latest) { $0.showBigLoader.producer }.map { !$0 }
-		streamListVm.producer.flatMap(.Latest) { $0.data.producer }
-			.startWithNext { [weak self] _ in self?.collectionView.reloadData() }
+		collectionDataSource.dataSource.animatesChanges.value = false
+		collectionDataSource.dataSource.innerDataSource <~ viewModel.producer.map { $0?.dataSource ?? EmptyDataSource() }
+		collectionDataSource.collectionView = collectionView
+		collectionView.dataSource = collectionDataSource
 		
 		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
 		noItemsLabel.font = UIFont.systemFontOfSize(42)
 		noItemsLabel.textColor = UIColor.whiteColor()
-		
-		activityIndicator.hidden = true
+		noItemsLabel.rac_hidden <~ viewModel.producer.map { $0 != nil }
 		
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .Vertical
@@ -82,27 +83,33 @@ class StreamsViewController: UIViewController {
 		layout.minimumInteritemSpacing = horizontalSpacing
 		layout.minimumLineSpacing = verticalSpacing
 		
-		collectionView.registerNib(UINib(nibName: "StreamCell", bundle: nil), forCellWithReuseIdentifier: StreamCell.identifier)
+		collectionView.registerNib(StreamCell.nib, forCellWithReuseIdentifier: StreamCell.identifier)
+		collectionView.registerNib(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
+		
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
+		
+		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.refreshAction.loadingState }
+		loadingView.isEmpty <~ viewModel.producer.ignoreNil().chain { $0.streams }.map { $0.isEmpty }
+		loadingView.retry = { [weak self] in self?.viewModel.value?.loadMore() }
 	}
 }
 
 extension StreamsViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		guard let streamListDataSource = streamListDataSource.value else { return }
-		presentStream.apply((streamListDataSource.streamListViewModel.value.data.value[indexPath.row], self)).start()
+		if let item = collectionDataSource.dataSource.itemAtIndexPath(indexPath) as? StreamViewModel {
+			presentStream.apply((item.stream, self)).start()
+		}
 	}
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
-		guard let streamListDataSource = streamListDataSource.value else { return }
 		let contentOffsetY = scrollView.contentOffset.y + scrollView.bounds.size.height
 		let wholeHeight = scrollView.contentSize.height
 		
 		let remainingDistanceToBottom = wholeHeight - contentOffsetY
 		
-		if remainingDistanceToBottom <= 200 {
-			streamListDataSource.loadMore()
+		if remainingDistanceToBottom <= 600 {
+			viewModel.value?.loadMore()
 		}
 	}
 }

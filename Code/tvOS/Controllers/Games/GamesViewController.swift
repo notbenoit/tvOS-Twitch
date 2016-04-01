@@ -20,6 +20,7 @@
 
 import UIKit
 import ReactiveCocoa
+import DataSource
 
 class GamesViewController: UIViewController {
 
@@ -29,10 +30,11 @@ class GamesViewController: UIViewController {
 	
 	var onGameSelected: (Game -> ())?
 	
-	@IBOutlet weak var collectionView: UICollectionView!
-	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet var collectionView: UICollectionView!
+	@IBOutlet var loadingStateView: LoadingStateView!
 	
-	let gameListDataSource = GamesDataSource()
+	let gameListViewModel = GamesListViewModel()
+	let collectionDataSource = CollectionViewDataSource()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,35 +46,38 @@ class GamesViewController: UIViewController {
 		layout.minimumInteritemSpacing = horizontalSpacing
 		layout.minimumLineSpacing = verticalSpacing
 		
-		collectionView.registerNib(UINib(nibName: "GameCell", bundle: nil), forCellWithReuseIdentifier: GameCell.identifier)
+		
+		collectionDataSource.reuseIdentifierForItem = { _, item in
+			if let item = item as? ReuseIdentifierProvider {
+				return item.reuseIdentifier
+			}
+			fatalError()
+		}
+		collectionDataSource.dataSource.innerDataSource.value = gameListViewModel.dataSource
+		collectionDataSource.collectionView = collectionView
+		collectionView.dataSource = collectionDataSource
+		
+		collectionView.registerNib(GameCell.nib, forCellWithReuseIdentifier: GameCell.identifier)
+		collectionView.registerNib(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
 		collectionView.collectionViewLayout = layout
-		collectionView.dataSource = gameListDataSource
 		collectionView.delegate = self
 		
-		activityIndicator.rac_hidden <~ gameListDataSource.gameListViewModel.showLoader.producer.map { !$0 }
-		gameListDataSource.gameListViewModel.data.producer.startWithNext {
-			[weak self] games in
-			self?.collectionView.reloadData()
-		}
-		
-		gameListDataSource.loadMore()
+		loadingStateView.loadingState <~ gameListViewModel.refreshAction.loadingState
+		loadingStateView.isEmpty <~ gameListViewModel.topGames.producer.map { $0.isEmpty }
+		loadingStateView.retry = { [weak self] in self?.gameListViewModel.loadMore() }
 	}
 }
 
 extension GamesViewController: UICollectionViewDelegate {
-	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		let game = gameListDataSource.gameListViewModel.orderedGames.value[indexPath.row].game
-		onGameSelected?(game)
+	func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+		if collectionDataSource.dataSource.itemAtIndexPath(indexPath) is LoadMoreCellItem {
+			gameListViewModel.loadMore()
+		}
 	}
 	
-	func scrollViewDidScroll(scrollView: UIScrollView) {
-		let contentOffsetX = scrollView.contentOffset.x + scrollView.bounds.size.width
-		let wholeWidth = scrollView.contentSize.width
-		
-		let remainingDistanceToRight = wholeWidth - contentOffsetX
-		
-		if remainingDistanceToRight <= 1920 && gameListDataSource.gameListViewModel.loadingState.value == .Available {
-			gameListDataSource.gameListViewModel.loadMore()
+	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		if let item = collectionDataSource.dataSource.itemAtIndexPath(indexPath) as? GameCellViewModel {
+			onGameSelected?(item.game)
 		}
 	}
 }
