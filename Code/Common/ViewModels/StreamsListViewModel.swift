@@ -25,11 +25,8 @@ import Result
 import DataSource
 
 final class StreamsListViewModel {
-	let refreshAction = Action(StreamsListViewModel.loadPage)
-	
 	// Data
-	private let totalCount = MutableProperty<Int>(0)
-	private var page = MutableProperty<Int>(0)
+	let streamsPaginator: Paginator<StreamsResponse>
 	let streams = MutableProperty<[StreamViewModel]>([])
 	
 	// Cell models
@@ -43,18 +40,13 @@ final class StreamsListViewModel {
 			UIApplication.sharedApplication().rac_networkIndicatorVisible <~ refreshAction.executing
 		#endif
 		
-		streams <~ refreshAction.values.scan([]) {
-			let duplicates = Set($0.0).intersect($0.1.objects)
-			return $0.0 + $0.1.objects.filter { !duplicates.contains($0) } }
-			.map { $0.map { StreamViewModel(stream: $0) } }
-		totalCount <~ refreshAction.values.map { $0.count }
-		page <~ refreshAction.values.scan(0) { $0.0 + 1 }
-		refreshAction.errors.observeNext { print($0) }
+		streamsPaginator = Paginator(TwitchRouter.Streams(gameName: gameName, page: 0))
+		
+		streams <~ streamsPaginator.objects.producer.map { $0.map { StreamViewModel(stream: $0) } }
 		let loadMoreItem = LoadMoreCellItem()
-		loadMoreItem.loadingState <~ refreshAction.loadingState
+		loadMoreItem.loadingState <~ streamsPaginator.loadingState
 		let loadMoreDataSource = ProxyDataSource()
-		let allLoaded = combineLatest(totalCount.producer, streams.producer)
-			.map { $0.0 <= $0.1.count }
+		let allLoaded = streamsPaginator.allLoaded.producer
 		loadMoreDataSource.innerDataSource <~ allLoaded
 			.map { $0 ? EmptyDataSource() : StaticDataSource(items: [loadMoreItem]) as DataSource }
 		
@@ -66,10 +58,6 @@ final class StreamsListViewModel {
 	}
 	
 	func loadMore() {
-		refreshAction.apply((gameName, page.value)).start()
-	}
-	
-	private static func loadPage(gameName: String?, page: Int) -> SignalProducer<StreamsResponse, NSError> {
-		return TwitchAPIClient.sharedInstance.streamForGame(gameName, page: page)
+		streamsPaginator.loadNext()
 	}
 }

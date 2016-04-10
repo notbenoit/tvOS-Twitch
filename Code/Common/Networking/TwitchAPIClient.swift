@@ -35,7 +35,28 @@ final class TwitchAPIClient {
 		return Alamofire.Manager(configuration: sessionConfiguration)
 	}()
 	
-	private func request<T: JSONParsing>(route: TwitchRouter) -> SignalProducer<T, NSError> {
+	func request<T: JSONParsing>(urlString: String) -> SignalProducer<T, NSError> {
+		return SignalProducer { [unowned self] (observer, disposable) in
+			guard let url = NSURL(string: urlString) else {
+				observer.sendFailed(NSError(domain: "com.twitch", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknow URL format"]))
+				return
+			}
+			let request = self.manager.request(.GET, url)
+			print(request.debugDescription)
+			request.responseJSON { response in
+				if case Result.Failure(let error) = response.result {
+					parseError(response.data, error, observer)
+				} else {
+					parse(response.result.value, observer)
+				}
+			}
+			disposable.addDisposable {
+				request.cancel()
+			}
+		}
+	}
+	
+	func request<T: JSONParsing>(route: TwitchRouter) -> SignalProducer<T, NSError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
 			let request = self.manager.request(route)
 			print(request.debugDescription)
@@ -72,6 +93,10 @@ final class TwitchAPIClient {
 	}
 	
 	func getTopGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
+		return request(TwitchRouter.GamesTop(page: page))
+	}
+	
+	func searchGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
 		return request(TwitchRouter.GamesTop(page: page))
 	}
 	

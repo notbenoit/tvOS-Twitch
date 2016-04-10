@@ -23,12 +23,9 @@ import ReactiveCocoa
 import DataSource
 
 struct GamesListViewModel {
-	let refreshAction = Action(GamesListViewModel.loadPage)
-	
 	// Data
-	private let nonFilteredTopGames = MutableProperty<[TopGame]>([])
-	private let totalCount = MutableProperty<Int>(0)
-	private var page = MutableProperty<Int>(0)
+	let gamesPaginator = Paginator<TopGamesResponse>(TwitchRouter.GamesTop(page: 0))
+	private let nonFilteredTopGames: MutableProperty<[TopGame]>
 	let topGames = MutableProperty<[GameCellViewModel]>([])
 	
 	// Cell models
@@ -39,34 +36,24 @@ struct GamesListViewModel {
 			UIApplication.sharedApplication().rac_networkIndicatorVisible <~ refreshAction.executing
 		#endif
 
-		nonFilteredTopGames <~ refreshAction.values.scan([]) { Array(Set($0.0).union($0.1.objects)).sort(>) }
+		nonFilteredTopGames = gamesPaginator.objects
 		topGames <~ nonFilteredTopGames.producer
 			.map { $0.filter(GamesListViewModel.nintendoFilter) }
 			.map { $0.map { GameCellViewModel(game: $0.game) } }
-		totalCount <~ refreshAction.values.map { $0.count }
-		page <~ refreshAction.values.scan(0) { $0.0 + 1 }
 		
 		let loadMoreItem = LoadMoreCellItem()
-		loadMoreItem.loadingState <~ refreshAction.loadingState
+		loadMoreItem.loadingState <~ gamesPaginator.loadingState
 		let loadMoreDataSource = ProxyDataSource()
-		let allLoaded = combineLatest(totalCount.producer, nonFilteredTopGames.producer)
-			.map { $0.0 <= $0.1.count }
-		loadMoreDataSource.innerDataSource <~ allLoaded
+		loadMoreDataSource.innerDataSource <~ gamesPaginator.allLoaded.producer
 			.map { $0 ? EmptyDataSource() : StaticDataSource(items: [loadMoreItem]) as DataSource }
 		
 		let autoDiffDataSource = AutoDiffDataSource<GameCellViewModel>(compare: ==)
 		autoDiffDataSource.items <~ topGames
 		dataSource = ProxyDataSource(CompositeDataSource([autoDiffDataSource, loadMoreDataSource]), animateChanges: false)
-		
-		loadMore()
 	}
 	
 	func loadMore() {
-		refreshAction.apply(page.value).start()
-	}
-	
-	private static func loadPage(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
-		return TwitchAPIClient.sharedInstance.getTopGames(page)
+		gamesPaginator.loadNext()
 	}
 	
 	private static func nintendoFilter(game: TopGame) -> Bool {

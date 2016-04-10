@@ -62,7 +62,7 @@ class GamesViewController: UIViewController {
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 		
-		loadingStateView.loadingState <~ gameListViewModel.refreshAction.loadingState
+		loadingStateView.loadingState <~ gameListViewModel.gamesPaginator.loadingState
 		loadingStateView.isEmpty <~ gameListViewModel.topGames.producer.map { $0.isEmpty }
 		loadingStateView.retry = { [weak self] in self?.gameListViewModel.loadMore() }
 	}

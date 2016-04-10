@@ -16,3 +16,6 @@ protocol ReuseIdentifierProvider {
 	var reuseIdentifier: String { get }
 }
 
+protocol SegueIdentifierProvider {
+	var segueIdentifier: String { get }
+}

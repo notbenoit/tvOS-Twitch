@@ -20,27 +20,48 @@
 
 import Foundation
 import JSONParsing
+import ReactiveCocoa
+import Result
 
+// MARK: - Links
+struct Links {
+	let current: String?
+	let next: String?
+}
+
+extension Links: JSONParsing {
+	static func parse(json: JSON) throws -> Links {
+		return try Links(
+			current: json["self"].optional.map(^),
+			next: json["next"].optional.map(^))
+	}
+}
+
+// MARK: - List Response
 protocol ListResponseType: JSONParsing {
 	associatedtype T: JSONParsing
 	var objects: [T] { get }
 	var count: Int { get }
+	var links: Links { get }
+	
 	static var rootPath: String { get }
 	
-	init(objects: [T], count: Int)
+	init(objects: [T], count: Int, links: Links)
 }
 
 extension ListResponseType {
 	static func parse(json: JSON) throws -> Self {
 		return try Self(
 			objects: json[self.rootPath].array.map(^),
-			count: json["_total"]^)
+			count: json["_total"]^,
+			links: json["_links"]^)
 	}
 }
 
 struct TopGamesResponse: ListResponseType {
 	let objects: [TopGame]
 	let count: Int
+	let links: Links
 	
 	static let rootPath: String = "top"
 }
@@ -48,6 +69,72 @@ struct TopGamesResponse: ListResponseType {
 struct StreamsResponse: ListResponseType {
 	let objects: [Stream]
 	let count: Int
+	let links: Links
 	
 	static let rootPath: String = "streams"
+}
+
+struct GamesResponse: ListResponseType {
+	let objects: [Game]
+	let count: Int
+	let links: Links
+	
+	static let rootPath: String = "streams"
+}
+
+class Paginator<T: ListResponseType> {
+	let objects = MutableProperty<[T.T]>([])
+	let loadURLAction: Action<String, T, NSError>
+	let loadRouteAction: Action<TwitchRouter, T, NSError>
+	let initialRoute: TwitchRouter
+	
+	let totalCount = MutableProperty<Int?>(nil)
+	let allLoaded = MutableProperty<Bool>(false)
+	
+	var nextLink: String?
+	var currentLink: String?
+	
+	let loadingState: SignalProducer<LoadingState<NSError>, NoError>
+	
+	init(_ initialRoute: TwitchRouter) {
+		self.initialRoute = initialRoute
+		loadURLAction = Action(TwitchAPIClient.sharedInstance.request)
+		loadRouteAction = Action(TwitchAPIClient.sharedInstance.request)
+		loadingState = SignalProducer(values: [loadURLAction.loadingState, loadRouteAction.loadingState]).flatten(.Merge)
+		
+		allLoaded <~ combineLatest(totalCount.producer.ignoreNil(), objects.producer).map {
+			return $0.0 <= $0.1.count
+		}
+		
+		loadRouteAction.values.observeNext { [weak self] in
+			self?.objects.value = $0.objects
+			self?.nextLink = $0.links.next
+			self?.currentLink = $0.links.current
+		}
+		
+		loadURLAction.values.observeNext { [weak self] in
+			self?.objects.value += $0.objects
+			self?.nextLink = $0.links.next
+			self?.currentLink = $0.links.current
+		}
+		
+		loadFirst()
+	}
+	
+	func loadFirst() {
+		objects.value = []
+		nextLink = nil
+		currentLink = nil
+		loadRouteAction.apply(initialRoute).start()
+	}
+	
+	func loadNext() {
+		guard let nextLink = nextLink else { return }
+		loadURLAction.apply(nextLink).start()
+	}
+	
+	func loadCurrent() {
+		guard let currentLink = currentLink else { return }
+		loadURLAction.apply(currentLink).start()
+	}
 }

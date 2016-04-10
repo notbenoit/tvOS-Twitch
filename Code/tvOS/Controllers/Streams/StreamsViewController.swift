@@ -89,9 +89,9 @@ final class StreamsViewController: UIViewController {
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 		
-		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.refreshAction.loadingState }
+		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.streamsPaginator.loadingState }
 		loadingView.isEmpty <~ viewModel.producer.ignoreNil().chain { $0.streams }.map { $0.isEmpty }
-		loadingView.retry = { [weak self] in self?.viewModel.value?.loadMore() }
+		loadingView.retry = { [weak self] in self?.viewModel.value?.streamsPaginator.loadFirst() }
 	}
 }
 

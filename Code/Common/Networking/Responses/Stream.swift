@@ -23,7 +23,7 @@ import JSONParsing
 
 struct Stream {
 	let id: Int
-	let gameNameString: String
+	let gameNameString: String?
 	let viewers: Int
 	let averageFPS: Double
 	let delay: Int
@@ -45,7 +45,7 @@ extension Stream: JSONParsing {
 	static func parse(json: JSON) throws -> Stream {
 		return try Stream(
 			id: json["_id"]^,
-			gameNameString: json["game"]^,
+			gameNameString: json["game"].optional.map(^),
 			viewers: json["viewers"]^,
 			averageFPS: json["average_fps"]^,
 			delay: json["delay"]^,

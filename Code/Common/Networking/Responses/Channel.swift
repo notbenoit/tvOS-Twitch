@@ -26,13 +26,13 @@ struct Channel {
 	let mature: Bool?
 	let status: String?
 	let displayName: String
-	let gameName: String
+	let gameName: String?
 	let channelName: String
 }
 
 extension Channel: CustomStringConvertible {
 	internal var description: String {
-		return channelName + " on " + gameName
+		return channelName + (gameName.map { "on " + $0 } ?? "")
 	}
 }
 
@@ -43,7 +43,7 @@ extension Channel: JSONParsing {
 			mature: json["mature"].optional.map(^),
 			status: json["status"].optional.map(^),
 			displayName: json["display_name"]^,
-			gameName: json["game"]^,
+			gameName: json["game"].optional.map(^),
 			channelName: json["name"]^)
 	}
 }
