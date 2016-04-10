@@ -40,6 +40,7 @@ struct StreamViewModel: ReuseIdentifierProvider {
 	}
 }
 
+extension StreamViewModel: Equatable { }
 func == (lhs: StreamViewModel, rhs: StreamViewModel) -> Bool {
 	return lhs.stream == rhs.stream
 }

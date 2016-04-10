@@ -18,45 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
-import ReactiveCocoa
-import DataSource
+import Foundation
 
-struct GamesListViewModel {
-	// Data
-	let gamesPaginator = Paginator<TopGamesResponse>(TwitchRouter.GamesTop(page: 0))
-	private let nonFilteredTopGames: MutableProperty<[TopGame]>
-	let topGames = MutableProperty<[GameCellViewModel]>([])
+struct GamesList {
 	
-	// Cell models
-	let dataSource: DataSource
+	typealias ViewModelType = BaseViewModel<TopGamesResponse, GameCellViewModel>
 	
-	init() {
-		#if os(iOS)
-			UIApplication.sharedApplication().rac_networkIndicatorVisible <~ refreshAction.executing
-		#endif
-
-		nonFilteredTopGames = gamesPaginator.objects
-		topGames <~ nonFilteredTopGames.producer
-			.map { $0.filter(GamesListViewModel.nintendoFilter) }
-			.map { $0.map { GameCellViewModel(game: $0.game) } }
-		
-		let loadMoreItem = LoadMoreCellItem()
-		loadMoreItem.loadingState <~ gamesPaginator.loadingState
-		let loadMoreDataSource = ProxyDataSource()
-		loadMoreDataSource.innerDataSource <~ gamesPaginator.allLoaded.producer
-			.map { $0 ? EmptyDataSource() : StaticDataSource(items: [loadMoreItem]) as DataSource }
-		
-		let autoDiffDataSource = AutoDiffDataSource<GameCellViewModel>(compare: ==)
-		autoDiffDataSource.items <~ topGames
-		dataSource = ProxyDataSource(CompositeDataSource([autoDiffDataSource, loadMoreDataSource]), animateChanges: false)
-	}
-	
-	func loadMore() {
-		gamesPaginator.loadNext()
-	}
-	
-	private static func nintendoFilter(game: TopGame) -> Bool {
-		return !(game.game.gameNameString.containsString("Mario") || game.game.gameNameString.containsString("Bros"))
+	static func gameToViewModel(game: TopGame) -> GameCellViewModel? {
+		return GameCellViewModel(game: game.game)
 	}
 }

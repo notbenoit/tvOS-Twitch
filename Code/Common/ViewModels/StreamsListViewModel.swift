@@ -19,45 +19,12 @@
 // THE SOFTWARE.
 
 import Foundation
-import UIKit
-import ReactiveCocoa
-import Result
-import DataSource
 
-final class StreamsListViewModel {
-	// Data
-	let streamsPaginator: Paginator<StreamsResponse>
-	let streams = MutableProperty<[StreamViewModel]>([])
+struct StreamList {
 	
-	// Cell models
-	let dataSource: DataSource
+	typealias ViewModelType = BaseViewModel<StreamsResponse, StreamViewModel>
 	
-	let gameName: String?
-	
-	init(gameName: String? = nil) {
-		self.gameName = gameName
-		#if os(iOS)
-			UIApplication.sharedApplication().rac_networkIndicatorVisible <~ refreshAction.executing
-		#endif
-		
-		streamsPaginator = Paginator(TwitchRouter.Streams(gameName: gameName, page: 0))
-		
-		streams <~ streamsPaginator.objects.producer.map { $0.map { StreamViewModel(stream: $0) } }
-		let loadMoreItem = LoadMoreCellItem()
-		loadMoreItem.loadingState <~ streamsPaginator.loadingState
-		let loadMoreDataSource = ProxyDataSource()
-		let allLoaded = streamsPaginator.allLoaded.producer
-		loadMoreDataSource.innerDataSource <~ allLoaded
-			.map { $0 ? EmptyDataSource() : StaticDataSource(items: [loadMoreItem]) as DataSource }
-		
-		let autoDiffDataSource = AutoDiffDataSource<StreamViewModel>(compare: ==)
-		autoDiffDataSource.items <~ streams
-		dataSource = CompositeDataSource([autoDiffDataSource, loadMoreDataSource])
-		
-		loadMore()
-	}
-	
-	func loadMore() {
-		streamsPaginator.loadNext()
+	static func streamToViewModel(stream: Stream) -> StreamViewModel? {
+		return StreamViewModel(stream: stream)
 	}
 }

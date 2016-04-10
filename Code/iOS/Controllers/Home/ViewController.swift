@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingStateView: LoadingStateView!
 	
-	let gameListViewModel = GamesListViewModel()
+	let gameListViewModel = GamesList.ViewModelType(.GamesTop(page: 0), transform: GamesList.gameToViewModel)
 	let collectionDataSource = CollectionViewDataSource()
 	
 	override func viewDidLoad() {
@@ -63,8 +63,8 @@ class ViewController: UIViewController {
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 		
-		loadingStateView.loadingState <~ gameListViewModel.refreshAction.loadingState
-		loadingStateView.isEmpty <~ gameListViewModel.topGames.producer.map { $0.isEmpty }
+		loadingStateView.loadingState <~ gameListViewModel.paginator.loadingState
+		loadingStateView.isEmpty <~ gameListViewModel.viewModels.producer.map { $0.isEmpty }
 		loadingStateView.retry = { [weak self] in self?.gameListViewModel.loadMore() }
 	}
 }
@@ -77,7 +77,7 @@ extension ViewController: UICollectionViewDelegate {
 	}
 	
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		if let item = collectionDataSource.dataSource.itemAtIndexPath(indexPath) as? GameCellViewModel {
+		if let _ = collectionDataSource.dataSource.itemAtIndexPath(indexPath) as? GameCellViewModel {
 		}
 	}
 }

@@ -13,6 +13,9 @@
 		FC09EA111BF40371009E7DB6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
 		FC09EA211BF40490009E7DB6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA1E1BF40490009E7DB6 /* Alamofire.framework */; };
 		FC09EA231BF40490009E7DB6 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC09EA201BF40490009E7DB6 /* ReactiveCocoa.framework */; };
+		FC2DCB531CBB7C860059DDFE /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DB0F1CA9CB70002AB4ED /* LoadingState.swift */; };
+		FC2DCB551CBB82E10059DDFE /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */; };
+		FC2DCB561CBB83040059DDFE /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */; };
 		FCC826AF1C2237140005BF14 /* StreamsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCC826AE1C2237140005BF14 /* StreamsViewController.xib */; };
 		FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */; };
 		FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
@@ -223,6 +226,7 @@
 		FC1D63151BEA06A400403CC4 /* watchOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Base.xcconfig"; sourceTree = "<group>"; };
 		FC1D63161BEA06A400403CC4 /* watchOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		FC1D63171BEA06A400403CC4 /* watchOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCC826AE1C2237140005BF14 /* StreamsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamsViewController.xib; sourceTree = "<group>"; };
 		FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarDelegate.swift; sourceTree = "<group>"; };
@@ -535,10 +539,11 @@
 		FCCC30091BE7E039009DEEC7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */,
+				FCE5DB3A1CAD4DFA002AB4ED /* DataSourceProtocols.swift */,
+				FCE5DB161CA9CF1B002AB4ED /* LoadMoreCellViewModel.swift */,
 				FCE5DB451CAD56DB002AB4ED /* StreamsList */,
 				FCE5DB121CA9CE74002AB4ED /* TopGames */,
-				FCE5DB161CA9CF1B002AB4ED /* LoadMoreCellViewModel.swift */,
-				FCE5DB3A1CAD4DFA002AB4ED /* DataSourceProtocols.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -895,6 +900,7 @@
 				FCE5DB1A1CA9D262002AB4ED /* TwitchRouter.swift in Sources */,
 				FCE5DB201CA9D268002AB4ED /* Stream.swift in Sources */,
 				FCE5DB1C1CA9D268002AB4ED /* Channel.swift in Sources */,
+				FC2DCB531CBB7C860059DDFE /* LoadingState.swift in Sources */,
 				FCE5DB211CA9D268002AB4ED /* TopGame.swift in Sources */,
 				FCE5DB1F1CA9D268002AB4ED /* Preview.swift in Sources */,
 				FCE5DB1B1CA9D268002AB4ED /* AccessToken.swift in Sources */,
@@ -926,6 +932,7 @@
 				FCE5DB401CAD5146002AB4ED /* LoadMoreCell.swift in Sources */,
 				FCCC30571BE94592009DEEC7 /* UIColor+RGB.swift in Sources */,
 				FCE5DB071CA9C889002AB4ED /* TopGame.swift in Sources */,
+				FC2DCB551CBB82E10059DDFE /* BaseViewModel.swift in Sources */,
 				FCE5DB301CAD4804002AB4ED /* LoadingStateView.swift in Sources */,
 				FCE5DAFB1CA9C889002AB4ED /* AccessToken.swift in Sources */,
 				FCE5DB0D1CA9C889002AB4ED /* TwitchRouter.swift in Sources */,
@@ -974,6 +981,7 @@
 				FCCC30561BE9458D009DEEC7 /* Constants.swift in Sources */,
 				FCE5DB381CAD4824002AB4ED /* NibDesignable.swift in Sources */,
 				FCE5DAEE1CA9ADC9002AB4ED /* RACTerminal.swift in Sources */,
+				FC2DCB561CBB83040059DDFE /* BaseViewModel.swift in Sources */,
 				FCE5DB311CAD4804002AB4ED /* LoadingStateView.swift in Sources */,
 				FCE5DB261CA9D479002AB4ED /* GameCellViewModel.swift in Sources */,
 				FCE5DAFC1CA9C889002AB4ED /* AccessToken.swift in Sources */,

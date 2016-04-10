@@ -36,7 +36,8 @@ class TwitchHomeViewController: UIViewController {
 	}
 	
 	func selectGame(gameName: String) {
-		self.streamsController?.viewModel.value = StreamsListViewModel(gameName: gameName)
+		self.streamsController?.viewModel.value = StreamList.ViewModelType(
+		.Streams(gameName: gameName, page: 0), transform: StreamList.streamToViewModel)
 	}
 	
 	func onGameSelected() -> Game -> () {

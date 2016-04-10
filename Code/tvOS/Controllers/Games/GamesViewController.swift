@@ -33,7 +33,8 @@ class GamesViewController: UIViewController {
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingStateView: LoadingStateView!
 	
-	let gameListViewModel = GamesListViewModel()
+	let gameListViewModel = GamesList.ViewModelType(TwitchRouter.GamesTop(page: 0), transform: GamesList.gameToViewModel)
+	
 	let collectionDataSource = CollectionViewDataSource()
 	
 	override func viewDidLoad() {
@@ -62,8 +63,8 @@ class GamesViewController: UIViewController {
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 		
-		loadingStateView.loadingState <~ gameListViewModel.gamesPaginator.loadingState
-		loadingStateView.isEmpty <~ gameListViewModel.topGames.producer.map { $0.isEmpty }
+		loadingStateView.loadingState <~ gameListViewModel.paginator.loadingState
+		loadingStateView.isEmpty <~ gameListViewModel.viewModels.producer.map { $0.isEmpty }
 		loadingStateView.retry = { [weak self] in self?.gameListViewModel.loadMore() }
 	}
 }

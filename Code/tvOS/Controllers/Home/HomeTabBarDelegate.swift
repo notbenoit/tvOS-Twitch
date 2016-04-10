@@ -25,7 +25,8 @@ class HomeTabBarDelegate: NSObject, UITabBarControllerDelegate {
 		if let
 			controller = viewController as? StreamsViewController,
 			identifier = controller.restorationIdentifier where identifier == "Streams" && controller.viewModel.value == nil {
-				controller.viewModel.value = StreamsListViewModel()
+			controller.viewModel.value = StreamList.ViewModelType(
+				.Streams(gameName: nil, page: 0), transform: StreamList.streamToViewModel)
 		}
 	}
 }

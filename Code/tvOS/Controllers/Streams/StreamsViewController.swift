@@ -52,7 +52,7 @@ final class StreamsViewController: UIViewController {
 	@IBOutlet var loadingView: LoadingStateView!
 	@IBOutlet var noItemsLabel: UILabel!
 	
-	let viewModel = MutableProperty<StreamsListViewModel?>(nil)
+	let viewModel = MutableProperty<StreamList.ViewModelType?>(nil)
 	let collectionDataSource = CollectionViewDataSource()
 	
 	override func viewDidLoad() {
@@ -89,9 +89,9 @@ final class StreamsViewController: UIViewController {
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 		
-		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.streamsPaginator.loadingState }
-		loadingView.isEmpty <~ viewModel.producer.ignoreNil().chain { $0.streams }.map { $0.isEmpty }
-		loadingView.retry = { [weak self] in self?.viewModel.value?.streamsPaginator.loadFirst() }
+		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.paginator.loadingState }
+		loadingView.isEmpty <~ viewModel.producer.ignoreNil().chain { $0.viewModels }.map { $0.isEmpty }
+		loadingView.retry = { [weak self] in self?.viewModel.value?.paginator.loadFirst() }
 	}
 }
 

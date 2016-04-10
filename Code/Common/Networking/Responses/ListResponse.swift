@@ -39,14 +39,14 @@ extension Links: JSONParsing {
 
 // MARK: - List Response
 protocol ListResponseType: JSONParsing {
-	associatedtype T: JSONParsing
-	var objects: [T] { get }
+	associatedtype Element: JSONParsing
+	var objects: [Element] { get }
 	var count: Int { get }
 	var links: Links { get }
 	
 	static var rootPath: String { get }
 	
-	init(objects: [T], count: Int, links: Links)
+	init(objects: [Element], count: Int, links: Links)
 }
 
 extension ListResponseType {
@@ -82,10 +82,10 @@ struct GamesResponse: ListResponseType {
 	static let rootPath: String = "streams"
 }
 
-class Paginator<T: ListResponseType> {
-	let objects = MutableProperty<[T.T]>([])
-	let loadURLAction: Action<String, T, NSError>
-	let loadRouteAction: Action<TwitchRouter, T, NSError>
+class Paginator<Response: ListResponseType> {
+	let objects = MutableProperty<[Response.Element]>([])
+	let loadURLAction: Action<String, Response, NSError>
+	let loadRouteAction: Action<TwitchRouter, Response, NSError>
 	let initialRoute: TwitchRouter
 	
 	let totalCount = MutableProperty<Int?>(nil)
@@ -134,7 +134,7 @@ class Paginator<T: ListResponseType> {
 	}
 	
 	func loadCurrent() {
-		guard let currentLink = currentLink else { return }
+		guard let currentLink = currentLink else { loadFirst(); return }
 		loadURLAction.apply(currentLink).start()
 	}
 }
