@@ -24,17 +24,16 @@ import ReactiveCocoa
 import JSONParsing
 
 final class TwitchAPIClient {
-	
+
 	static let sharedInstance: TwitchAPIClient = TwitchAPIClient()
-	
+
 	private var manager: Manager = {
 		let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-		sessionConfiguration.timeoutIntervalForRequest = 10
 		sessionConfiguration.timeoutIntervalForRequest = 10
 		sessionConfiguration.HTTPAdditionalHeaders = ["Accept":"application/vnd.twitchtv.v3+json"]
 		return Alamofire.Manager(configuration: sessionConfiguration)
 	}()
-	
+
 	func request<T: JSONParsing>(urlString: String) -> SignalProducer<T, NSError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
 			guard let url = NSURL(string: urlString) else {
@@ -55,7 +54,7 @@ final class TwitchAPIClient {
 			}
 		}
 	}
-	
+
 	func request<T: JSONParsing>(route: TwitchRouter) -> SignalProducer<T, NSError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
 			let request = self.manager.request(route)
@@ -72,12 +71,12 @@ final class TwitchAPIClient {
 			}
 		}
 	}
-	
+
 	private func accessTokenForChannel(channelName: String) -> SignalProducer<AccessToken, NSError> {
 		return request(.AccessToken(channelName: channelName))
 	}
-	
-	private func m3u8URLForChannel(channelName: String, accessToken : AccessToken) -> SignalProducer<String, NSError> {
+
+	private func m3u8URLForChannel(channelName: String, accessToken: AccessToken) -> SignalProducer<String, NSError> {
 		return SignalProducer {
 			observer, disposable in
 			let urlString = "http://usher.justin.tv/api/channel/hls/\(channelName)?allow_source=true&token=\(accessToken.token)&sig=\(accessToken.sig)"
@@ -85,28 +84,28 @@ final class TwitchAPIClient {
 			observer.sendCompleted()
 		}
 	}
-	
+
 	func m3u8URLForChannel(channelName: String) -> SignalProducer<String, NSError> {
 		return accessTokenForChannel(channelName).flatMap(.Latest) {
 			return self.m3u8URLForChannel(channelName, accessToken: $0)
 		}
 	}
-	
+
 	func getTopGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
 		return request(TwitchRouter.GamesTop(page: page))
 	}
-	
+
 	func searchGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
 		return request(TwitchRouter.GamesTop(page: page))
 	}
-	
+
 //	func searchGames(query: String) -> SignalProducer<ListResponse<Game>, NSError> {
 //		return request(TwitchRouter.SearchGames(query: query), resultPath: "games")
 //			.map { (result: (items: [Game], count: Int)) in
 //				ListResponse(objects: result.items, count: result.count)
 //		}
 //	}
-	
+
 	func streamForGame(gameName: String?, page: Int) -> SignalProducer<StreamsResponse, NSError> {
 		return request(TwitchRouter.Streams(gameName: gameName, page: page))
 	}

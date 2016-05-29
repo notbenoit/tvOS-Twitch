@@ -43,9 +43,9 @@ protocol ListResponseType: JSONParsing {
 	var objects: [Element] { get }
 	var count: Int { get }
 	var links: Links { get }
-	
+
 	static var rootPath: String { get }
-	
+
 	init(objects: [Element], count: Int, links: Links)
 }
 
@@ -62,7 +62,7 @@ struct TopGamesResponse: ListResponseType {
 	let objects: [TopGame]
 	let count: Int
 	let links: Links
-	
+
 	static let rootPath: String = "top"
 }
 
@@ -70,7 +70,7 @@ struct StreamsResponse: ListResponseType {
 	let objects: [Stream]
 	let count: Int
 	let links: Links
-	
+
 	static let rootPath: String = "streams"
 }
 
@@ -78,7 +78,7 @@ struct GamesResponse: ListResponseType {
 	let objects: [Game]
 	let count: Int
 	let links: Links
-	
+
 	static let rootPath: String = "streams"
 }
 
@@ -87,52 +87,56 @@ class Paginator<Response: ListResponseType> {
 	let loadURLAction: Action<String, Response, NSError>
 	let loadRouteAction: Action<TwitchRouter, Response, NSError>
 	let initialRoute: TwitchRouter
-	
+
+	let lastResponse = MutableProperty<Response?>(nil)
 	let totalCount = MutableProperty<Int?>(nil)
 	let allLoaded = MutableProperty<Bool>(false)
-	
+
 	var nextLink: String?
 	var currentLink: String?
-	
+
 	let loadingState: SignalProducer<LoadingState<NSError>, NoError>
-	
+
 	init(_ initialRoute: TwitchRouter) {
 		self.initialRoute = initialRoute
 		loadURLAction = Action(TwitchAPIClient.sharedInstance.request)
 		loadRouteAction = Action(TwitchAPIClient.sharedInstance.request)
 		loadingState = SignalProducer(values: [loadURLAction.loadingState, loadRouteAction.loadingState]).flatten(.Merge)
-		
+
 		allLoaded <~ combineLatest(totalCount.producer.ignoreNil(), objects.producer).map {
 			return $0.0 <= $0.1.count
 		}
-		
+
 		loadRouteAction.values.observeNext { [weak self] in
 			self?.objects.value = $0.objects
 			self?.nextLink = $0.links.next
 			self?.currentLink = $0.links.current
+			self?.lastResponse.value = $0
 		}
-		
+
 		loadURLAction.values.observeNext { [weak self] in
+			self?.lastResponse.value = $0
 			self?.objects.value += $0.objects
 			self?.nextLink = $0.links.next
 			self?.currentLink = $0.links.current
 		}
-		
+
 		loadFirst()
 	}
-	
+
 	func loadFirst() {
 		objects.value = []
+		lastResponse.value = nil
 		nextLink = nil
 		currentLink = nil
 		loadRouteAction.apply(initialRoute).start()
 	}
-	
+
 	func loadNext() {
 		guard let nextLink = nextLink else { return }
 		loadURLAction.apply(nextLink).start()
 	}
-	
+
 	func loadCurrent() {
 		guard let currentLink = currentLink else { loadFirst(); return }
 		loadURLAction.apply(currentLink).start()
