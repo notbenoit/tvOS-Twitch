@@ -1,0 +1,6 @@
+framework module COLORAdFramework {
+  umbrella header "COLORAdFramework.h"
+
+  export *
+  module * { export * }
+}

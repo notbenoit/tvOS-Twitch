@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import COLORAdFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			tabController.viewControllers?.append(packagedSearchController())
 		}
 
+		COLORAdController.sharedAdController().startWithAppIdentifier("8a5090c0-633d-44d3-9d6a-76d4020456b7")
 		return true
 	}
 

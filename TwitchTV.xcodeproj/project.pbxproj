@@ -17,6 +17,9 @@
 		FC2DCB551CBB82E10059DDFE /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */; };
 		FC2DCB561CBB83040059DDFE /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */; };
 		FC5163DC1CFB386300203FE3 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */; };
+		FCC261DD1D04B7CA00AAFDCB /* COLORAdFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */; };
+		FCC261DE1D04B7D400AAFDCB /* COLORAdFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCC261E11D04BDA700AAFDCB /* ColorTVExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */; };
 		FCC826AF1C2237140005BF14 /* StreamsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCC826AE1C2237140005BF14 /* StreamsViewController.xib */; };
 		FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */; };
 		FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
@@ -180,6 +183,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FCC261DE1D04B7D400AAFDCB /* COLORAdFramework.framework in Copy Frameworks */,
 				FCE5DAE21CA99E40002AB4ED /* DataSource.framework in Copy Frameworks */,
 				FCE5DA781CA96657002AB4ED /* JSONParsing.framework in Copy Frameworks */,
 				FCE077BB1C0CF7B8005A7889 /* WebImage.framework in Copy Frameworks */,
@@ -230,6 +234,8 @@
 		FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = COLORAdFramework.framework; path = Vendor/COLORAdFramework.framework; sourceTree = "<group>"; };
+		FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTVExtension.swift; sourceTree = "<group>"; };
 		FCC826AE1C2237140005BF14 /* StreamsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamsViewController.xib; sourceTree = "<group>"; };
 		FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarDelegate.swift; sourceTree = "<group>"; };
 		FCCC2FE61BE7DC80009DEEC7 /* Game Theater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Theater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -337,6 +343,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCC261DD1D04B7CA00AAFDCB /* COLORAdFramework.framework in Frameworks */,
 				FCE5DADF1CA99E39002AB4ED /* DataSource.framework in Frameworks */,
 				FCE5DA771CA9663A002AB4ED /* JSONParsing.framework in Frameworks */,
 				FCE077B81C0CF79F005A7889 /* Alamofire.framework in Frameworks */,
@@ -482,6 +489,7 @@
 		FCBAD4411B7E48DB00B8A7BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */,
 				FCE5DAE31CA99E63002AB4ED /* DataSource.framework */,
 				FCE5DADE1CA99E39002AB4ED /* DataSource.framework */,
 				FCE5DADA1CA99E1B002AB4ED /* DataSource.framework */,
@@ -510,6 +518,14 @@
 				FC09EA031BF40322009E7DB6 /* TVServices.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FCC261DF1D04BDA700AAFDCB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FCCC2FFF1BE7E039009DEEC7 /* Code */ = {
@@ -594,6 +610,7 @@
 			children = (
 				FCCC301B1BE7E039009DEEC7 /* AppDelegate.swift */,
 				FCE769E21BECFF6500119B19 /* Controllers */,
+				FCC261DF1D04BDA700AAFDCB /* Helpers */,
 				FCCC30201BE7E039009DEEC7 /* Resources */,
 				FC09E9FB1BF3FEE4009E7DB6 /* TopShelf */,
 				FCE5DB461CAD60B3002AB4ED /* Views */,
@@ -995,6 +1012,7 @@
 				FCCC30561BE9458D009DEEC7 /* Constants.swift in Sources */,
 				FCE5DB381CAD4824002AB4ED /* NibDesignable.swift in Sources */,
 				FCE5DAEE1CA9ADC9002AB4ED /* RACTerminal.swift in Sources */,
+				FCC261E11D04BDA700AAFDCB /* ColorTVExtension.swift in Sources */,
 				FC2DCB561CBB83040059DDFE /* BaseViewModel.swift in Sources */,
 				FCE5DB311CAD4804002AB4ED /* LoadingStateView.swift in Sources */,
 				FCE5DB261CA9D479002AB4ED /* GameCellViewModel.swift in Sources */,
@@ -1045,7 +1063,10 @@
 			baseConfigurationReference = FC1D630F1BEA06A400403CC4 /* tvOS-Application.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor",
+				);
 				INFOPLIST_FILE = Code/tvOS/TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch.TopShelf;
@@ -1061,7 +1082,10 @@
 			baseConfigurationReference = FC1D630F1BEA06A400403CC4 /* tvOS-Application.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor",
+				);
 				INFOPLIST_FILE = Code/tvOS/TopShelf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch.TopShelf;
@@ -1195,7 +1219,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor",
+				);
 				INFOPLIST_FILE = Code/tvOS/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch;
@@ -1214,7 +1241,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor",
+				);
 				INFOPLIST_FILE = Code/tvOS/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch;
