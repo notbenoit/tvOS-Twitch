@@ -69,7 +69,7 @@ final class TwitchAPIClient {
 			disposable.addDisposable {
 				request.cancel()
 			}
-		}
+		}.observeOn(UIScheduler())
 	}
 
 	private func accessTokenForChannel(channelName: String) -> SignalProducer<AccessToken, NSError> {
@@ -93,21 +93,6 @@ final class TwitchAPIClient {
 
 	func getTopGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
 		return request(TwitchRouter.GamesTop(page: page))
-	}
-
-	func searchGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
-		return request(TwitchRouter.GamesTop(page: page))
-	}
-
-//	func searchGames(query: String) -> SignalProducer<ListResponse<Game>, NSError> {
-//		return request(TwitchRouter.SearchGames(query: query), resultPath: "games")
-//			.map { (result: (items: [Game], count: Int)) in
-//				ListResponse(objects: result.items, count: result.count)
-//		}
-//	}
-
-	func streamForGame(gameName: String?, page: Int) -> SignalProducer<StreamsResponse, NSError> {
-		return request(TwitchRouter.Streams(gameName: gameName, page: page))
 	}
 }
 

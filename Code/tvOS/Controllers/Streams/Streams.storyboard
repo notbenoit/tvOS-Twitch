@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="QNr-wA-3od">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Streams-->
+        <scene sceneID="J5G-LB-73u">
+            <objects>
+                <viewController id="QNr-wA-3od" customClass="StreamsViewController" customModule="Game_Theater" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wNj-D7-YUN"/>
+                        <viewControllerLayoutGuide type="bottom" id="52J-A5-ewJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3FA-Tb-w5n">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tR-q8-2o3" customClass="LoadingStateView" customModule="Game_Theater" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="contentView" destination="pfH-7r-aib" id="GgG-8I-IYn"/>
+                                </connections>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pfH-7r-aib">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="D0C-0e-3Gj">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZv-6e-tUv">
+                                <rect key="frame" x="939" y="530" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0tR-q8-2o3" firstAttribute="centerY" secondItem="3FA-Tb-w5n" secondAttribute="centerY" id="68a-r3-092"/>
+                            <constraint firstItem="pfH-7r-aib" firstAttribute="width" secondItem="3FA-Tb-w5n" secondAttribute="width" id="6xk-eg-ub2"/>
+                            <constraint firstItem="0tR-q8-2o3" firstAttribute="centerX" secondItem="3FA-Tb-w5n" secondAttribute="centerX" id="H6f-aZ-rO8"/>
+                            <constraint firstItem="0tR-q8-2o3" firstAttribute="height" secondItem="3FA-Tb-w5n" secondAttribute="height" id="Hyk-VA-z5n"/>
+                            <constraint firstItem="0tR-q8-2o3" firstAttribute="width" secondItem="3FA-Tb-w5n" secondAttribute="width" id="TDB-tC-oor"/>
+                            <constraint firstItem="jZv-6e-tUv" firstAttribute="centerX" secondItem="3FA-Tb-w5n" secondAttribute="centerX" id="hYt-bI-CEa"/>
+                            <constraint firstItem="pfH-7r-aib" firstAttribute="height" secondItem="3FA-Tb-w5n" secondAttribute="height" id="i2z-tT-aEy"/>
+                            <constraint firstItem="pfH-7r-aib" firstAttribute="centerX" secondItem="3FA-Tb-w5n" secondAttribute="centerX" id="iw8-Nr-KcL"/>
+                            <constraint firstItem="jZv-6e-tUv" firstAttribute="centerY" secondItem="3FA-Tb-w5n" secondAttribute="centerY" id="sg4-po-neG"/>
+                            <constraint firstItem="pfH-7r-aib" firstAttribute="centerY" secondItem="3FA-Tb-w5n" secondAttribute="centerY" id="tjW-Mo-gDA"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Streams" id="3yK-d6-lnY"/>
+                    <simulatedTabBarMetrics key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="pfH-7r-aib" id="yF3-Vs-irT"/>
+                        <outlet property="loadingView" destination="0tR-q8-2o3" id="0Ge-Qa-fGL"/>
+                        <outlet property="noItemsLabel" destination="jZv-6e-tUv" id="neZ-JA-Xzm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gs6-BC-hP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="406" y="433"/>
+        </scene>
+    </scenes>
+</document>

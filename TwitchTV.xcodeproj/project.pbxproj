@@ -16,6 +16,7 @@
 		FC2DCB531CBB7C860059DDFE /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DB0F1CA9CB70002AB4ED /* LoadingState.swift */; };
 		FC2DCB551CBB82E10059DDFE /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */; };
 		FC2DCB561CBB83040059DDFE /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */; };
+		FC5163DC1CFB386300203FE3 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */; };
 		FCC826AF1C2237140005BF14 /* StreamsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCC826AE1C2237140005BF14 /* StreamsViewController.xib */; };
 		FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */; };
 		FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
@@ -36,6 +37,8 @@
 		FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30841BE972FE009DEEC7 /* StreamViewModel.swift */; };
 		FCCC30861BE972FE009DEEC7 /* StreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30841BE972FE009DEEC7 /* StreamViewModel.swift */; };
 		FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCCC30901BE984E3009DEEC7 /* AVKit.framework */; };
+		FCD02B1E1CFB4BA700638355 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD02B1D1CFB4BA700638355 /* Search.storyboard */; };
+		FCD02B201CFB4C2F00638355 /* Streams.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD02B1F1CFB4C2F00638355 /* Streams.storyboard */; };
 		FCE077B81C0CF79F005A7889 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B61C0CF79F005A7889 /* Alamofire.framework */; };
 		FCE077B91C0CF79F005A7889 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE077B71C0CF79F005A7889 /* WebImage.framework */; };
 		FCE077BA1C0CF7AE005A7889 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCE76A051BF127A800119B19 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -227,6 +230,7 @@
 		FC1D63161BEA06A400403CC4 /* watchOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		FC1D63171BEA06A400403CC4 /* watchOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		FC2DCB541CBB82E10059DDFE /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCC826AE1C2237140005BF14 /* StreamsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamsViewController.xib; sourceTree = "<group>"; };
 		FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarDelegate.swift; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 		FCCC307E1BE971EE009DEEC7 /* StreamsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamsListViewModel.swift; path = ../StreamsListViewModel.swift; sourceTree = "<group>"; };
 		FCCC30841BE972FE009DEEC7 /* StreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamViewModel.swift; path = ../StreamViewModel.swift; sourceTree = "<group>"; };
 		FCCC30901BE984E3009DEEC7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
+		FCD02B1D1CFB4BA700638355 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		FCD02B1F1CFB4C2F00638355 /* Streams.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Streams.storyboard; sourceTree = "<group>"; };
 		FCE077AE1C0CF2B2005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE077B11C0CF5E3005A7889 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE077B41C0CF658005A7889 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
@@ -445,6 +451,15 @@
 				FC1D63171BEA06A400403CC4 /* watchOS-StaticLibrary.xcconfig */,
 			);
 			path = watchOS;
+			sourceTree = "<group>";
+		};
+		FC5163D91CFB386300203FE3 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */,
+				FCD02B1D1CFB4BA700638355 /* Search.storyboard */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		FC858B051B7E40FF007A9B54 = {
@@ -692,6 +707,7 @@
 		FCE769E21BECFF6500119B19 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FC5163D91CFB386300203FE3 /* Search */,
 				FCE769E31BECFF6500119B19 /* Games */,
 				FCE769E81BECFF6500119B19 /* Home */,
 				FCE769EA1BECFF6500119B19 /* Streams */,
@@ -732,6 +748,7 @@
 				FCE769EB1BECFF6500119B19 /* Cells */,
 				FCE769EE1BECFF6500119B19 /* StreamsViewController.swift */,
 				FCC826AE1C2237140005BF14 /* StreamsViewController.xib */,
+				FCD02B1F1CFB4C2F00638355 /* Streams.storyboard */,
 			);
 			path = Streams;
 			sourceTree = "<group>";
@@ -876,7 +893,9 @@
 				FCE5DB4F1CAD66F0002AB4ED /* LoadMoreCell.xib in Resources */,
 				FCCC303E1BE7E053009DEEC7 /* Main.storyboard in Resources */,
 				FCC826AF1C2237140005BF14 /* StreamsViewController.xib in Resources */,
+				FCD02B201CFB4C2F00638355 /* Streams.storyboard in Resources */,
 				FCE769F01BECFF6500119B19 /* GameCell.xib in Resources */,
+				FCD02B1E1CFB4BA700638355 /* Search.storyboard in Resources */,
 				FCE769F41BECFF6500119B19 /* StreamCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -975,6 +994,7 @@
 				FCCC303A1BE7E03F009DEEC7 /* AppDelegate.swift in Sources */,
 				FCE769FB1BED275100119B19 /* UIView+MotionEffect.swift in Sources */,
 				FCE769F21BECFF6500119B19 /* TwitchHomeViewController.swift in Sources */,
+				FC5163DC1CFB386300203FE3 /* SearchResultsViewController.swift in Sources */,
 				FCE5DB001CA9C889002AB4ED /* Game.swift in Sources */,
 				FCE5DB181CA9CF1B002AB4ED /* LoadMoreCellViewModel.swift in Sources */,
 				FCCC30861BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,

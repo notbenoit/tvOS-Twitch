@@ -28,7 +28,7 @@ final class StreamsViewController: UIViewController {
 	let streamCellWidth: CGFloat = 308.0
 	let horizontalSpacing: CGFloat = 50.0
 	let verticalSpacing: CGFloat = 100.0
-	
+
 	let presentStream: Action<(stream: Stream, controller: UIViewController), Void, NSError> = Action {
 		pair in
 		TwitchAPIClient.sharedInstance.m3u8URLForChannel(pair.stream.channel.channelName).flatMap(.Latest) {
@@ -47,48 +47,47 @@ final class StreamsViewController: UIViewController {
 			}
 		}
 	}
-	
+
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingView: LoadingStateView!
 	@IBOutlet var noItemsLabel: UILabel!
-	
+
 	let viewModel = MutableProperty<StreamList.ViewModelType?>(nil)
 	let collectionDataSource = CollectionViewDataSource()
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.twitchDarkColor()
-		
+
 		collectionDataSource.reuseIdentifierForItem = { _, item in
 			if let item = item as? ReuseIdentifierProvider {
 				return item.reuseIdentifier
 			}
 			fatalError()
 		}
-		
-		collectionDataSource.dataSource.animatesChanges.value = false
+
 		collectionDataSource.dataSource.innerDataSource <~ viewModel.producer.map { $0?.dataSource ?? EmptyDataSource() }
 		collectionDataSource.collectionView = collectionView
 		collectionView.dataSource = collectionDataSource
-		
+
 		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
 		noItemsLabel.font = UIFont.systemFontOfSize(42)
 		noItemsLabel.textColor = UIColor.whiteColor()
 		noItemsLabel.rac_hidden <~ viewModel.producer.map { $0 != nil }
-		
+
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .Vertical
 		layout.itemSize = CGSize(width: streamCellWidth, height: 250.0)
 		layout.sectionInset = UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90)
 		layout.minimumInteritemSpacing = horizontalSpacing
 		layout.minimumLineSpacing = verticalSpacing
-		
+
 		collectionView.registerNib(StreamCell.nib, forCellWithReuseIdentifier: StreamCell.identifier)
 		collectionView.registerNib(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
-		
+
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
-		
+
 		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.paginator.loadingState }
 		loadingView.isEmpty <~ viewModel.producer.ignoreNil().chain { $0.viewModels }.map { $0.isEmpty }
 		loadingView.retry = { [weak self] in self?.viewModel.value?.paginator.loadFirst() }
@@ -101,17 +100,15 @@ extension StreamsViewController: UICollectionViewDelegate {
 			presentStream.apply((item.stream, self)).start()
 		}
 	}
-	
+
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		let contentOffsetY = scrollView.contentOffset.y + scrollView.bounds.size.height
 		let wholeHeight = scrollView.contentSize.height
-		
+
 		let remainingDistanceToBottom = wholeHeight - contentOffsetY
-		
+
 		if remainingDistanceToBottom <= 600 {
 			viewModel.value?.loadMore()
 		}
 	}
 }
-
-
