@@ -117,8 +117,6 @@
 		FCE5DB491CAD60EB002AB4ED /* LoadingStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCE5DB481CAD60EB002AB4ED /* LoadingStateView.xib */; };
 		FCE5DB4C1CAD6106002AB4ED /* LoadingStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCE5DB4A1CAD6103002AB4ED /* LoadingStateView.xib */; };
 		FCE5DB4F1CAD66F0002AB4ED /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCE5DB4D1CAD66EA002AB4ED /* LoadMoreCell.xib */; };
-		FCE5DB511CAE68A3002AB4ED /* ReactiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DB501CAE68A3002AB4ED /* ReactiveController.swift */; };
-		FCE5DB521CAE68B5002AB4ED /* ReactiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DB501CAE68A3002AB4ED /* ReactiveController.swift */; };
 		FCE5DB541CAF1FCE002AB4ED /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCE5DB531CAF1FCD002AB4ED /* LoadMoreCell.xib */; };
 		FCE769DF1BECFEB500119B19 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769DD1BECFEAE00119B19 /* GameCell.swift */; };
 		FCE769EF1BECFF6500119B19 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769E51BECFF6500119B19 /* GameCell.swift */; };
@@ -292,7 +290,6 @@
 		FCE5DB481CAD60EB002AB4ED /* LoadingStateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingStateView.xib; sourceTree = "<group>"; };
 		FCE5DB4A1CAD6103002AB4ED /* LoadingStateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingStateView.xib; sourceTree = "<group>"; };
 		FCE5DB4D1CAD66EA002AB4ED /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
-		FCE5DB501CAE68A3002AB4ED /* ReactiveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveController.swift; sourceTree = "<group>"; };
 		FCE5DB531CAF1FCD002AB4ED /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
 		FCE769DD1BECFEAE00119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		FCE769E51BECFF6500119B19 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
@@ -543,7 +540,6 @@
 				FCE5DB0F1CA9CB70002AB4ED /* LoadingState.swift */,
 				FCE5DAE91CA9ADC9002AB4ED /* RACExtensions.swift */,
 				FCE5DAEA1CA9ADC9002AB4ED /* RACTerminal.swift */,
-				FCE5DB501CAE68A3002AB4ED /* ReactiveController.swift */,
 				FCCC30421BE94152009DEEC7 /* UIColor+RGB.swift */,
 				FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */,
 				FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */,
@@ -956,7 +952,6 @@
 				FCE5DAFB1CA9C889002AB4ED /* AccessToken.swift in Sources */,
 				FCE5DB0D1CA9C889002AB4ED /* TwitchRouter.swift in Sources */,
 				FCCC307F1BE971EE009DEEC7 /* StreamsListViewModel.swift in Sources */,
-				FCE5DB511CAE68A3002AB4ED /* ReactiveController.swift in Sources */,
 				FCE5DAFF1CA9C889002AB4ED /* Game.swift in Sources */,
 				FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */,
 				FCE5DB011CA9C889002AB4ED /* ListResponse.swift in Sources */,
@@ -985,7 +980,6 @@
 				FCE5DB021CA9C889002AB4ED /* ListResponse.swift in Sources */,
 				FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */,
 				FCE5DB041CA9C889002AB4ED /* Preview.swift in Sources */,
-				FCE5DB521CAE68B5002AB4ED /* ReactiveController.swift in Sources */,
 				FCE769F11BECFF6500119B19 /* GamesViewController.swift in Sources */,
 				FCE5DAEC1CA9ADC9002AB4ED /* RACExtensions.swift in Sources */,
 				FCE769EF1BECFF6500119B19 /* GameCell.swift in Sources */,
