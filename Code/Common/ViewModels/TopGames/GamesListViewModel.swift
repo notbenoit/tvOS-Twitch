@@ -20,42 +20,11 @@
 
 import Foundation
 
-import Foundation
-import ReactiveCocoa
-import ObjectMapper
-
-struct Stream {
-	var id: Int!
-	var gameNameString: String!
-	var viewers: Int!
-	var averageFPS: Double!
-	var delay: Int!
-	var videoHeight: Int!
-	var isPlaylist: Bool!
-	var channel: Channel!
-	var preview: Preview!
-}
-
-extension Stream: CustomStringConvertible {
-	internal var description: String {
-		return ""
-	}
-}
-
-extension Stream: Mappable {
+struct GamesList {
 	
-	init?(_ map: Map) {
-	}
+	typealias ViewModelType = BaseViewModel<TopGamesResponse, GameCellViewModel>
 	
-	mutating func mapping(map: Map) {
-		id     <- map["_id"]
-		gameNameString <- map["game"]
-		viewers <- map["viewers"]
-		averageFPS <- map["average_fps"]
-		delay <- map["delay"]
-		videoHeight <- map["videoHeight"]
-		isPlaylist <- map["is_playlist"]
-		channel <- map["channel"]
-		preview <- map["preview"]
+	static func gameToViewModel(game: TopGame) -> GameCellViewModel? {
+		return GameCellViewModel(game: game.game)
 	}
 }

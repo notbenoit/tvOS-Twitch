@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StreamsViewController" customModule="Game_Theater" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicator" destination="Fbs-3T-YPd" id="6P5-bd-qrC"/>
                 <outlet property="collectionView" destination="alV-fm-NcM" id="5BF-aj-0RB"/>
+                <outlet property="loadingView" destination="n11-bp-WlY" id="AWY-Ih-umy"/>
                 <outlet property="noItemsLabel" destination="A5V-zx-vlN" id="LdA-Wt-e2c"/>
                 <outlet property="view" destination="iN0-l3-epB" id="RsT-YX-Paw"/>
             </connections>
@@ -17,6 +17,13 @@
             <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n11-bp-WlY" customClass="LoadingStateView" customModule="Game_Theater" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="contentView" destination="alV-fm-NcM" id="Zfc-F0-2XS"/>
+                    </connections>
+                </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="alV-fm-NcM">
                     <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ud4-uV-hjJ">
@@ -32,21 +39,19 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-3T-YPd">
-                    <rect key="frame" x="928" y="508" width="64" height="64"/>
-                    <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="alV-fm-NcM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4Od-YJ-3oq"/>
+                <constraint firstItem="n11-bp-WlY" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="9jF-DF-NiM"/>
                 <constraint firstItem="alV-fm-NcM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="BnW-Yb-2wC"/>
                 <constraint firstItem="alV-fm-NcM" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="G7m-9D-RE6"/>
                 <constraint firstItem="A5V-zx-vlN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="LpP-nQ-8wr"/>
-                <constraint firstItem="Fbs-3T-YPd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Vbn-Vm-VDk"/>
+                <constraint firstItem="n11-bp-WlY" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="MAk-NO-gPl"/>
                 <constraint firstItem="A5V-zx-vlN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="boG-oQ-TYf"/>
-                <constraint firstItem="Fbs-3T-YPd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="k4D-Zn-nnb"/>
+                <constraint firstItem="n11-bp-WlY" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="kOX-sx-S9m"/>
                 <constraint firstItem="alV-fm-NcM" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="l52-bn-zeA"/>
+                <constraint firstItem="n11-bp-WlY" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="pqQ-LZ-SLm"/>
             </constraints>
         </view>
     </objects>

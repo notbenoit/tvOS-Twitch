@@ -18,30 +18,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
-import ReactiveCocoa
+import Foundation
+import JSONParsing
 
-final class StreamsDataSource: NSObject {
-	
-	let streamListViewModel: MutableProperty<StreamListViewModel>
-	
-	init(streamListVM: StreamListViewModel) {
-		streamListViewModel = MutableProperty<StreamListViewModel>(streamListVM)
-	}
-	
-	func loadMore() {
-		streamListViewModel.value.loadMore()
-	}
+struct Preview {
+	let small: String
+	let medium: String
+	let large: String
+	let template: String
 }
 
-extension StreamsDataSource: UICollectionViewDataSource {
-	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(StreamCell.identifier, forIndexPath: indexPath) as! StreamCell
-		cell.bindViewModel(StreamViewModel(stream: streamListViewModel.value.data.value[indexPath.row]))
-		return cell
-	}
-	
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return streamListViewModel.value.data.value.count
+// MARK: JSONParsing
+
+extension Preview: JSONParsing {
+	static func parse(json: JSON) throws -> Preview {
+		return try Preview(
+			small: json["small"]^,
+			medium: json["medium"]^,
+			large: json["large"]^,
+			template: json["template"]^)
 	}
 }

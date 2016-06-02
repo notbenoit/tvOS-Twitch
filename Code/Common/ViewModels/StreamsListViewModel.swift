@@ -20,7 +20,11 @@
 
 import Foundation
 
-struct ListResponse<T> {
-	let objects: [T]
-	let count: Int
+struct StreamList {
+	
+	typealias ViewModelType = BaseViewModel<StreamsResponse, StreamViewModel>
+	
+	static func streamToViewModel(stream: Stream) -> StreamViewModel? {
+		return StreamViewModel(stream: stream)
+	}
 }

@@ -19,63 +19,49 @@
 // THE SOFTWARE.
 
 import Foundation
+import JSONParsing
 import ReactiveCocoa
-import ObjectMapper
 
-struct TopGame {
-	var game: Game!
-	var viewers: Int!
-	var channels: Int!
+struct Game {
+	let gameNameString: String
+	let id: Int
+	let giantBombId: Int
+	let box: Preview
+	let logo: Preview
+	let popularity: Int?
 }
 
-extension TopGame: CustomStringConvertible {
+extension Game: CustomStringConvertible {
 	internal var description: String {
-		return game.gameNameString + "\nViewers =>" + String(viewers)
+		return gameNameString
 	}
 }
 
-// MARK: Mappable
+// MARK: JSONParsing
 
-extension TopGame: Mappable {
-	
-	init?(_ map: Map) {
-	}
-	
-	mutating func mapping(map: Map) {
-		game			<- map["game"]
-		viewers		<- map["viewers"]
-		channels	<- map["channels"]
+extension Game: JSONParsing {
+	static func parse(json: JSON) throws -> Game {
+		return try Game(
+			gameNameString: json["name"]^,
+			id: json["_id"]^,
+			giantBombId: json["giantbomb_id"]^,
+			box: json["box"]^,
+			logo: json["logo"]^,
+			popularity: json["popularity"].optional.map(^))
 	}
 }
 
 // MARK: Hashable
 
-extension TopGame: Hashable {
+extension Game: Hashable {
 	var hashValue: Int {
-		return game.hashValue
+		return id
 	}
 }
 
 // MARK: Equatable
 
-func ==(lhs: TopGame, rhs: TopGame) -> Bool {
+extension Game: Equatable { }
+func ==(lhs: Game, rhs: Game) -> Bool {
 	return lhs.hashValue == rhs.hashValue
-}
-
-// MARK: Comparable
-
-func <(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers < rhs.viewers
-}
-
-func <=(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers <= rhs.viewers
-}
-
-func >=(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers >= rhs.viewers
-}
-
-func >(lhs: TopGame, rhs: TopGame) -> Bool {
-	return lhs.viewers > rhs.viewers
 }

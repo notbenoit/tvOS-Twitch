@@ -18,45 +18,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 import ReactiveCocoa
-import ObjectMapper
+import DataSource
 
-struct Game {
-	var gameNameString: String!
-	var id: Int!
-	var giantBombId: Int!
-	var box: Preview!
-	var logo: Preview!
-	var popularity: Int?
-}
-
-extension Game: CustomStringConvertible {
-	internal var description: String {
-		return gameNameString
-	}
-}
-
-extension Game: Mappable {
+final class LoadMoreCell: CollectionViewCell {
+	static let identifier: String = "LoadMoreCell"
+	static let nib: UINib = UINib(nibName: "LoadMoreCell", bundle: nil)
 	
-	init?(_ map: Map) {
+	@IBOutlet var loadingView: UIActivityIndicatorView!
+	
+	override func awakeFromNib() {
+		cellModel.producer
+			.map { $0 as? LoadMoreCellItem }
+			.ignoreNil()
+			.chain { $0.loadingState }
+			.start(self, LoadMoreCell.configureWithLoadingState)
 	}
 	
-	mutating func mapping(map: Map) {
-		id								<- map["_id"]
-		giantBombId				<- map["giantbomb_id"]
-		gameNameString    <- map["name"]
-		box								<- map["box"]
-		logo							<- map["logo"]
+	func configureWithLoadingState(state: LoadingState<NSError>) {
+		loadingView.hidden = !state.loading
+		state.loading ? loadingView.startAnimating() : loadingView.stopAnimating()
 	}
 }
 
-extension Game: Hashable {
-	var hashValue: Int {
-		return id
-	}
-}
-
-func ==(lhs: Game, rhs: Game) -> Bool {
-	return lhs.hashValue == rhs.hashValue
-}

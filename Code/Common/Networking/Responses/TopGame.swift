@@ -18,34 +18,63 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
+import ReactiveCocoa
+import JSONParsing
 
-extension UIViewController {
-	func presentDefaultError(error: NSError) {
-		let alert = UIAlertController(title: NSLocalizedString("An error occured", comment: ""), message: nil, preferredStyle: .Alert)
-		alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil))
-		self.presentViewController(alert, animated: true, completion: nil)
+struct TopGame {
+	let game: Game
+	let viewers: Int
+	let channels: Int
+}
+
+extension TopGame: CustomStringConvertible {
+	internal var description: String {
+		return game.gameNameString + "\nViewers =>" + String(viewers)
 	}
 }
 
-extension UIView {
-	func addAndFitSubview(view: UIView) {
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.frame = self.bounds
-		self.addSubview(view)
-		let views = ["view": view]
-		let options = NSLayoutFormatOptions(rawValue: 0)
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: options, metrics: nil, views: views))
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: options, metrics: nil, views: views))
+// MARK: JSONParsing
+
+extension TopGame: JSONParsing {
+	static func parse(json: JSON) throws -> TopGame {
+		return try TopGame(
+			game: json["game"]^,
+			viewers: json["viewers"]^,
+			channels: json["channels"]^)
 	}
 }
 
-extension UITableView {
-	func deselectAllRows(animated: Bool) {
-		if let indexPaths = self.indexPathsForSelectedRows {
-			for indexPath in indexPaths {
-				self.deselectRowAtIndexPath(indexPath, animated: animated)
-			}
-		}
+// MARK: Hashable
+
+extension TopGame: Hashable {
+	var hashValue: Int {
+		return game.hashValue
 	}
+}
+
+// MARK: Equatable
+
+extension TopGame: Equatable { }
+func ==(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.hashValue == rhs.hashValue
+}
+
+// MARK: Comparable
+
+extension TopGame: Comparable { }
+func <(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers < rhs.viewers
+}
+
+func <=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers <= rhs.viewers
+}
+
+func >=(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers >= rhs.viewers
+}
+
+func >(lhs: TopGame, rhs: TopGame) -> Bool {
+	return lhs.viewers > rhs.viewers
 }

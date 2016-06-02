@@ -18,27 +18,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
+import JSONParsing
 
-extension UIView {
-	func applyMotionEffectForX(x: Float, y: Float) {
-		let x = abs(x)
-		let y = abs(y)
-		let effectX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
-		effectX.minimumRelativeValue = NSNumber(float: -x)
-		effectX.maximumRelativeValue = NSNumber(float: x)
-		let effectY = UIInterpolatingMotionEffect(keyPath: "center.y", type: .TiltAlongVerticalAxis)
-		effectY.minimumRelativeValue = NSNumber(float: -y)
-		effectY.maximumRelativeValue = NSNumber(float: y)
-		let effectGroup = UIMotionEffectGroup()
-		effectGroup.motionEffects = [effectX, effectY]
-		self.addMotionEffect(effectGroup)
-	}
-	
-	func removeMotionEffects() {
-		guard let effect = self.motionEffects.first else {
-			return
-		}
-		self.removeMotionEffect(effect)
+struct AccessToken {
+	let token: String
+	let sig: String
+	let mobileRestricted: Bool
+}
+
+// MARK: JSONParsing
+
+extension AccessToken: JSONParsing {
+	static func parse(json: JSON) throws -> AccessToken {
+		return try AccessToken(
+			token: json["token"]^,
+			sig: json["sig"]^,
+			mobileRestricted: json["mobile_restricted"]^)
 	}
 }

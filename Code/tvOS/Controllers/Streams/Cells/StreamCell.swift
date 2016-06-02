@@ -21,9 +21,11 @@
 import UIKit
 import ReactiveCocoa
 import WebImage
+import DataSource
 
-class StreamCell: UICollectionViewCell {
+class StreamCell: CollectionViewCell {
 	static let identifier: String = "cellIdentifierStream"
+	static let nib: UINib = UINib(nibName: "StreamCell", bundle: nil)
 	
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var placeholder: UIImageView!
@@ -35,7 +37,10 @@ class StreamCell: UICollectionViewCell {
 	private let defaultStreamFont = UIFont.boldSystemFontOfSize(22)
 	private let defaultViewersFont = UIFont.systemFontOfSize(22)
 	
-	private let viewModel = MutableProperty<StreamViewModel?>(nil)
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		imageView.image = nil
+	}
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -48,19 +53,16 @@ class StreamCell: UICollectionViewCell {
 		streamNameLabel.font = defaultStreamFont
 		viewersCountLabel.font = defaultViewersFont
 		
-		let vm = viewModel.producer.ignoreNil()
-		streamNameLabel.rac_text <~ vm.flatMap(.Latest) { $0.streamTitle.producer }
-		viewersCountLabel.rac_text <~ vm.flatMap(.Latest) { $0.viewersCount.producer }
+		disposable += cellModel.producer
+			.map { $0 as? StreamViewModel }
+			.ignoreNil()
+			.start(self, StreamCell.configureWithItem)
 	}
 	
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		imageView.image = nil
-	}
-	
-	internal func bindViewModel(streamViewModel: StreamViewModel) {
-		self.viewModel.value = streamViewModel
-		if let url = NSURL(string: streamViewModel.streamImageURL.value) {
+	private func configureWithItem(item: StreamViewModel) {
+		streamNameLabel.text = item.streamTitle
+		viewersCountLabel.text = item.viewersCount
+		if let url = NSURL(string: item.streamImageURL) {
 			imageView.sd_setImageWithURL(url)
 		}
 	}

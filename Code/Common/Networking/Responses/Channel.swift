@@ -18,27 +18,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
+import JSONParsing
 
-extension UIView {
-	func applyMotionEffectForX(x: Float, y: Float) {
-		let x = abs(x)
-		let y = abs(y)
-		let effectX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
-		effectX.minimumRelativeValue = NSNumber(float: -x)
-		effectX.maximumRelativeValue = NSNumber(float: x)
-		let effectY = UIInterpolatingMotionEffect(keyPath: "center.y", type: .TiltAlongVerticalAxis)
-		effectY.minimumRelativeValue = NSNumber(float: -y)
-		effectY.maximumRelativeValue = NSNumber(float: y)
-		let effectGroup = UIMotionEffectGroup()
-		effectGroup.motionEffects = [effectX, effectY]
-		self.addMotionEffect(effectGroup)
+struct Channel {
+	let id: Int
+	let mature: Bool?
+	let status: String?
+	let displayName: String
+	let gameName: String?
+	let channelName: String
+}
+
+extension Channel: CustomStringConvertible {
+	internal var description: String {
+		return channelName + (gameName.map { "on " + $0 } ?? "")
 	}
-	
-	func removeMotionEffects() {
-		guard let effect = self.motionEffects.first else {
-			return
-		}
-		self.removeMotionEffect(effect)
+}
+
+extension Channel: JSONParsing {
+	static func parse(json: JSON) throws -> Channel {
+		return try Channel(
+			id: json["_id"]^,
+			mature: json["mature"].optional.map(^),
+			status: json["status"].optional.map(^),
+			displayName: json["display_name"]^,
+			gameName: json["game"].optional.map(^),
+			channelName: json["name"]^)
 	}
+}
+
+extension Channel: Hashable {
+	var hashValue: Int {
+		return id
+	}
+}
+
+extension Channel: Equatable { }
+func == (lhs: Channel, rhs: Channel) -> Bool {
+	return lhs.id == rhs.id
 }

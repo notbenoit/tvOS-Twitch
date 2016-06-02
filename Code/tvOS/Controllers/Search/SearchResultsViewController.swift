@@ -18,25 +18,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import ObjectMapper
+import UIKit
+import DataSource
+import ReactiveCocoa
 
-struct Preview {
-	var small: String = ""
-	var medium: String = ""
-	var large: String = ""
-	var template: String = ""
-}
+final class SearchResultsViewController: UIViewController, UISearchResultsUpdating {
 
-extension Preview: Mappable {
-	
-	init?(_ map: Map) {
+	private var streamsViewController: StreamsViewController!
+
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		switch segue.destinationViewController {
+		case let controller as StreamsViewController:
+			streamsViewController = controller
+		default:
+			super.prepareForSegue(segue, sender: sender)
+		}
 	}
-	
-	mutating func mapping(map: Map) {
-		small     <- map["small"]
-		medium  <- map["medium"]
-		large <- map["large"]
-		template <- map["template"]
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		streamsViewController.noItemsLabel.text = NSLocalizedString("Search for a game, channel, user...", comment: "")
 	}
+
+	func updateSearchResultsForSearchController(searchController: UISearchController) {
+		guard let text = searchController.searchBar.text where !text.isEmpty else { return }
+		streamsViewController.viewModel.value = StreamList.ViewModelType(TwitchRouter.SearchStream(query: text, page: 0), transform: StreamList.streamToViewModel)
+	}
+
 }

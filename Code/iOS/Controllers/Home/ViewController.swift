@@ -19,83 +19,65 @@
 // THE SOFTWARE.
 
 import UIKit
+import ReactiveCocoa
+import DataSource
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController {
 	
 	private let cellIdentifierGame = "GameCellIdentifier"
 	private var cellSpacing: CGFloat = 10.0
 	private let numberOfCellsInARow = 2
 	private var sectionInset: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 	
-	@IBOutlet var collectionView: UICollectionView! {
-		didSet {
-			collectionView.backgroundColor = UIColor.clearColor()
-			collectionView.dataSource = self
-			collectionView.delegate = self
-			
-			collectionView.registerNib(UINib(nibName: "GameCell", bundle: nil), forCellWithReuseIdentifier: cellIdentifierGame)
-		}
-	}
+	@IBOutlet var collectionView: UICollectionView!
+	@IBOutlet var loadingStateView: LoadingStateView!
 	
-	let gameListViewModel = GameListViewModel()
+	let gameListViewModel = GamesList.ViewModelType(.GamesTop(page: 0), transform: GamesList.gameToViewModel)
+	let collectionDataSource = CollectionViewDataSource()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		self.view.backgroundColor = UIColor.whiteColor()
+		let layout = UICollectionViewFlowLayout()
+		layout.scrollDirection = .Vertical
+		let inset = cellSpacing
+		let gameCellWidth = (self.view.bounds.maxX - inset * 2.0 - cellSpacing) / 2.0
+		layout.itemSize = CGSize(width: gameCellWidth, height: gameCellWidth/Constants.gameImageRatio)
+		layout.sectionInset = UIEdgeInsets(top: cellSpacing, left: cellSpacing, bottom: cellSpacing, right: cellSpacing)
+		layout.minimumInteritemSpacing = cellSpacing
+		layout.minimumLineSpacing = cellSpacing
 		
-		gameListViewModel.loadMore()
-		gameListViewModel.data.producer.startWithNext {
-			games in
-			self.collectionView.reloadData()
+		
+		collectionDataSource.reuseIdentifierForItem = { _, item in
+			if let item = item as? ReuseIdentifierProvider {
+				return item.reuseIdentifier
+			}
+			fatalError()
+		}
+		collectionDataSource.dataSource.innerDataSource.value = gameListViewModel.dataSource
+		collectionDataSource.collectionView = collectionView
+		collectionView.dataSource = collectionDataSource
+		
+		collectionView.registerNib(GameCell.nib, forCellWithReuseIdentifier: GameCell.identifier)
+		collectionView.registerNib(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
+		collectionView.collectionViewLayout = layout
+		collectionView.delegate = self
+		
+		loadingStateView.loadingState <~ gameListViewModel.paginator.loadingState
+		loadingStateView.isEmpty <~ gameListViewModel.viewModels.producer.map { $0.isEmpty }
+		loadingStateView.retry = { [weak self] in self?.gameListViewModel.loadMore() }
+	}
+}
+
+extension ViewController: UICollectionViewDelegate {
+	func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+		if collectionDataSource.dataSource.itemAtIndexPath(indexPath) is LoadMoreCellItem {
+			gameListViewModel.loadMore()
 		}
 	}
 	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
-	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifierGame, forIndexPath: indexPath) as! GameCell
-		cell.bindViewModel(GameViewModel(game: gameListViewModel.data.value[indexPath.row]))
-		return cell
-	}
-	
-	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-		return 1
-	}
-	
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return gameListViewModel.data.value.count
-	}
-	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-		return cellSpacing
-	}
-	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-		return cellSpacing
-	}
-	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-		return sectionInset
-	}
-	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		var width: CGFloat = (collectionView.bounds.size.width - sectionInset.left) / CGFloat(numberOfCellsInARow)
-		width = width - (CGFloat(numberOfCellsInARow) - 1) * cellSpacing
-		return CGSize(width: width, height: width*1.40)
-	}
-	
-	func scrollViewDidScroll(scrollView: UIScrollView) {
-		let contentOffsetY = scrollView.contentOffset.y + scrollView.bounds.size.height
-		let wholeHeight = scrollView.contentSize.height
-		
-		let remainingDistanceToBottom = wholeHeight - contentOffsetY
-		
-		if remainingDistanceToBottom <= 200 && gameListViewModel.loadingState.value == .Available {
-			gameListViewModel.loadMore()
+	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		if let _ = collectionDataSource.dataSource.itemAtIndexPath(indexPath) as? GameCellViewModel {
 		}
 	}
 }

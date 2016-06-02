@@ -18,53 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 import ReactiveCocoa
-import ObjectMapper
 
-struct Channel {
-	var id: Int
-	var mature: Bool
-	var status: String
-	var displayName: String
-	var gameName: String
-	var channelName: String
-}
-
-extension Channel: CustomStringConvertible {
-	internal var description: String {
-		return channelName + " on " + gameName
-	}
-}
-
-extension Channel: Mappable {
+struct GameCellViewModel: ReuseIdentifierProvider {
+	let reuseIdentifier: String = GameCell.identifier
 	
-	init?(_ map: Map) {
-		id = 0
-		mature = false
-		status = ""
-		displayName = ""
-		gameName = ""
-		channelName = ""
-	}
+	let game: Game
+	let gameImageURL: String
+	let gameName: String
 	
-	mutating func mapping(map: Map) {
-		id <- map["_id"]
-		mature <- map["mature"]
-		status <- map["status"]
-		displayName <- map["display_name"]
-		gameName <- map["game"]
-		channelName <- map["name"]
+	init(game: Game) {
+		self.game = game
+		self.gameImageURL = game.box.medium
+		self.gameName = game.gameNameString
 	}
 }
 
-extension Channel: Hashable {
-	var hashValue: Int {
-		return id
-	}
-}
+// MARK: Equatable
 
-extension Channel: Equatable { }
-func == (lhs: Channel, rhs: Channel) -> Bool {
-	return lhs.id == rhs.id
+extension GameCellViewModel: Equatable { }
+func == (lhs: GameCellViewModel, rhs: GameCellViewModel) -> Bool {
+	return lhs.game == rhs.game
 }

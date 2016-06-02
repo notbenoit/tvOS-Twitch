@@ -20,25 +20,14 @@
 
 import UIKit
 
-extension UIView {
-	func applyMotionEffectForX(x: Float, y: Float) {
-		let x = abs(x)
-		let y = abs(y)
-		let effectX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
-		effectX.minimumRelativeValue = NSNumber(float: -x)
-		effectX.maximumRelativeValue = NSNumber(float: x)
-		let effectY = UIInterpolatingMotionEffect(keyPath: "center.y", type: .TiltAlongVerticalAxis)
-		effectY.minimumRelativeValue = NSNumber(float: -y)
-		effectY.maximumRelativeValue = NSNumber(float: y)
-		let effectGroup = UIMotionEffectGroup()
-		effectGroup.motionEffects = [effectX, effectY]
-		self.addMotionEffect(effectGroup)
-	}
-	
-	func removeMotionEffects() {
-		guard let effect = self.motionEffects.first else {
-			return
-		}
-		self.removeMotionEffect(effect)
-	}
+protocol HeightProvider {
+	var height: CGFloat { get }
+}
+
+protocol ReuseIdentifierProvider {
+	var reuseIdentifier: String { get }
+}
+
+protocol SegueIdentifierProvider {
+	var segueIdentifier: String { get }
 }

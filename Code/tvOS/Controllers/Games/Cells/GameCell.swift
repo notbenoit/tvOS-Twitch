@@ -21,16 +21,17 @@
 import UIKit
 import ReactiveCocoa
 import WebImage
+import DataSource
 
-class GameCell: UICollectionViewCell {
+final class GameCell: CollectionViewCell {
 	static let identifier: String = "cellIdentifierGame"
+	static let nib: UINib = UINib(nibName: "GameCell", bundle: nil)
 	
-	@IBOutlet weak var imageView: UIImageView!
-	@IBOutlet weak var labelName: UILabel!
+	@IBOutlet var imageView: UIImageView!
+	@IBOutlet var labelName: UILabel!
 	
 	private let textDefaultFont = UIFont.boldSystemFontOfSize(22)
 	private let textDefaultColor = UIColor.lightGrayColor()
-	private let viewModel = MutableProperty<GameViewModel?>(nil)
 	
 	override func prepareForReuse() {
 		imageView.image = nil
@@ -44,13 +45,16 @@ class GameCell: UICollectionViewCell {
 		self.labelName.textColor = textDefaultColor
 		self.labelName.shadowOffset = CGSize(width: 0, height: 1)
 		self.backgroundColor = UIColor.twitchLightColor()
-		let vm = viewModel.producer.ignoreNil()
-		labelName.rac_text <~ vm.flatMap(.Latest) { $0.gameName.producer }
+		
+		disposable += self.cellModel.producer
+			.map { $0 as? GameCellViewModel }
+			.ignoreNil()
+			.start(self, GameCell.configureWithItem)
 	}
 	
-	internal func bindViewModel(gameViewModel: GameViewModel) {
-		self.viewModel.value = gameViewModel
-		if let url = NSURL(string: gameViewModel.gameImageURL.value) {
+	private func configureWithItem(item: GameCellViewModel) {
+		labelName.text = item.gameName
+		if let url = NSURL(string: item.gameImageURL) {
 			imageView.sd_setImageWithURL(url)
 		}
 	}

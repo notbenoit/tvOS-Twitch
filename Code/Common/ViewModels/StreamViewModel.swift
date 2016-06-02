@@ -21,19 +21,26 @@
 import Foundation
 import ReactiveCocoa
 
-internal class StreamViewModel {
-	private let stream: Stream
-	let streamImageURL: ConstantProperty<String>
-	let streamTitle = MutableProperty<String>("")
-	let viewersCount = MutableProperty<String>("")
+struct StreamViewModel: ReuseIdentifierProvider {
+	let reuseIdentifier: String = StreamCell.identifier
+	
+	let stream: Stream
+	let streamImageURL: String
+	let streamTitle: String
+	let viewersCount: String
 	
 	init(stream: Stream) {
 		self.stream = stream
-		self.streamImageURL = ConstantProperty<String>(stream.preview.large)
-		self.streamTitle.value = stream.channel.status
-		self.viewersCount.value = String(stream.viewers) + " "
+		self.streamImageURL = stream.preview.large
+		self.streamTitle = stream.channel.status ?? ""
+		self.viewersCount = String(stream.viewers) + " "
 			+ NSLocalizedString("viewers", comment: "") + " "
 			+ NSLocalizedString("on", comment: "") + " "
 			+ stream.channel.displayName
 	}
+}
+
+extension StreamViewModel: Equatable { }
+func == (lhs: StreamViewModel, rhs: StreamViewModel) -> Bool {
+	return lhs.stream == rhs.stream
 }

@@ -20,10 +20,12 @@
 
 import UIKit
 import ReactiveCocoa
-import AlamofireImage
+import WebImage
+import DataSource
 
-class GameCell: UICollectionViewCell {
+final class GameCell: CollectionViewCell {
 	static let identifier: String = "cellIdentifierGame"
+	static let nib: UINib = UINib(nibName: "GameCell", bundle: nil)
 	
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var labelName: UILabel!
@@ -36,13 +38,17 @@ class GameCell: UICollectionViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		self.backgroundColor = UIColor.twitchLightColor()
+		
+		disposable += self.cellModel.producer
+			.map { $0 as? GameCellViewModel }
+			.ignoreNil()
+			.start(self, GameCell.configureWithItem)
 	}
 	
-	internal func bindViewModel(gameViewModel: GameViewModel) {
-		imageView.image = nil
-		labelName.text = gameViewModel.gameName.value
-		if let url = NSURL(string: gameViewModel.gameImageURL.value) {
-			imageView.af_setImageWithURL(url)
+	private func configureWithItem(item: GameCellViewModel) {
+		labelName.text = item.gameName
+		if let url = NSURL(string: item.gameImageURL) {
+			imageView.sd_setImageWithURL(url)
 		}
 	}
 }

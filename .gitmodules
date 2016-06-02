@@ -4,9 +4,6 @@
 [submodule "Carthage/Checkouts/Result"]
 	path = Carthage/Checkouts/Result
 	url = https://github.com/antitypical/Result.git
-[submodule "Carthage/Checkouts/ObjectMapper"]
-	path = Carthage/Checkouts/ObjectMapper
-	url = https://github.com/Hearst-DD/ObjectMapper.git
 [submodule "Carthage/Checkouts/ReactiveCocoa"]
 	path = Carthage/Checkouts/ReactiveCocoa
 	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
@@ -16,3 +13,9 @@
 [submodule "Carthage/Checkouts/SDWebImage"]
 	path = Carthage/Checkouts/SDWebImage
 	url = https://github.com/rs/SDWebImage.git
+[submodule "Carthage/Checkouts/JSONParsing"]
+	path = Carthage/Checkouts/JSONParsing
+	url = https://github.com/notbenoit/JSONParsing.git
+[submodule "Carthage/Checkouts/DataSource"]
+	url = https://github.com/notbenoit/DataSource.git
+    path = Carthage/Checkouts/DataSource

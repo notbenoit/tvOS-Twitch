@@ -19,22 +19,45 @@
 // THE SOFTWARE.
 
 import Foundation
-import ObjectMapper
+import ReactiveCocoa
+import Result
 
-struct AccessToken {
-	var token: String = ""
-	var sig: String = ""
-	var mobileRestricted: Bool = false
-}
-
-extension AccessToken: Mappable {
+enum LoadingState<E: ErrorType> {
+	case Default
+	case Loading
+	case Failed(error: E)
 	
-	init?(_ map: Map) {
+	var loading: Bool {
+		if case .Loading = self {
+			return true
+		}
+		return false
 	}
 	
-	mutating func mapping(map: Map) {
-		token     <- map["token"]
-		sig  <- map["sig"]
-		mobileRestricted <- map["mobile_restricted"]
+	var error: E? {
+		if case .Failed(let error) = self {
+			return error
+		}
+		return nil
+	}
+}
+
+extension Action {
+	var loadingState: SignalProducer<LoadingState<Error>, NoError> {
+		// Produces .Loading when Loading
+		let loadingProducer = self.executing.producer
+			.filter { $0 }
+			.map { _ in LoadingState<Error>.Loading }
+		// Produces error, or default if no error
+		let errorProducer = self.events.map {
+			(event: Event<Output, Error>) -> LoadingState<Error> in
+			switch event {
+			case .Failed(let error):
+				return LoadingState<Error>.Failed(error: error)
+			default:
+				return LoadingState<Error>.Default
+			}
+		}
+		return loadingProducer.lift { Signal<LoadingState<Error>, NoError>.merge([$0, errorProducer]) }
 	}
 }

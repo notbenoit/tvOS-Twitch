@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Carthage/Checkouts/DataSource/DataSource.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/JSONParsing/JSONParsing.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
    </FileRef>
    <FileRef
@@ -9,9 +15,6 @@
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/ReactiveCocoa/ReactiveCocoa.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/ObjectMapper/ObjectMapper.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj">
