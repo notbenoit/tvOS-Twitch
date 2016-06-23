@@ -11,7 +11,7 @@ import ReactiveCocoa
 import COLORAdFramework
 import Result
 
-func adProducerBeforeController(viewController: UIViewController, inController: UIViewController, placement: String) -> SignalProducer<UIViewController, NoError> {
+func adProducerBeforeController<T: UIViewController>(viewController: T, inController: UIViewController, placement: String) -> SignalProducer<T, NSError> {
 	return SignalProducer {
 		(observer, disposable) in
 		COLORAdController.sharedAdController().adViewControllerForPlacement(placement, withCompletion: { (controller, error) in
@@ -21,12 +21,14 @@ func adProducerBeforeController(viewController: UIViewController, inController: 
 				return
 			}
 			controller.adCompleted = {
-				controller.dismissViewControllerAnimated(true) {
+				controller.dismissViewControllerAnimated(false) {
 					observer.sendNext(viewController)
 					observer.sendCompleted()
 				}
 			}
-			inController.presentViewController(controller, animated: true, completion: nil)
+			dispatch_async(dispatch_get_main_queue()) {
+				inController.presentViewController(controller, animated: true, completion: nil)
+			}
 		})
 	}
 }
