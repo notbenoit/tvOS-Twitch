@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import COLORAdFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,12 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		// Override point for customization after application launch.
 		// Add a search view controller to the root `UITabBarController`.
 		if let tabController = window?.rootViewController as? UITabBarController {
 			tabController.viewControllers?.append(packagedSearchController())
 		}
 
+		COLORAdController.sharedAdController().startWithAppIdentifier("8a5090c0-633d-44d3-9d6a-76d4020456b7")
 		return true
 	}
 

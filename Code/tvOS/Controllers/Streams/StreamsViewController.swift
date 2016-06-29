@@ -22,6 +22,7 @@ import UIKit
 import AVKit
 import ReactiveCocoa
 import DataSource
+import Result
 
 final class StreamsViewController: UIViewController {
 
@@ -29,24 +30,7 @@ final class StreamsViewController: UIViewController {
 	let horizontalSpacing: CGFloat = 50.0
 	let verticalSpacing: CGFloat = 100.0
 
-	let presentStream: Action<(stream: Stream, controller: UIViewController), Void, NSError> = Action {
-		pair in
-		TwitchAPIClient.sharedInstance.m3u8URLForChannel(pair.stream.channel.channelName).flatMap(.Latest) {
-			urlString in
-			return SignalProducer {
-				observer, disposable in
-				let playerController = AVPlayerViewController()
-				let escapedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-				guard let escapedString = escapedURLString, url = NSURL(string: escapedString) else { observer.sendFailed(Constants.genericError); return }
-				let avPlayer = AVPlayer(URL: url)
-				avPlayer.play()
-				playerController.player = avPlayer
-				pair.controller.presentViewController(playerController, animated: true) {
-					observer.sendCompleted()
-				}
-			}
-		}
-	}
+	let presentStream: Action<(stream: Stream, controller: UIViewController), AVPlayerViewController, NSError> = Action(controllerProducerForStream)
 
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingView: LoadingStateView!
@@ -54,6 +38,8 @@ final class StreamsViewController: UIViewController {
 
 	let viewModel = MutableProperty<StreamList.ViewModelType?>(nil)
 	let collectionDataSource = CollectionViewDataSource()
+
+	private let disposable = CompositeDisposable()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -91,7 +77,12 @@ final class StreamsViewController: UIViewController {
 		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.paginator.loadingState }
 		loadingView.isEmpty <~ viewModel.producer.ignoreNil().chain { $0.viewModels }.map { $0.isEmpty }
 		loadingView.retry = { [weak self] in self?.viewModel.value?.paginator.loadFirst() }
+
+		disposable += presentStream.values
+			.observeOn(UIScheduler())
+			.observeNext { [weak self] in self?.presentViewController($0, animated: true, completion: nil) }
 	}
+
 }
 
 extension StreamsViewController: UICollectionViewDelegate {
@@ -111,4 +102,23 @@ extension StreamsViewController: UICollectionViewDelegate {
 			viewModel.value?.loadMore()
 		}
 	}
+}
+
+private func controllerProducerForStream(stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, NSError> {
+	return TwitchAPIClient.sharedInstance.m3u8URLForChannel(stream.channel.channelName)
+		.map { $0.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) }
+		.map { $0.flatMap { NSURL(string: $0) } }
+		.ignoreNil()
+		.map {
+			let playerController = AVPlayerViewController()
+			playerController.view.frame = UIScreen.mainScreen().bounds
+			let avPlayer = AVPlayer(URL: $0)
+			playerController.player = avPlayer
+			return playerController
+	}
+		.flatMap(.Latest) {
+			(controller: AVPlayerViewController) -> SignalProducer<AVPlayerViewController, NSError> in
+			return adProducerBeforeController(controller, inController: inController, placement: "BetweenLevels")
+		}
+		.on() { $0.player?.play() }
 }

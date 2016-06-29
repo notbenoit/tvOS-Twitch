@@ -76,19 +76,9 @@ final class TwitchAPIClient {
 		return request(.AccessToken(channelName: channelName))
 	}
 
-	private func m3u8URLForChannel(channelName: String, accessToken: AccessToken) -> SignalProducer<String, NSError> {
-		return SignalProducer {
-			observer, disposable in
-			let urlString = "http://usher.justin.tv/api/channel/hls/\(channelName)?allow_source=true&token=\(accessToken.token)&sig=\(accessToken.sig)"
-			observer.sendNext(urlString)
-			observer.sendCompleted()
-		}
-	}
-
 	func m3u8URLForChannel(channelName: String) -> SignalProducer<String, NSError> {
-		return accessTokenForChannel(channelName).flatMap(.Latest) {
-			return self.m3u8URLForChannel(channelName, accessToken: $0)
-		}
+		return accessTokenForChannel(channelName)
+			.map { return "http://usher.justin.tv/api/channel/hls/\(channelName)?allow_source=true&token=\($0.token)&sig=\($0.sig)" }
 	}
 
 	func getTopGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {

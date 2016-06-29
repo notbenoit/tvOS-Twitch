@@ -21,9 +21,9 @@
 import Foundation
 
 struct StreamList {
-	
+
 	typealias ViewModelType = BaseViewModel<StreamsResponse, StreamViewModel>
-	
+
 	static func streamToViewModel(stream: Stream) -> StreamViewModel? {
 		return StreamViewModel(stream: stream)
 	}
