@@ -57,7 +57,12 @@ final class TwitchAPIClient {
 
 	func request<T: JSONParsing>(route: TwitchRouter) -> SignalProducer<T, NSError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
-			let request = self.manager.request(route)
+			let request = self.manager.request(
+				route.method,
+				route,
+				parameters: route.pathAndParams.parameters,
+				encoding: ParameterEncoding.URL,
+				headers: ["Client-ID":String("fygn2df3r2cubbks0ax5ycdqghe3q7i".characters.reverse())])
 			print(request.debugDescription)
 			request.validate().responseJSON { response in
 				if case Result.Failure(let error) = response.result {
