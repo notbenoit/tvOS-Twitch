@@ -32,7 +32,6 @@ after_success:
 env:
   global:
   - IPA_NAME="TwitchTV"
-  - DEVELOPER_NAME="iPhone Distribution"
   - WORKSPACE_PATH="TwitchTV.xcworkspace"
   - SCHEME_NAME="TwitchTV-tvOS"
   - BUILD_CONFIG="Release"
