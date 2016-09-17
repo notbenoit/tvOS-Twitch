@@ -1195,6 +1195,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.TwitchTV;
 				PRODUCT_NAME = TwitchTV;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -1208,6 +1209,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.TwitchTV;
 				PRODUCT_NAME = TwitchTV;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -1228,6 +1230,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch;
 				PRODUCT_NAME = "Game Theater";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
@@ -1250,6 +1253,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch;
 				PRODUCT_NAME = "Game Theater";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
