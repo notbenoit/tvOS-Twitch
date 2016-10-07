@@ -51,6 +51,7 @@ extern NSString * _Nonnull const COLORAdFrameworkPreferencesPhoneNumber;
 @class COLORAdViewController;
 typedef void(^COLORAdFrameworkAdRequestCompletion)(COLORAdViewController * _Nullable vc, NSError * _Nullable error);
 typedef void(^COLORAdFrameworkRegisterThirdPartyUserIdCompletion)(NSError * _Nullable error);
+typedef void(^COLORAdFrameworkAdExpirationHandler)(COLORAdViewController * _Nullable expiredVc);
 
 #pragma types
 typedef NS_ENUM(NSUInteger, COLORAdFrameworkAdType) {

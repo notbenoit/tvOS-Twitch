@@ -20,6 +20,7 @@
 
 import Foundation
 import TVServices
+import ReactiveCocoa
 
 class ServiceProvider: NSObject, TVTopShelfProvider {
 
@@ -45,8 +46,8 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
 			error in
 			dispatch_semaphore_signal(semaphore)
 			})
-			.startWithNext {
-				items += $0.objects.map {
+			.startWithResult {
+				items += (try? ($0.dematerialize()).objects.map {
 					let item = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: String($0.game.id), container: nil)!)
 					let components = NSURLComponents()
 					components.scheme = "twitch"
@@ -57,7 +58,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
 					item?.imageURL = NSURL(string: $0.game.box.large)!
 					item?.title = $0.game.gameNameString
 					return item!
-				}
+				}) ?? []
 				dispatch_semaphore_signal(semaphore)
 		}
 

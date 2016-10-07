@@ -7,19 +7,24 @@
 //
 
 @import Foundation;
+@import JavaScriptCore;
 
-@interface COLORUserProfile : NSObject
+@protocol COLORUserProfileJavaScript <JSExport>
+
++(instancetype)sharedProfile;
+-(void)reset;
+-(void)setAge:(NSUInteger)age;
+-(void)setGender:(NSString*)gender;
+-(void)addKeyword:(NSString*)keyword;
+-(void)removeKeyword:(NSString*)keyword;
+
+@end
+
+@interface COLORUserProfile : NSObject<COLORUserProfileJavaScript>
 
 @property (nonatomic, strong, readonly) NSDictionary *profileDictionary;
 @property (nonatomic, assign) NSUInteger age;
 @property (nonatomic, assign) NSString *gender;
 @property (nonatomic, strong, readonly) NSArray *keywords;
-
-
-+(instancetype)sharedProfile;
--(void)reset;
-
--(void)addKeyword:(NSString*)keyword;
--(void)removeKeyword:(NSString*)keyword;
 
 @end

@@ -45,7 +45,9 @@ func <~ <Value, Error: ErrorType>
 	(terminal: Terminal<Value>, producer: SignalProducer<Value, Error>)
 	-> Disposable
 {
-	let disposable = producer.startWithNext(terminal.setter)
+	let disposable = producer.startWithResult {
+		_ = (try? $0.dematerialize()).map(terminal.setter)
+	}
 	terminal.disposable += disposable
 	return disposable
 }
@@ -61,7 +63,9 @@ func <~ <Value, Error: ErrorType>
 	(terminal: Terminal<Value?>, producer: SignalProducer<Value, Error>)
 	-> Disposable
 {
-	let disposable = producer.startWithNext(terminal.setter)
+	let disposable = producer.startWithResult {
+		_ = (try? $0.dematerialize()).map(terminal.setter)
+	}
 	terminal.disposable += disposable
 	return disposable
 }
