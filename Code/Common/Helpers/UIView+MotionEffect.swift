@@ -21,15 +21,15 @@
 import UIKit
 
 extension UIView {
-	func applyMotionEffectForX(x: Float, y: Float) {
+	func applyMotionEffectForX(_ x: Float, y: Float) {
 		let x = abs(x)
 		let y = abs(y)
-		let effectX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
-		effectX.minimumRelativeValue = NSNumber(float: -x)
-		effectX.maximumRelativeValue = NSNumber(float: x)
-		let effectY = UIInterpolatingMotionEffect(keyPath: "center.y", type: .TiltAlongVerticalAxis)
-		effectY.minimumRelativeValue = NSNumber(float: -y)
-		effectY.maximumRelativeValue = NSNumber(float: y)
+		let effectX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+		effectX.minimumRelativeValue = NSNumber(value: -x as Float)
+		effectX.maximumRelativeValue = NSNumber(value: x as Float)
+		let effectY = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+		effectY.minimumRelativeValue = NSNumber(value: -y as Float)
+		effectY.maximumRelativeValue = NSNumber(value: y as Float)
 		let effectGroup = UIMotionEffectGroup()
 		effectGroup.motionEffects = [effectX, effectY]
 		self.addMotionEffect(effectGroup)

@@ -18,66 +18,79 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
+import ReactiveSwift
 import ReactiveCocoa
+import Result
 
-final class Terminal<Value> {
+public final class Terminal<Value> {
 	
-	let disposable: CompositeDisposable
-	let setter: (Value -> Void)
+	public let disposable: CompositeDisposable
+	public let setter: ((Value) -> Void)
 	
-	init(disposable: CompositeDisposable, setter: Value -> Void) {
+	public init(disposable: CompositeDisposable, setter: @escaping (Value) -> Void) {
 		self.disposable = disposable
 		self.setter = setter
 	}
 	
-	convenience init(_ object: NSObject, setter: Value -> Void) {
+	public convenience init<Object: NSObject>(_ object: Object, setter: @escaping (Object, Value) -> Void) {
 		let disposable = CompositeDisposable()
-		object.rac_deallocDisposable.addDisposable(RACDisposable {
+		object.rac_lifetime.ended.observeCompleted {
 			disposable.dispose()
-			})
-		self.init(disposable: disposable, setter: setter)
+		}
+		self.init(disposable: disposable) {
+			[weak object] value in
+			if let object = object {
+				setter(object, value)
+			}
+		}
 	}
 	
 }
 
-func <~ <Value, Error: ErrorType>
-	(terminal: Terminal<Value>, producer: SignalProducer<Value, Error>)
-	-> Disposable
-{
-	let disposable = producer.startWithResult {
-		_ = (try? $0.dematerialize()).map(terminal.setter)
-	}
+@discardableResult public func <~ <Value> (terminal: Terminal<Value>?, producer: Signal<Value, NoError>) -> Disposable? {
+	guard let terminal = terminal else { return nil }
+	let disposable = producer.observeValues(terminal.setter)
 	terminal.disposable += disposable
 	return disposable
 }
 
-func <~ <P: PropertyType>
-	(terminal: Terminal<P.Value>, property: P)
-	-> Disposable
-{
+@discardableResult public func <~ <Value> (terminal: Terminal<Value>?, producer: SignalProducer<Value, NoError>) -> Disposable? {
+	guard let terminal = terminal else { return nil }
+	let disposable = producer.startWithValues(terminal.setter)
+	terminal.disposable += disposable
+	return disposable
+}
+
+@discardableResult public func <~ <P: PropertyProtocol> (terminal: Terminal<P.Value>?, property: P) -> Disposable? {
+	guard let terminal = terminal else { return nil }
 	return terminal <~ property.producer
 }
 
-func <~ <Value, Error: ErrorType>
-	(terminal: Terminal<Value?>, producer: SignalProducer<Value, Error>)
-	-> Disposable
-{
-	let disposable = producer.startWithResult {
-		_ = (try? $0.dematerialize()).map(terminal.setter)
-	}
+@discardableResult public func <~ <Value> (terminal: Terminal<Value?>?, producer: Signal<Value, NoError>) -> Disposable? {
+	guard let terminal = terminal else { return nil }
+	let disposable = producer.observeValues(terminal.setter)
 	terminal.disposable += disposable
 	return disposable
+}
+
+@discardableResult public func <~ <Value> (terminal: Terminal<Value?>?, producer: SignalProducer<Value, NoError>) -> Disposable? {
+	guard let terminal = terminal else { return nil }
+	let disposable = producer.startWithValues(terminal.setter)
+	terminal.disposable += disposable
+	return disposable
+}
+
+@discardableResult public func <~ <P: PropertyProtocol> (terminal: Terminal<P.Value?>?, property: P) -> Disposable? {
+	guard let terminal = terminal else { return nil }
+	return terminal <~ property.producer
 }
 
 
 extension UIViewController {
 	
 	var rac_title: Terminal<String?> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.title = newValue
-		}
+		return Terminal(self) { $0.title = $1 }
 	}
 	
 }
@@ -85,78 +98,48 @@ extension UIViewController {
 extension UIView {
 	
 	var rac_alphaLayer: Terminal<Float> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.layer.opacity = newValue
-		}
+		return Terminal(self) {	$0.layer.opacity = $1	}
 	}
 	
 	var rac_hidden: Terminal<Bool> {
-		return Terminal(self) {
-			[weak self] bool in
-			self?.hidden = bool
-		}
+		return Terminal(self) { $0.isHidden = $1 }
 	}
 	
 	var rac_userInteractionEnabled: Terminal<Bool> {
-		return Terminal(self) {
-			[weak self] bool in
-			self?.userInteractionEnabled = bool
-		}
+		return Terminal(self) { $0.isUserInteractionEnabled = $1 }
 	}
 	
 	var rac_alpha: Terminal<CGFloat> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.alpha = newValue
-		}
+		return Terminal(self) { $0.alpha = $1 }
 	}
 	
 	var rac_backgroundColor: Terminal<UIColor> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.backgroundColor = newValue
-		}
+		return Terminal(self) { $0.backgroundColor = $1	}
 	}
 	
 	var rac_tintColor: Terminal<UIColor> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.tintColor = newValue
-		}
+		return Terminal(self) { $0.tintColor = $1 }
 	}
 }
 
 extension UIImageView {
 	var rac_image: Terminal<UIImage?> {
-		return Terminal(self) {
-			[weak self] image in
-			self?.image = image
-		}
+		return Terminal(self) { $0.image = $1 }
 	}
 }
 
 extension UILabel {
 	
 	var rac_text: Terminal<String?> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.text = newValue
-		}
+		return Terminal(self) { $0.text = $1 }
 	}
 	
 	var rac_attributedString: Terminal<NSAttributedString?> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.attributedText = newValue
-		}
+		return Terminal(self) { $0.attributedText = $1 }
 	}
 	
 	var rac_textColor: Terminal<UIColor?> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.textColor = newValue
-		}
+		return Terminal(self) { $0.textColor = $1 }
 	}
 	
 }
@@ -164,50 +147,38 @@ extension UILabel {
 extension UIButton {
 	
 	var rac_enabled: Terminal<Bool> {
-		return Terminal(self) {
-			[weak self] bool in
-			self?.enabled = bool
-		}
+		return Terminal(self) { $0.isEnabled = $1 }
 	}
 	var rac_selected: Terminal<Bool> {
-		return Terminal(self) {
-			[weak self] bool in
-			self?.selected = bool
-		}
+		return Terminal(self) { $0.isSelected = $1 }
 	}
 	
 	var rac_title: Terminal<String> {
 		return Terminal(self) {
-			[weak self] title in
+			object, title in
 			UIView.performWithoutAnimation {
-				self?.setTitle(title, forState: .Normal)
-				self?.layoutIfNeeded()
+				object.setTitle(title, for: .normal)
+				object.layoutIfNeeded()
 			}
 		}
 	}
 	
 	var rac_attributedTitle: Terminal<NSAttributedString> {
 		return Terminal(self) {
-			[weak self] title in
+			object, title in
 			UIView.performWithoutAnimation {
-				self?.setAttributedTitle(title, forState: .Normal)
-				self?.layoutIfNeeded()
+				object.setAttributedTitle(title, for: .normal)
+				object.layoutIfNeeded()
 			}
 		}
 	}
 	
 	var rac_image: Terminal<UIImage?> {
-		return Terminal(self) {
-			[weak self] image in
-			self?.setImage(image, forState: .Normal)
-		}
+		return Terminal(self) { $0.setImage($1, for: .normal) }
 	}
 	
 	var rac_textColor: Terminal<UIColor?> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.setTitleColor(newValue, forState: .Normal)
-		}
+		return Terminal(self) { $0.setTitleColor($1, for: .normal) }
 	}
 
 }
@@ -215,17 +186,11 @@ extension UIButton {
 extension UIBarButtonItem {
 	
 	var rac_enabled: Terminal<Bool> {
-		return Terminal(self) {
-			[weak self] bool in
-			self?.enabled = bool
-		}
+		return Terminal(self) { $0.isEnabled = $1 }
 	}
 	
 	var rac_text: Terminal<String?> {
-		return Terminal(self) {
-			[weak self] newValue in
-			self?.title = newValue
-		}
+		return Terminal(self) { $0.title = $1 }
 	}
 	
 }
@@ -233,10 +198,7 @@ extension UIBarButtonItem {
 extension UISegmentedControl {
 	
 	var rac_selectedSegment: Terminal<Int> {
-		return Terminal(self) {
-			[weak self] selectedSegment in
-			self?.selectedSegmentIndex = selectedSegment
-		}
+		return Terminal(self) { $0.selectedSegmentIndex = $1 }
 	}
 	
 }
@@ -244,10 +206,7 @@ extension UISegmentedControl {
 extension UIApplication {
 	#if os(iOS)
 	var rac_networkIndicatorVisible: Terminal<Bool> {
-		return Terminal(self) {
-			[weak self] visible in
-			self?.networkActivityIndicatorVisible = visible
-		}
+		return Terminal(self) { $0.isNetworkActivityIndicatorVisible = $1 }
 	}
 	#endif
 }

@@ -30,7 +30,7 @@ struct AccessToken {
 // MARK: JSONParsing
 
 extension AccessToken: JSONParsing {
-	static func parse(json: JSON) throws -> AccessToken {
+	static func parse(_ json: JSON) throws -> AccessToken {
 		return try AccessToken(
 			token: json["token"]^,
 			sig: json["sig"]^,

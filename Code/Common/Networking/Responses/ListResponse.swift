@@ -20,7 +20,7 @@
 
 import Foundation
 import JSONParsing
-import ReactiveCocoa
+import ReactiveSwift
 import Result
 
 // MARK: - Links
@@ -30,7 +30,7 @@ struct Links {
 }
 
 extension Links: JSONParsing {
-	static func parse(json: JSON) throws -> Links {
+	static func parse(_ json: JSON) throws -> Links {
 		return try Links(
 			current: json["self"].optional.map(^),
 			next: json["next"].optional.map(^))
@@ -50,7 +50,7 @@ protocol ListResponseType: JSONParsing {
 }
 
 extension ListResponseType {
-	static func parse(json: JSON) throws -> Self {
+	static func parse(_ json: JSON) throws -> Self {
 		return try Self(
 			objects: json[self.rootPath].array.map(^),
 			count: json["_total"]^,
@@ -96,25 +96,27 @@ class Paginator<Response: ListResponseType> {
 	var currentLink: String?
 
 	let loadingState: SignalProducer<LoadingState<NSError>, NoError>
+	
+	private let disposable = CompositeDisposable()
 
 	init(_ initialRoute: TwitchRouter) {
 		self.initialRoute = initialRoute
 		loadURLAction = Action(TwitchAPIClient.sharedInstance.request)
 		loadRouteAction = Action(TwitchAPIClient.sharedInstance.request)
-		loadingState = SignalProducer(values: [loadURLAction.loadingState, loadRouteAction.loadingState]).flatten(.Merge)
+		loadingState = SignalProducer(values: [loadURLAction.loadingState, loadRouteAction.loadingState]).flatten(.merge)
 
-		allLoaded <~ combineLatest(totalCount.producer.ignoreNil(), objects.producer).map {
+		allLoaded <~ SignalProducer.combineLatest(totalCount.producer.skipNil(), objects.producer).map {
 			return $0.0 <= $0.1.count
 		}
 
-		loadRouteAction.values.observeNext { [weak self] in
+		disposable += loadRouteAction.values.observeValues { [weak self] in
 			self?.objects.value = $0.objects
 			self?.nextLink = $0.links.next
 			self?.currentLink = $0.links.current
 			self?.lastResponse.value = $0
 		}
 
-		loadURLAction.values.observeNext { [weak self] in
+		disposable += loadURLAction.values.observeValues { [weak self] in
 			self?.lastResponse.value = $0
 			self?.objects.value += $0.objects
 			self?.nextLink = $0.links.next

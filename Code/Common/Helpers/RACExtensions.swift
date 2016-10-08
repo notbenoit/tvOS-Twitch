@@ -19,18 +19,18 @@
 // THE SOFTWARE.
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 import Result
 
-func scheduleAfter(timeInterval: NSTimeInterval, action: ()->()) -> Disposable? {
-	let scheduler = QueueScheduler.mainQueueScheduler
-	let date = scheduler.currentDate.dateByAddingTimeInterval(timeInterval)
-	return scheduler.scheduleAfter(date, action: action)
+func scheduleAfter(_ timeInterval: TimeInterval, action: @escaping ()->()) -> Disposable? {
+	let scheduler = QueueScheduler.main
+	let date = scheduler.currentDate.addingTimeInterval(timeInterval)
+	return scheduler.schedule(after: date, action: action)
 }
 
-extension SignalType {
+extension SignalProtocol {
 	
-	func mergeWith(signal2: Signal<Value, Error>) -> Signal<Value, Error> {
+	func mergeWith(_ signal2: Signal<Value, Error>) -> Signal<Value, Error> {
 		return Signal { observer in
 			let disposable = CompositeDisposable()
 			disposable += self.observe(observer)
@@ -41,75 +41,75 @@ extension SignalType {
 	
 }
 
-extension SignalProducerType {
-	@warn_unused_result(message="Did you forget to call `start` on the producer?")
+extension SignalProducerProtocol {
+	
 	func ignoreError() -> SignalProducer<Value, NoError> {
 		return self.flatMapError { _ in
 			SignalProducer<Value, NoError>.empty
 		}
 	}
 	
-	@warn_unused_result(message="Did you forget to call `start` on the producer?")
-	func delayStart(interval: NSTimeInterval, onScheduler scheduler: DateSchedulerType)
-		-> ReactiveCocoa.SignalProducer<Value, Error>
+	
+	func delayStart(_ interval: TimeInterval, onScheduler scheduler: DateSchedulerProtocol)
+		-> ReactiveSwift.SignalProducer<Value, Error>
 	{
 		return SignalProducer<(), Error>(value: ())
-			.delay(interval, onScheduler: scheduler)
-			.flatMap(.Latest) { _ in self.producer }
+			.delay(interval, on: scheduler)
+			.flatMap(.latest) { _ in self.producer }
 	}
 }
 
-extension SignalProducerType where Error == NoError {
+extension SignalProducerProtocol where Error == NoError {
 	
-	func chain<U>(transform: Value -> Signal<U, NoError>) -> SignalProducer<U, NoError> {
-		return flatMap(.Latest, transform: transform)
+	func chain<U>(_ transform: @escaping (Value) -> Signal<U, NoError>) -> SignalProducer<U, NoError> {
+		return flatMap(.latest, transform: transform)
 	}
 	
-	func chain<U>(transform: Value -> SignalProducer<U, NoError>) -> SignalProducer<U, NoError> {
-		return flatMap(.Latest, transform: transform)
+	func chain<U>(_ transform: @escaping (Value) -> SignalProducer<U, NoError>) -> SignalProducer<U, NoError> {
+		return flatMap(.latest, transform: transform)
 	}
 	
-	func chain<P: PropertyType>(transform: Value -> P) -> SignalProducer<P.Value, NoError> {
-		return flatMap(.Latest) { transform($0).producer }
+	func chain<P: PropertyProtocol>(_ transform: @escaping (Value) -> P) -> SignalProducer<P.Value, NoError> {
+		return flatMap(.latest) { transform($0).producer }
 	}
 	
-	func chain<U>(transform: Value -> Signal<U, NoError>?) -> SignalProducer<U, NoError> {
-		return flatMap(.Latest) { transform($0) ?? Signal<U, NoError>.never }
+	func chain<U>(_ transform: @escaping (Value) -> Signal<U, NoError>?) -> SignalProducer<U, NoError> {
+		return flatMap(.latest) { transform($0) ?? Signal<U, NoError>.never }
 	}
 	
-	func chain<U>(transform: Value -> SignalProducer<U, NoError>?) -> SignalProducer<U, NoError> {
-		return flatMap(.Latest) { transform($0) ?? SignalProducer<U, NoError>.empty }
+	func chain<U>(_ transform: @escaping (Value) -> SignalProducer<U, NoError>?) -> SignalProducer<U, NoError> {
+		return flatMap(.latest) { transform($0) ?? SignalProducer<U, NoError>.empty }
 	}
 	
-	func chain<P: PropertyType>(transform: Value -> P?) -> SignalProducer<P.Value, NoError> {
-		return flatMap(.Latest) { transform($0)?.producer ?? SignalProducer<P.Value, NoError>.empty }
+	func chain<P: PropertyProtocol>(_ transform: @escaping (Value) -> P?) -> SignalProducer<P.Value, NoError> {
+		return flatMap(.latest) { transform($0)?.producer ?? SignalProducer<P.Value, NoError>.empty }
 	}
 	
 }
 
-extension PropertyType {
+extension PropertyProtocol {
 	
-	func chain<U>(transform: Value -> Signal<U, NoError>) -> SignalProducer<U, NoError> {
+	func chain<U>(_ transform: @escaping (Value) -> Signal<U, NoError>) -> SignalProducer<U, NoError> {
 		return producer.chain(transform)
 	}
 	
-	func chain<U>(transform: Value -> SignalProducer<U, NoError>) -> SignalProducer<U, NoError> {
+	func chain<U>(_ transform: @escaping (Value) -> SignalProducer<U, NoError>) -> SignalProducer<U, NoError> {
 		return producer.chain(transform)
 	}
 	
-	func chain<P: PropertyType>(transform: Value -> P) -> SignalProducer<P.Value, NoError> {
+	func chain<P: PropertyProtocol>(_ transform: @escaping (Value) -> P) -> SignalProducer<P.Value, NoError> {
 		return producer.chain(transform)
 	}
 	
-	func chain<U>(transform: Value -> Signal<U, NoError>?) -> SignalProducer<U, NoError> {
+	func chain<U>(_ transform: @escaping (Value) -> Signal<U, NoError>?) -> SignalProducer<U, NoError> {
 		return producer.chain(transform)
 	}
 	
-	func chain<U>(transform: Value -> SignalProducer<U, NoError>?) -> SignalProducer<U, NoError> {
+	func chain<U>(_ transform: @escaping (Value) -> SignalProducer<U, NoError>?) -> SignalProducer<U, NoError> {
 		return producer.chain(transform)
 	}
 	
-	func chain<P: PropertyType>(transform: Value -> P?) -> SignalProducer<P.Value, NoError> {
+	func chain<P: PropertyProtocol>(_ transform: @escaping (Value) -> P?) -> SignalProducer<P.Value, NoError> {
 		return producer.chain(transform)
 	}
 	

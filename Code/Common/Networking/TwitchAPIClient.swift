@@ -20,114 +20,110 @@
 
 import UIKit
 import Alamofire
-import ReactiveCocoa
+import ReactiveSwift
 import JSONParsing
 
 final class TwitchAPIClient {
 
 	static let sharedInstance: TwitchAPIClient = TwitchAPIClient()
 
-	private var manager: Manager = {
-		let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+	fileprivate var manager: SessionManager = {
+		let sessionConfiguration = URLSessionConfiguration.default
 		sessionConfiguration.timeoutIntervalForRequest = 10
-		sessionConfiguration.HTTPAdditionalHeaders = ["Accept":"application/vnd.twitchtv.v3+json"]
-		return Alamofire.Manager(configuration: sessionConfiguration)
+		sessionConfiguration.httpAdditionalHeaders = ["Accept":"application/vnd.twitchtv.v3+json"]
+		return Alamofire.SessionManager(configuration: sessionConfiguration)
 	}()
 
-	func request<T: JSONParsing>(urlString: String) -> SignalProducer<T, NSError> {
+	func request<T: JSONParsing>(_ urlString: String) -> SignalProducer<T, NSError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
-			guard let url = NSURL(string: urlString) else {
-				observer.sendFailed(NSError(domain: "com.twitch", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknow URL format"]))
-				return
-			}
-			let request = self.manager.request(.GET, url)
+			let request = self.manager.request(urlString, method: .get, headers: ["Client-ID": Constants.clientId])
 			print(request.debugDescription)
 			request.responseJSON { response in
-				if case Result.Failure(let error) = response.result {
+				if case .failure(let error as NSError) = response.result {
 					parseError(response.data, error, observer)
 				} else {
 					parse(response.result.value, observer)
 				}
 			}
-			disposable.addDisposable {
+			disposable.add {
 				request.cancel()
 			}
 		}
 	}
 
-	func request<T: JSONParsing>(route: TwitchRouter) -> SignalProducer<T, NSError> {
+	func request<T: JSONParsing>(_ route: TwitchRouter) -> SignalProducer<T, NSError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
 			let request = self.manager.request(
-				route.method,
-				route,
+				route.URLString,
+				method: route.method,
 				parameters: route.pathAndParams.parameters,
-				encoding: ParameterEncoding.URL,
-				headers: ["Client-ID":String("fygn2df3r2cubbks0ax5ycdqghe3q7i".characters.reverse())])
+				encoding: URLEncoding.queryString,
+				headers: ["Client-ID": Constants.clientId])
 			print(request.debugDescription)
 			request.validate().responseJSON { response in
-				if case Result.Failure(let error) = response.result {
+				if case .failure(let error as NSError) = response.result {
 					parseError(response.data, error, observer)
 				} else {
 					parse(response.result.value, observer)
 				}
 			}
-			disposable.addDisposable {
+			disposable.add {
 				request.cancel()
 			}
-		}.observeOn(UIScheduler())
+		}.observe(on: UIScheduler())
 	}
 
-	private func accessTokenForChannel(channelName: String) -> SignalProducer<AccessToken, NSError> {
-		return request(.AccessToken(channelName: channelName))
+	fileprivate func accessTokenForChannel(_ channelName: String) -> SignalProducer<AccessToken, NSError> {
+		return request(TwitchRouter.accessToken(channelName: channelName))
 	}
 
-	func m3u8URLForChannel(channelName: String) -> SignalProducer<String, NSError> {
+	func m3u8URLForChannel(_ channelName: String) -> SignalProducer<String, NSError> {
 		return accessTokenForChannel(channelName)
 			.map { return "http://usher.justin.tv/api/channel/hls/\(channelName)?allow_source=true&token=\($0.token)&sig=\($0.sig)" }
 	}
 
-	func getTopGames(page: Int) -> SignalProducer<TopGamesResponse, NSError> {
-		return request(TwitchRouter.GamesTop(page: page))
+	func getTopGames(_ page: Int) -> SignalProducer<TopGamesResponse, NSError> {
+		return request(TwitchRouter.gamesTop(page: page))
 	}
 }
 
-private func parseError<T: JSONParsing> (data: NSData?, _ error: NSError, _ sink: Observer<T, NSError>) {
+private func parseError<T: JSONParsing> (_ data: Data?, _ error: NSError, _ sink: Observer<T, NSError>) {
 	guard let data = data else {
-		sink.sendFailed(error)
+		sink.send(error: error)
 		return
 	}
 	do {
-		let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-		let error = try TwitchError.parse(JSON(json))
-		sink.sendFailed(error.toError)
+		let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+		let error = try TwitchError.parse(JSON(json as AnyObject))
+		sink.send(error: error.toError)
 	} catch _ {
-		sink.sendFailed(error)
+		sink.send(error: error)
 	}
 }
 
-private func parse<T: JSONParsing> (object: AnyObject?, _ sink: Observer<T, NSError>) {
+private func parse<T: JSONParsing> (_ object: Any?, _ sink: Observer<T, NSError>) {
 	let errorDomain = "JSONParsing"
 	do {
-		let result = try T.parse(JSON(object))
-		sink.sendNext(result)
+		let result = try T.parse(JSON(object as? NSDictionary))
+		sink.send(value: result)
 		sink.sendCompleted()
-	} catch JSON.Error.NoValue(let json) {
+	} catch JSON.Error.noValue(let json) {
 		let desc = "JSON value not found at key path \(json.pathFromRoot)"
 		let error = NSError(domain: errorDomain,
 		                    code: (-2),
 		                    userInfo: [NSLocalizedDescriptionKey: desc])
-		sink.sendFailed(error)
-	} catch JSON.Error.TypeMismatch(let json) {
+		sink.send(error: error)
+	} catch JSON.Error.typeMismatch(let json) {
 		let desc = "JSON value type mismatch at key path \(json.pathFromRoot)"
 		let error = NSError(domain: errorDomain,
 		                    code: (-3),
 		                    userInfo: [NSLocalizedDescriptionKey: desc])
-		sink.sendFailed(error)
+		sink.send(error: error)
 	} catch _ {
 		let desc = "Unknown error while parsing server response"
 		let error = NSError(domain: errorDomain,
 		                    code: (-1),
 		                    userInfo: [NSLocalizedDescriptionKey: desc])
-		sink.sendFailed(error)
+		sink.send(error: error)
 	}
 }

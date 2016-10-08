@@ -20,7 +20,7 @@
 
 import Foundation
 import JSONParsing
-import ReactiveCocoa
+import ReactiveSwift
 
 struct Game {
 	let gameNameString: String
@@ -40,7 +40,7 @@ extension Game: CustomStringConvertible {
 // MARK: JSONParsing
 
 extension Game: JSONParsing {
-	static func parse(json: JSON) throws -> Game {
+	static func parse(_ json: JSON) throws -> Game {
 		return try Game(
 			gameNameString: json["name"]^,
 			id: json["_id"]^,

@@ -19,3 +19,6 @@
 [submodule "Carthage/Checkouts/DataSource"]
 	url = https://github.com/notbenoit/DataSource.git
     path = Carthage/Checkouts/DataSource
+[submodule "Carthage/Checkouts/ReactiveSwift"]
+	path = Carthage/Checkouts/ReactiveSwift
+	url = https://github.com/ReactiveCocoa/ReactiveSwift.git

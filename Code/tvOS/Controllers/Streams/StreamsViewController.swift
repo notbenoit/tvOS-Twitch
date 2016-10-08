@@ -20,7 +20,7 @@
 
 import UIKit
 import AVKit
-import ReactiveCocoa
+import ReactiveSwift
 import DataSource
 import Result
 
@@ -39,7 +39,7 @@ final class StreamsViewController: UIViewController {
 	let viewModel = MutableProperty<StreamList.ViewModelType?>(nil)
 	let collectionDataSource = CollectionViewDataSource()
 
-	private let disposable = CompositeDisposable()
+	fileprivate let disposable = CompositeDisposable()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -57,42 +57,42 @@ final class StreamsViewController: UIViewController {
 		collectionView.dataSource = collectionDataSource
 
 		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
-		noItemsLabel.font = UIFont.systemFontOfSize(42)
-		noItemsLabel.textColor = UIColor.whiteColor()
+		noItemsLabel.font = UIFont.systemFont(ofSize: 42)
+		noItemsLabel.textColor = UIColor.white
 		noItemsLabel.rac_hidden <~ viewModel.producer.map { $0 != nil }
 
 		let layout = UICollectionViewFlowLayout()
-		layout.scrollDirection = .Vertical
+		layout.scrollDirection = .vertical
 		layout.itemSize = CGSize(width: streamCellWidth, height: 250.0)
 		layout.sectionInset = UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90)
 		layout.minimumInteritemSpacing = horizontalSpacing
 		layout.minimumLineSpacing = verticalSpacing
 
-		collectionView.registerNib(StreamCell.nib, forCellWithReuseIdentifier: StreamCell.identifier)
-		collectionView.registerNib(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
+		collectionView.register(StreamCell.nib, forCellWithReuseIdentifier: StreamCell.identifier)
+		collectionView.register(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
 
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 
-		loadingView.loadingState <~ viewModel.producer.ignoreNil().chain { $0.paginator.loadingState }
-		loadingView.isEmpty <~ viewModel.producer.ignoreNil().chain { $0.viewModels }.map { $0.isEmpty }
+		loadingView.loadingState <~ viewModel.producer.skipNil().chain { $0.paginator.loadingState }
+		loadingView.isEmpty <~ viewModel.producer.skipNil().chain { $0.viewModels }.map { $0.isEmpty }
 		loadingView.retry = { [weak self] in self?.viewModel.value?.paginator.loadFirst() }
 
 		disposable += presentStream.values
-			.observeOn(UIScheduler())
-			.observeNext { [weak self] in self?.presentViewController($0, animated: true, completion: nil) }
+			.observe(on: UIScheduler())
+			.observeValues { [weak self] in self?.present($0, animated: true, completion: nil) }
 	}
 
 }
 
 extension StreamsViewController: UICollectionViewDelegate {
-	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		if let item = collectionDataSource.dataSource.itemAtIndexPath(indexPath) as? StreamViewModel {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		if let item = collectionDataSource.dataSource.item(at: indexPath) as? StreamViewModel {
 			presentStream.apply((item.stream, self)).start()
 		}
 	}
 
-	func scrollViewDidScroll(scrollView: UIScrollView) {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let contentOffsetY = scrollView.contentOffset.y + scrollView.bounds.size.height
 		let wholeHeight = scrollView.contentSize.height
 
@@ -104,21 +104,21 @@ extension StreamsViewController: UICollectionViewDelegate {
 	}
 }
 
-private func controllerProducerForStream(stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, NSError> {
+private func controllerProducerForStream(_ stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, NSError> {
 	return TwitchAPIClient.sharedInstance.m3u8URLForChannel(stream.channel.channelName)
-		.map { $0.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) }
-		.map { $0.flatMap { NSURL(string: $0) } }
-		.ignoreNil()
+		.map { $0.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) }
+		.map { $0.flatMap { URL(string: $0) } }
+		.skipNil()
 		.map {
 			let playerController = AVPlayerViewController()
-			playerController.view.frame = UIScreen.mainScreen().bounds
-			let avPlayer = AVPlayer(URL: $0)
+			playerController.view.frame = UIScreen.main.bounds
+			let avPlayer = AVPlayer(url: $0)
 			playerController.player = avPlayer
 			return playerController
 	}
-		.flatMap(.Latest) {
+		.flatMap(.latest) {
 			(controller: AVPlayerViewController) -> SignalProducer<AVPlayerViewController, NSError> in
 			return adProducerBeforeController(controller, inController: inController, placement: "BetweenLevels")
 		}
-		.on() { $0.player?.play() }
+		.on(value: { $0.player?.play() })
 }

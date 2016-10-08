@@ -24,7 +24,7 @@ struct GamesList {
 	
 	typealias ViewModelType = BaseViewModel<TopGamesResponse, GameCellViewModel>
 	
-	static func gameToViewModel(game: TopGame) -> GameCellViewModel? {
+	static func gameToViewModel(_ game: TopGame) -> GameCellViewModel? {
 		return GameCellViewModel(game: game.game)
 	}
 }

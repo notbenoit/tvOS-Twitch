@@ -19,8 +19,8 @@
 // THE SOFTWARE.
 
 import UIKit
-import ReactiveCocoa
-import WebImage
+import ReactiveSwift
+import SDWebImage
 import DataSource
 
 class StreamCell: CollectionViewCell {
@@ -32,10 +32,12 @@ class StreamCell: CollectionViewCell {
 	@IBOutlet weak var streamNameLabel: UILabel!
 	@IBOutlet weak var viewersCountLabel: UILabel!
 	
-	private let defaultTextColor = UIColor.lightGrayColor()
-	private let focusedTextColor = UIColor.whiteColor()
-	private let defaultStreamFont = UIFont.boldSystemFontOfSize(22)
-	private let defaultViewersFont = UIFont.systemFontOfSize(22)
+	fileprivate let defaultTextColor = UIColor.lightGray
+	fileprivate let focusedTextColor = UIColor.white
+	fileprivate let defaultStreamFont = UIFont.boldSystemFont(ofSize: 22)
+	fileprivate let defaultViewersFont = UIFont.systemFont(ofSize: 22)
+	
+	private let disposable = CompositeDisposable()
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
@@ -45,8 +47,8 @@ class StreamCell: CollectionViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		imageView.layer.borderWidth = 1.0
-		imageView.layer.borderColor = UIColor.clearColor().CGColor
-		placeholder.image = placeholder.image?.imageWithRenderingMode(.AlwaysTemplate)
+		imageView.layer.borderColor = UIColor.clear.cgColor
+		placeholder.image = placeholder.image?.withRenderingMode(.alwaysTemplate)
 		placeholder.tintColor = UIColor.twitchDarkColor()
 		streamNameLabel.textColor = defaultTextColor
 		viewersCountLabel.textColor = defaultTextColor
@@ -55,22 +57,22 @@ class StreamCell: CollectionViewCell {
 		
 		disposable += cellModel.producer
 			.map { $0 as? StreamViewModel }
-			.ignoreNil()
-			.start(self, StreamCell.configureWithItem)
+			.skipNil()
+			.startWithValues { [weak self] in self?.configureWithItem($0) }
 	}
 	
-	private func configureWithItem(item: StreamViewModel) {
+	fileprivate func configureWithItem(_ item: StreamViewModel) {
 		streamNameLabel.text = item.streamTitle
 		viewersCountLabel.text = item.viewersCount
-		if let url = NSURL(string: item.streamImageURL) {
-			imageView.sd_setImageWithURL(url)
+		if let url = URL(string: item.streamImageURL) {
+			imageView.sd_setImage(with: url)
 		}
 	}
 	
-	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-		let color = self.focused ? focusedTextColor : defaultTextColor
-		let borderColor = self.focused ? UIColor.whiteColor().CGColor : UIColor.clearColor().CGColor
-		if focused {
+	override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+		let color = isFocused ? focusedTextColor : defaultTextColor
+		let borderColor = isFocused ? UIColor.white.cgColor : UIColor.clear.cgColor
+		if isFocused {
 			applyMotionEffectForX(10, y: 10)
 		} else {
 			removeMotionEffects()

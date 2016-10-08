@@ -32,7 +32,7 @@ struct TwitchError {
 }
 
 extension TwitchError: JSONParsing {
-	static func parse(json: JSON) throws -> TwitchError {
+	static func parse(_ json: JSON) throws -> TwitchError {
 		return try TwitchError(
 			message: json["message"]^,
 			status: json["status"]^,

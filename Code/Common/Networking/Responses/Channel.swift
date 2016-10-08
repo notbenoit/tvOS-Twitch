@@ -37,7 +37,7 @@ extension Channel: CustomStringConvertible {
 }
 
 extension Channel: JSONParsing {
-	static func parse(json: JSON) throws -> Channel {
+	static func parse(_ json: JSON) throws -> Channel {
 		return try Channel(
 			id: json["_id"]^,
 			mature: json["mature"].optional.map(^),

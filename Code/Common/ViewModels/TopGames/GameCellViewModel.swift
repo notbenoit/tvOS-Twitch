@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 
 struct GameCellViewModel: ReuseIdentifierProvider {
 	let reuseIdentifier: String = GameCell.identifier
