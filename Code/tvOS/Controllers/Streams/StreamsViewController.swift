@@ -23,6 +23,7 @@ import AVKit
 import ReactiveSwift
 import DataSource
 import Result
+import COLORAdFramework
 
 final class StreamsViewController: UIViewController {
 
@@ -35,6 +36,8 @@ final class StreamsViewController: UIViewController {
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingView: LoadingStateView!
 	@IBOutlet var noItemsLabel: UILabel!
+	@IBOutlet var loadingStreamView: UIView!
+	@IBOutlet var loadingMessage: UILabel!
 
 	let viewModel = MutableProperty<StreamList.ViewModelType?>(nil)
 	let collectionDataSource = CollectionViewDataSource()
@@ -52,13 +55,25 @@ final class StreamsViewController: UIViewController {
 			fatalError()
 		}
 
+		disposable += loadingStreamView.rac_hidden <~ presentStream.isExecuting.producer.map(!)
+		disposable += presentStream.isExecuting.producer.startWithValues {
+			loading in
+			if loading {
+				UIApplication.shared.beginIgnoringInteractionEvents()
+			} else {
+				UIApplication.shared.endIgnoringInteractionEvents()
+			}
+		}
+		
+		disposable += loadingMessage.rac_text <~ presentStream.isExecuting.producer
+			.filter { $0 }
+			.map { _ in LoadingMessages.randomMessage }
+		
 		collectionDataSource.dataSource.innerDataSource <~ viewModel.producer.map { $0?.dataSource ?? EmptyDataSource() }
 		collectionDataSource.collectionView = collectionView
 		collectionView.dataSource = collectionDataSource
 
 		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
-		noItemsLabel.font = UIFont.systemFont(ofSize: 42)
-		noItemsLabel.textColor = UIColor.white
 		noItemsLabel.rac_hidden <~ viewModel.producer.map { $0 != nil }
 
 		let layout = UICollectionViewFlowLayout()
@@ -118,7 +133,8 @@ private func controllerProducerForStream(_ stream: Stream, inController: UIViewC
 	}
 		.flatMap(.latest) {
 			(controller: AVPlayerViewController) -> SignalProducer<AVPlayerViewController, NSError> in
-			return adProducerBeforeController(controller, inController: inController, placement: "BetweenLevels")
+			return adProducerBeforeController(controller, inController: inController, placement: AdService.shared.nextPlacement)
 		}
+		.observe(on: UIScheduler())
 		.on(value: { $0.player?.play() })
 }
