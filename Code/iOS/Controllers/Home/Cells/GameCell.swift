@@ -20,7 +20,7 @@
 
 import UIKit
 import ReactiveSwift
-import SDWebImage
+import WebImage
 import DataSource
 
 final class GameCell: CollectionViewCell {

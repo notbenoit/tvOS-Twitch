@@ -49,8 +49,6 @@
 		FCD293DE1DA9065600B748EE /* DataSource.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293DC1DA9065600B748EE /* DataSource.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCD293E01DA9065600B748EE /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293DF1DA9065600B748EE /* Result.framework */; };
 		FCD293E11DA9065600B748EE /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293DF1DA9065600B748EE /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCD293E31DA9065600B748EE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293E21DA9065600B748EE /* SDWebImage.framework */; };
-		FCD293E41DA9065600B748EE /* SDWebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293E21DA9065600B748EE /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCD293E61DA9065F00B748EE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293E51DA9065F00B748EE /* Alamofire.framework */; };
 		FCD293E71DA9065F00B748EE /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293E51DA9065F00B748EE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCD293E91DA906EE00B748EE /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293E81DA906EE00B748EE /* ReactiveCocoa.framework */; };
@@ -73,8 +71,8 @@
 		FCD294041DAA93F600B748EE /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD294031DAA93F500B748EE /* AdService.swift */; };
 		FCD294061DAAAFBE00B748EE /* LoadingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD294051DAAAFBE00B748EE /* LoadingMessages.swift */; };
 		FCD294081DAABABA00B748EE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294071DAABABA00B748EE /* Alamofire.framework */; };
-		FCD294041DAA93F600B748EE /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD294031DAA93F500B748EE /* AdService.swift */; };
-		FCD294061DAAAFBE00B748EE /* LoadingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD294051DAAAFBE00B748EE /* LoadingMessages.swift */; };
+		FCD2940A1DAAC2AA00B748EE /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294091DAAC2AA00B748EE /* WebImage.framework */; };
+		FCD2940B1DAAC2AA00B748EE /* WebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294091DAAC2AA00B748EE /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCE5DA8E1CA98674002AB4ED /* JSONParsing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE5DA8D1CA98674002AB4ED /* JSONParsing.framework */; };
 		FCE5DAA11CA98D42002AB4ED /* StreamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EC1BECFF6500119B19 /* StreamCell.swift */; };
 		FCE5DAEB1CA9ADC9002AB4ED /* RACExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAE91CA9ADC9002AB4ED /* RACExtensions.swift */; };
@@ -199,8 +197,8 @@
 				FCD293FF1DA9079500B748EE /* ReactiveSwift.framework in Copy Frameworks */,
 				FC30AF811DA848F3003438E3 /* JSONParsing.framework in Copy Frameworks */,
 				FCD293E71DA9065F00B748EE /* Alamofire.framework in Copy Frameworks */,
-				FCD293E41DA9065600B748EE /* SDWebImage.framework in Copy Frameworks */,
 				FCD293DE1DA9065600B748EE /* DataSource.framework in Copy Frameworks */,
+				FCD2940B1DAAC2AA00B748EE /* WebImage.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,8 +285,7 @@
 		FCD294031DAA93F500B748EE /* AdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdService.swift; sourceTree = "<group>"; };
 		FCD294051DAAAFBE00B748EE /* LoadingMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingMessages.swift; sourceTree = "<group>"; };
 		FCD294071DAABABA00B748EE /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/TwitchTV-dwvtydeuohanipbgeuocuoxcbiml/Build/Products/Debug-appletvsimulator/Alamofire.framework"; sourceTree = "<group>"; };
-		FCD294031DAA93F500B748EE /* AdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdService.swift; sourceTree = "<group>"; };
-		FCD294051DAAAFBE00B748EE /* LoadingMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingMessages.swift; sourceTree = "<group>"; };
+		FCD294091DAAC2AA00B748EE /* WebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE5DA8D1CA98674002AB4ED /* JSONParsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONParsing.framework; path = "../../Library/Developer/Xcode/DerivedData/TwitchTV-dwvtydeuohanipbgeuocuoxcbiml/Build/Products/Debug-appletvsimulator/JSONParsing.framework"; sourceTree = "<group>"; };
 		FCE5DAE91CA9ADC9002AB4ED /* RACExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RACExtensions.swift; sourceTree = "<group>"; };
 		FCE5DAEA1CA9ADC9002AB4ED /* RACTerminal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RACTerminal.swift; sourceTree = "<group>"; };
@@ -363,9 +360,9 @@
 				FCD293E61DA9065F00B748EE /* Alamofire.framework in Frameworks */,
 				FCD293E01DA9065600B748EE /* Result.framework in Frameworks */,
 				FC30AF891DA8494C003438E3 /* Result.framework in Frameworks */,
+				FCD2940A1DAAC2AA00B748EE /* WebImage.framework in Frameworks */,
 				FC30AF641DA84890003438E3 /* Alamofire.framework in Frameworks */,
 				FCC261DD1D04B7CA00AAFDCB /* COLORAdFramework.framework in Frameworks */,
-				FCD293E31DA9065600B748EE /* SDWebImage.framework in Frameworks */,
 				FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +482,7 @@
 		FC858B051B7E40FF007A9B54 = {
 			isa = PBXGroup;
 			children = (
+				FCD294091DAAC2AA00B748EE /* WebImage.framework */,
 				FC1D62F51BEA06A400403CC4 /* xcconfigs */,
 				FCCC2FFF1BE7E039009DEEC7 /* Code */,
 				FCBAD4411B7E48DB00B8A7BD /* Frameworks */,
@@ -506,7 +504,6 @@
 			isa = PBXGroup;
 			children = (
 				FCD294071DAABABA00B748EE /* Alamofire.framework */,
-				FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */,
 				FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */,
 				FCD294001DA907A800B748EE /* ReactiveSwift.framework */,
 				FCD293FA1DA906EE00B748EE /* SDWebImage.framework */,
@@ -1176,6 +1173,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TVOS_APP_VERSION = 1.1.3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1220,6 +1218,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				TVOS_APP_VERSION = 1.1.3;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
