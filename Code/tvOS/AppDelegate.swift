@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import WebImage
 import COLORAdFramework
 
 @UIApplicationMain
@@ -33,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			tabController.viewControllers?.append(packagedSearchController())
 		}
 
+		WebImage.SDWebImageManager.shared().imageCache.maxCacheAge = 60 * 60 * 24 * 30
+		WebImage.SDWebImageManager.shared().imageCache.cleanDisk()
 		COLORAdController.sharedAdController().start(withAppIdentifier: "8a5090c0-633d-44d3-9d6a-76d4020456b7")
 		return true
 	}
