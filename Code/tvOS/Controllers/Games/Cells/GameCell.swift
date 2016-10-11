@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 import WebImage
 import DataSource
 
@@ -30,9 +30,9 @@ final class GameCell: CollectionViewCell {
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var labelName: UILabel!
 	
-	private let textDefaultFont = UIFont.boldSystemFontOfSize(22)
-	private let textDefaultColor = UIColor.lightGrayColor()
-	
+	fileprivate let textDefaultFont = UIFont.boldSystemFont(ofSize: 22)
+	fileprivate let textDefaultColor = UIColor.lightGray
+	fileprivate let disposable = CompositeDisposable()
 	override func prepareForReuse() {
 		imageView.image = nil
 		labelName.text = nil
@@ -48,21 +48,21 @@ final class GameCell: CollectionViewCell {
 		
 		disposable += self.cellModel.producer
 			.map { $0 as? GameCellViewModel }
-			.ignoreNil()
-			.start(self, GameCell.configureWithItem)
+			.skipNil()
+			.startWithValues { [weak self] in self?.configure(with: $0) }
 	}
 	
-	private func configureWithItem(item: GameCellViewModel) {
+	fileprivate func configure(with item: GameCellViewModel) {
 		labelName.text = item.gameName
-		if let url = NSURL(string: item.gameImageURL) {
-			imageView.sd_setImageWithURL(url)
+		if let url = URL(string: item.gameImageURL) {
+			imageView.sd_setImage(with: url)
 		}
 	}
 	
-	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-		let transform = self.focused ? CGAffineTransformMakeTranslation(0, 35) : CGAffineTransformIdentity
-		let labelShadowColor = self.focused ? UIColor.darkGrayColor() : UIColor.clearColor()
-		let labelTextColor = self.focused ? UIColor.whiteColor() : textDefaultColor
+	override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+		let transform = isFocused ? CGAffineTransform(translationX: 0, y: 35) : CGAffineTransform.identity
+		let labelShadowColor = isFocused ? UIColor.darkGray : UIColor.clear
+		let labelTextColor = isFocused ? UIColor.white : textDefaultColor
 		coordinator.addCoordinatedAnimations({
 			self.labelName.transform = transform
 			self.labelName.shadowColor = labelShadowColor

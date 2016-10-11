@@ -21,12 +21,12 @@
 import UIKit
 
 class HomeTabBarDelegate: NSObject, UITabBarControllerDelegate {
-	func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 		if let
 			controller = viewController as? StreamsViewController
-			where controller.viewModel.value == nil {
+			, controller.viewModel.value == nil {
 			controller.viewModel.value = StreamList.ViewModelType(
-				.Streams(gameName: nil, page: 0), transform: StreamList.streamToViewModel)
+				.streams(gameName: nil, page: 0), transform: StreamList.streamToViewModel)
 		}
 	}
 }

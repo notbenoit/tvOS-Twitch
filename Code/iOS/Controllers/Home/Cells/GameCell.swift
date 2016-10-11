@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 import WebImage
 import DataSource
 
@@ -29,6 +29,8 @@ final class GameCell: CollectionViewCell {
 	
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var labelName: UILabel!
+	
+	fileprivate let disposable = CompositeDisposable()
 	
 	override func prepareForReuse() {
 		imageView.image = nil
@@ -41,14 +43,14 @@ final class GameCell: CollectionViewCell {
 		
 		disposable += self.cellModel.producer
 			.map { $0 as? GameCellViewModel }
-			.ignoreNil()
-			.start(self, GameCell.configureWithItem)
+			.skipNil()
+			.startWithValues { [weak self] in self?.configure(with: $0) }
 	}
 	
-	private func configureWithItem(item: GameCellViewModel) {
+	private func configure(with item: GameCellViewModel) {
 		labelName.text = item.gameName
-		if let url = NSURL(string: item.gameImageURL) {
-			imageView.sd_setImageWithURL(url)
+		if let url = URL(string: item.gameImageURL) {
+			imageView.sd_setImage(with: url)
 		}
 	}
 }

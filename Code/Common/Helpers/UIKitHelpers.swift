@@ -21,30 +21,30 @@
 import UIKit
 
 extension UIViewController {
-	func presentDefaultError(error: NSError) {
-		let alert = UIAlertController(title: NSLocalizedString("An error occured", comment: ""), message: nil, preferredStyle: .Alert)
-		alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil))
-		self.presentViewController(alert, animated: true, completion: nil)
+	func presentDefaultError(_ error: NSError) {
+		let alert = UIAlertController(title: NSLocalizedString("An error occured", comment: ""), message: nil, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: nil))
+		self.present(alert, animated: true, completion: nil)
 	}
 }
 
 extension UIView {
-	func addAndFitSubview(view: UIView) {
+	func addAndFitSubview(_ view: UIView) {
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.frame = self.bounds
 		self.addSubview(view)
 		let views = ["view": view]
 		let options = NSLayoutFormatOptions(rawValue: 0)
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: options, metrics: nil, views: views))
-		self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: options, metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: options, metrics: nil, views: views))
+		self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: options, metrics: nil, views: views))
 	}
 }
 
 extension UITableView {
-	func deselectAllRows(animated: Bool) {
+	func deselectAllRows(_ animated: Bool) {
 		if let indexPaths = self.indexPathsForSelectedRows {
 			for indexPath in indexPaths {
-				self.deselectRowAtIndexPath(indexPath, animated: animated)
+				self.deselectRow(at: indexPath, animated: animated)
 			}
 		}
 	}

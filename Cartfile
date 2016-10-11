@@ -1,5 +1,5 @@
-github "ReactiveCocoa/ReactiveCocoa" ~> 4.2
-github "Alamofire/Alamofire" ~> 3.5
+github "ReactiveCocoa/ReactiveCocoa" "master"
+github "Alamofire/Alamofire" ~> 4.0
 github "rs/SDWebImage" ~> 3.8
 github "jspahrsummers/xcconfigs" "master"
 github "notbenoit/DataSource" "tvOS-target"

@@ -19,10 +19,10 @@
 // THE SOFTWARE.
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 
 struct LoadMoreCellItem: ReuseIdentifierProvider {
 	let reuseIdentifier = LoadMoreCell.identifier
 	
-	let loadingState = MutableProperty(LoadingState<NSError>.Default)
+	let loadingState = MutableProperty(LoadingState<NSError>.default)
 }

@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 import DataSource
 
 final class LoadMoreCell: CollectionViewCell {
@@ -31,13 +31,13 @@ final class LoadMoreCell: CollectionViewCell {
 	override func awakeFromNib() {
 		cellModel.producer
 			.map { $0 as? LoadMoreCellItem }
-			.ignoreNil()
+			.skipNil()
 			.chain { $0.loadingState }
-			.start(self, LoadMoreCell.configureWithLoadingState)
+			.startWithValues { [weak self] in self?.configure(withState: $0) }
 	}
 	
-	func configureWithLoadingState(state: LoadingState<NSError>) {
-		loadingView.hidden = !state.loading
+	func configure(withState state: LoadingState<NSError>) {
+		loadingView.isHidden = !state.loading
 		state.loading ? loadingView.startAnimating() : loadingView.stopAnimating()
 	}
 }

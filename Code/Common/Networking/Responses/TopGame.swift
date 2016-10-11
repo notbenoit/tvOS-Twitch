@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 import JSONParsing
 
 struct TopGame {
@@ -37,7 +37,7 @@ extension TopGame: CustomStringConvertible {
 // MARK: JSONParsing
 
 extension TopGame: JSONParsing {
-	static func parse(json: JSON) throws -> TopGame {
+	static func parse(_ json: JSON) throws -> TopGame {
 		return try TopGame(
 			game: json["game"]^,
 			viewers: json["viewers"]^,

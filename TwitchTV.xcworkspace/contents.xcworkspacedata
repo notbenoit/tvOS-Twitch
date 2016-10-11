@@ -2,19 +2,22 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Carthage/Checkouts/DataSource/DataSource.xcodeproj">
+      location = "group:Carthage/Checkouts/ReactiveCocoa/ReactiveCocoa.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/JSONParsing/JSONParsing.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
+      location = "group:Carthage/Checkouts/DataSource/DataSource.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/ReactiveSwift/ReactiveSwift.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/Result/Result.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/ReactiveCocoa/ReactiveCocoa.xcodeproj">
+      location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj">

@@ -20,7 +20,7 @@
 
 import Foundation
 import TVServices
-import ReactiveCocoa
+import ReactiveSwift
 
 class ServiceProvider: NSObject, TVTopShelfProvider {
 
@@ -34,17 +34,17 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
 
 	var topShelfStyle: TVTopShelfContentStyle {
 	    // Return desired Top Shelf style.
-	    return .Sectioned
+	    return .sectioned
 	}
 
 	var topShelfItems: [TVContentItem] {
-		let semaphore = dispatch_semaphore_create(0)
+		let semaphore = DispatchSemaphore(value: 0)
 		let topGamesItem = TVContentItem(contentIdentifier: TVContentIdentifier(identifier: "topGames", container: nil)!)!
 		topGamesItem.title = "Top Games"
 		var items: [TVContentItem] = []
 		twitchClient.getTopGames(0).on(failed: {
 			error in
-			dispatch_semaphore_signal(semaphore)
+			semaphore.signal()
 			})
 			.startWithResult {
 				items += (try? ($0.dematerialize()).objects.map {
@@ -52,17 +52,17 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
 					let components = NSURLComponents()
 					components.scheme = "twitch"
 					components.path = "game"
-					components.queryItems = [NSURLQueryItem(name: "name", value: $0.game.gameNameString)]
-					item?.imageShape = .Poster
-					item?.displayURL = components.URL!
-					item?.imageURL = NSURL(string: $0.game.box.large)!
+					components.queryItems = [URLQueryItem(name: "name", value: $0.game.gameNameString)]
+					item?.imageShape = .poster
+					item?.displayURL = components.url!
+					item?.imageURL = URL(string: $0.game.box.large)!
 					item?.title = $0.game.gameNameString
 					return item!
 				}) ?? []
-				dispatch_semaphore_signal(semaphore)
+				semaphore.signal()
 		}
 
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+		let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 		topGamesItem.topShelfItems = items
 		return [topGamesItem]
 	}

@@ -26,56 +26,56 @@ enum TwitchRouter {
 	static let tokenURLString = Constants.API_URL_TOKEN
 	static let perPage: Int = 20
 	
-	case GamesTop(page: Int)
-	case SearchGames(query: String)
-	case Streams(gameName: String?, page: Int)
-	case SearchStream(query: String, page: Int)
-	case AccessToken(channelName: String)
+	case gamesTop(page: Int)
+	case searchGames(query: String)
+	case streams(gameName: String?, page: Int)
+	case searchStream(query: String, page: Int)
+	case accessToken(channelName: String)
 	
-	var pathAndParams: (path: String, parameters: [String:AnyObject]) {
+	var pathAndParams: (path: String, parameters: [String:Any]) {
 		switch self {
-		case .GamesTop(let page):
+		case .gamesTop(let page):
 			return ("/games/top", ["limit":TwitchRouter.perPage, "offset":page*TwitchRouter.perPage])
-		case .SearchGames(let query):
+		case .searchGames(let query):
 			return ("/search/games", ["live":true, "type":"suggest", "query":query])
-		case .Streams(let gameName, let page):
-			var params: [String:AnyObject] = [:]
+		case .streams(let gameName, let page):
+			var params: [String:Any] = [:]
 			if let gameName = gameName {
 				params["game"] = gameName
 			}
 			params["limit"] = TwitchRouter.perPage
 			params["offset"] = page*TwitchRouter.perPage
 			return ("/streams", params)
-		case .SearchStream(let query, let page):
-			var params: [String:AnyObject] = [:]
+		case .searchStream(let query, let page):
+			var params: [String:Any] = [:]
 			params["query"] = query
 			params["limit"] = TwitchRouter.perPage
 			params["offset"] = page*TwitchRouter.perPage
 			return ("/search/streams", params)
-		case .AccessToken(let channelName):
+		case .accessToken(let channelName):
 			return ("/channels/\(channelName)/access_token", [:])
 		}
 	}
 	
-	var URLRequest: NSMutableURLRequest {
+	func asURLRequest() throws -> URLRequest {
 		let stringAPIURL: String = {
 			switch self {
-			case .GamesTop(_), .SearchGames(_), .Streams(_, _), .SearchStream(_, _):
+			case .gamesTop(_), .searchGames(_), .streams(_, _), .searchStream(_, _):
 				return TwitchRouter.baseURLString
-			case .AccessToken(_):
+			case .accessToken(_):
 				return TwitchRouter.tokenURLString
 			}
 		}()
-		let URL = NSURL(string: stringAPIURL)!
-		let URLRequest = NSURLRequest(URL: URL.URLByAppendingPathComponent(pathAndParams.path)!)
-		let encoding = Alamofire.ParameterEncoding.URL
-		return encoding.encode(URLRequest, parameters: pathAndParams.parameters).0
+		let URL = Foundation.URL(string: stringAPIURL)!
+		let URLRequest = Foundation.URLRequest(url: URL.appendingPathComponent(pathAndParams.path))
+		let encoding = URLEncoding()
+		return try encoding.encode(URLRequest, with: pathAndParams.parameters)
 	}
 	
 	var URLString: String {
 		let urlDetails = pathAndParams
 		switch self {
-		case .AccessToken(_):
+		case .accessToken(_):
 			return TwitchRouter.tokenURLString + urlDetails.path
 		default:
 			return TwitchRouter.baseURLString + urlDetails.path
@@ -83,13 +83,12 @@ enum TwitchRouter {
 		
 	}
 	
-	var method: Alamofire.Method {
+	var method: Alamofire.HTTPMethod {
 		switch self {
 		default:
-			return .GET
+			return .get
 		}
 	}
 }
 
-extension TwitchRouter: URLStringConvertible { }
 extension TwitchRouter: URLRequestConvertible { }

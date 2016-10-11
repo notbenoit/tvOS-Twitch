@@ -33,9 +33,9 @@ extension NibDesignableType {
 	- returns: UIView instance loaded from a nib file.
 	*/
 	func loadNib() -> UIView {
-		let bundle = NSBundle(forClass: self.dynamicType)
+		let bundle = Bundle(for: type(of: self))
 		let nib = UINib(nibName: self.nibName, bundle: bundle)
-		return nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+		return nib.instantiate(withOwner: self, options: nil)[0] as! UIView
 	}
 	
 	// MARK: - Nib loading
@@ -43,7 +43,7 @@ extension NibDesignableType {
 	/**
 	Called in init(frame:) and init(aDecoder:) to load the nib and add it as a subview.
 	*/
-	private func setupNib() {
+	fileprivate func setupNib() {
 		let view = self.loadNib()
 		self.containerView.addAndFitSubview(view)
 	}
@@ -51,7 +51,7 @@ extension NibDesignableType {
 
 extension UIView: NibDesignableType {
 	var containerView: UIView { return self }
-	var nibName: String { return self.dynamicType.description().componentsSeparatedByString(".").last! }
+	var nibName: String { return type(of: self).description().components(separatedBy: ".").last! }
 }
 
 /// This class only exists in order to be subclassed.

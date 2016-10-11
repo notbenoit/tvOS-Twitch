@@ -18,17 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import ReactiveCocoa
+import UIKit
+import ReactiveSwift
 import DataSource
 
 class BaseViewModel<Response: ListResponseType, ViewModel: Equatable> {
 	let paginator: Paginator<Response>
 	let viewModels: MutableProperty<[ViewModel]>
 	let dataSource: DataSource
-	private let disposable = CompositeDisposable()
+	fileprivate let disposable = CompositeDisposable()
 
-	init(_ apiRoute: TwitchRouter, transform: (Response.Element -> ViewModel?)) {
+	init(_ apiRoute: TwitchRouter, transform: @escaping ((Response.Element) -> ViewModel?)) {
 		paginator = Paginator<Response>(apiRoute)
 
 		let autoDiffDs = AutoDiffDataSource<ViewModel>(compare: ==)
@@ -36,11 +36,11 @@ class BaseViewModel<Response: ListResponseType, ViewModel: Equatable> {
 		disposable += viewModels <~ paginator.lastResponse.producer.combinePrevious(nil).scan([]) {
 			objects, previousAndNext in
 			switch (previousAndNext.0, previousAndNext.1) {
-			case (.None, .Some(let response)):
+			case (.none, .some(let response)):
 				return response.objects.flatMap(transform)
-			case (.Some, .Some(let response)):
+			case (.some, .some(let response)):
 				return objects + response.objects.flatMap(transform)
-			case (_, .None):
+			case (_, .none):
 				return objects
 			}
 		}
@@ -53,7 +53,7 @@ class BaseViewModel<Response: ListResponseType, ViewModel: Equatable> {
 		dataSource = ProxyDataSource(CompositeDataSource([autoDiffDs, loadMoreDataSource]), animateChanges: false)
 
 		#if os(iOS)
-			disposable += UIApplication.sharedApplication().rac_networkIndicatorVisible <~ paginator.loadingState.map { $0.loading }
+			disposable += UIApplication.shared.rac_networkIndicatorVisible <~ paginator.loadingState.map { $0.loading }
 		#endif
 	}
 

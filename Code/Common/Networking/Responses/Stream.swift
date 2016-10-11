@@ -42,7 +42,7 @@ extension Stream: CustomStringConvertible {
 // MARK: JSONParsing
 
 extension Stream: JSONParsing {
-	static func parse(json: JSON) throws -> Stream {
+	static func parse(_ json: JSON) throws -> Stream {
 		return try Stream(
 			id: json["_id"]^,
 			gameNameString: json["game"].optional.map(^),

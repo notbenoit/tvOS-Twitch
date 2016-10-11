@@ -20,18 +20,18 @@
 
 import UIKit
 import DataSource
-import ReactiveCocoa
+import ReactiveSwift
 
 final class SearchResultsViewController: UIViewController, UISearchResultsUpdating {
 
-	private var streamsViewController: StreamsViewController!
+	fileprivate var streamsViewController: StreamsViewController!
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		switch segue.destinationViewController {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		switch segue.destination {
 		case let controller as StreamsViewController:
 			streamsViewController = controller
 		default:
-			super.prepareForSegue(segue, sender: sender)
+			super.prepare(for: segue, sender: sender)
 		}
 	}
 
@@ -40,9 +40,9 @@ final class SearchResultsViewController: UIViewController, UISearchResultsUpdati
 		streamsViewController.noItemsLabel.text = NSLocalizedString("Search for a game, channel, user...", comment: "")
 	}
 
-	func updateSearchResultsForSearchController(searchController: UISearchController) {
-		guard let text = searchController.searchBar.text where !text.isEmpty else { return }
-		streamsViewController.viewModel.value = StreamList.ViewModelType(TwitchRouter.SearchStream(query: text, page: 0), transform: StreamList.streamToViewModel)
+	func updateSearchResults(for searchController: UISearchController) {
+		guard let text = searchController.searchBar.text , !text.isEmpty else { return }
+		streamsViewController.viewModel.value = StreamList.ViewModelType(TwitchRouter.searchStream(query: text, page: 0), transform: StreamList.streamToViewModel)
 	}
 
 }

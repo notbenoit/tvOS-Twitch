@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 
 struct StreamViewModel: ReuseIdentifierProvider {
 	let reuseIdentifier: String = StreamCell.identifier

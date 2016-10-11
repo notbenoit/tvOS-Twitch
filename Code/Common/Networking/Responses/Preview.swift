@@ -31,7 +31,7 @@ struct Preview {
 // MARK: JSONParsing
 
 extension Preview: JSONParsing {
-	static func parse(json: JSON) throws -> Preview {
+	static func parse(_ json: JSON) throws -> Preview {
 		return try Preview(
 			small: json["small"]^,
 			medium: json["medium"]^,

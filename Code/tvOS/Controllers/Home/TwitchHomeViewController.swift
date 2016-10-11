@@ -20,30 +20,30 @@
 
 import UIKit
 import AVKit
-import ReactiveCocoa
+import ReactiveSwift
 
 class TwitchHomeViewController: UIViewController {
 	var gameController: GamesViewController?
 	var streamsController: StreamsViewController?
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		switch (segue.destinationViewController) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		switch (segue.destination) {
 		case (let controller as GamesViewController):
 			gameController = controller
 			gameController?.onGameSelected = onGameSelected()
 		case (let controller as StreamsViewController):
 			streamsController = controller
 		default:
-			super.prepareForSegue(segue, sender: sender)
+			super.prepare(for: segue, sender: sender)
 		}
 	}
 
-	func selectGame(gameName: String) {
+	func selectGame(_ gameName: String) {
 		self.streamsController?.viewModel.value = StreamList.ViewModelType(
-		.Streams(gameName: gameName, page: 0), transform: StreamList.streamToViewModel)
+		.streams(gameName: gameName, page: 0), transform: StreamList.streamToViewModel)
 	}
 
-	func onGameSelected() -> Game -> () {
+	func onGameSelected() -> (Game) -> () {
 		return {
 			[weak self] game in
 			self?.selectGame(game.gameNameString)

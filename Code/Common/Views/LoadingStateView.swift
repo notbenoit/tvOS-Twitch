@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 
 final class LoadingStateView: NibDesignable {
 	var retry: (() -> ())? = nil
@@ -27,12 +27,12 @@ final class LoadingStateView: NibDesignable {
 	let loadingState = MutableProperty<LoadingState<NSError>>(.Loading)
 	let isEmpty = MutableProperty(false)
 	
-	private let disposable = CompositeDisposable()
+	fileprivate let disposable = CompositeDisposable()
 	
 	@IBInspectable var emptyImage: UIImage? = UIImage(named: "No-Search-Results") { didSet { updateEmptyImage() } }
 	@IBInspectable var emptyText: String = "NOTHING HERE" { didSet { updateLabels() } }
 	@IBInspectable var errorText: String? = nil { didSet { errorLabel.text = errorText } }
-	@IBInspectable var textColor: UIColor? = UIColor.lightGrayColor()
+	@IBInspectable var textColor: UIColor? = UIColor.lightGray
 
   /// A view holding the content
 	@IBOutlet var contentView: UIView!
@@ -46,18 +46,18 @@ final class LoadingStateView: NibDesignable {
 	@IBOutlet var errorTitleLabel: UILabel!
 	@IBOutlet var retryButton: UIButton!
 	
-	@IBAction func retry(button: UIButton) {
+	@IBAction func retry(_ button: UIButton) {
 		retry?()
 	}
 	
-	private func updateErrorMessage(error: NSError) {
+	fileprivate func updateErrorMessage(_ error: NSError) {
 		errorLabel.text = errorText ?? error.localizedDescription
 	}
 	
-	private func updateEmptyImage() {
+	fileprivate func updateEmptyImage() {
 		emptyImageView.image = emptyImage
 	}
-	private func updateLabels() {
+	fileprivate func updateLabels() {
 		emptyLabel.text = emptyText
 		emptyLabel.textColor = textColor
 		errorLabel.textColor = textColor
@@ -65,39 +65,39 @@ final class LoadingStateView: NibDesignable {
 //		retryButton.setTitleColor(textColor, forState: .Normal)
 	}
 	
-	func updatedState(loadingState: LoadingState<NSError>, isContentEmpty: Bool) {
+	func updatedState(_ loadingState: LoadingState<NSError>, isContentEmpty: Bool) {
 		var isEmpty = false
 		var isError = false
 		var isLoading = false
 		switch (loadingState, isContentEmpty) {
-		case (.Default, true):
+		case (.default, true):
 			isEmpty = true
 		case (.Loading, true):
 			isLoading = true
-		case (.Failed(let error), true):
+		case (.failed(let error), true):
 			isError = true
 			updateErrorMessage(error)
-		case (.Failed(_), false):
+		case (.failed(_), false):
 			print("error loading more stuff")
 		default:
 			break
 		}
-		loadingView.hidden = !isLoading
+		loadingView.isHidden = !isLoading
 		if isLoading {
 			loadingIndicator.startAnimating()
 		} else {
 			loadingIndicator.stopAnimating()
 		}
-		errorView.hidden = !isError
-		emptyView.hidden = !isEmpty
-		contentView.hidden = isContentEmpty
+		errorView.isHidden = !isError
+		emptyView.isHidden = !isEmpty
+		contentView.isHidden = isContentEmpty
 	}
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		updateEmptyImage()
 		updateLabels()
-		disposable += combineLatest(loadingState.producer, isEmpty.producer).startWithNext(updatedState)
+		disposable += SignalProducer.combineLatest(loadingState.producer, isEmpty.producer).startWithValues(updatedState)
 	}
 	
 	deinit {

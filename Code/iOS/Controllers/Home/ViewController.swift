@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 import DataSource
 
 class ViewController: UIViewController {
@@ -32,14 +32,14 @@ class ViewController: UIViewController {
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingStateView: LoadingStateView!
 	
-	let gameListViewModel = GamesList.ViewModelType(.GamesTop(page: 0), transform: GamesList.gameToViewModel)
+	let gameListViewModel = GamesList.ViewModelType(.gamesTop(page: 0), transform: GamesList.gameToViewModel)
 	let collectionDataSource = CollectionViewDataSource()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.whiteColor()
+		self.view.backgroundColor = UIColor.white
 		let layout = UICollectionViewFlowLayout()
-		layout.scrollDirection = .Vertical
+		layout.scrollDirection = .vertical
 		let inset = cellSpacing
 		let gameCellWidth = (self.view.bounds.maxX - inset * 2.0 - cellSpacing) / 2.0
 		layout.itemSize = CGSize(width: gameCellWidth, height: gameCellWidth/Constants.gameImageRatio)
@@ -58,8 +58,8 @@ class ViewController: UIViewController {
 		collectionDataSource.collectionView = collectionView
 		collectionView.dataSource = collectionDataSource
 		
-		collectionView.registerNib(GameCell.nib, forCellWithReuseIdentifier: GameCell.identifier)
-		collectionView.registerNib(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
+		collectionView.register(GameCell.nib, forCellWithReuseIdentifier: GameCell.identifier)
+		collectionView.register(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 		
@@ -70,14 +70,14 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UICollectionViewDelegate {
-	func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-		if collectionDataSource.dataSource.itemAtIndexPath(indexPath) is LoadMoreCellItem {
+	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		if collectionDataSource.dataSource.item(at: indexPath) is LoadMoreCellItem {
 			gameListViewModel.loadMore()
 		}
 	}
 	
-	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		if let _ = collectionDataSource.dataSource.itemAtIndexPath(indexPath) as? GameCellViewModel {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		if let _ = collectionDataSource.dataSource.item(at: indexPath) as? GameCellViewModel {
 		}
 	}
 }

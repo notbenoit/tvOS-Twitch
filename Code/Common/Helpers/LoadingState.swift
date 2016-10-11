@@ -19,13 +19,13 @@
 // THE SOFTWARE.
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 import Result
 
-enum LoadingState<E: ErrorType> {
-	case Default
+enum LoadingState<E: Error> {
+	case `default`
 	case Loading
-	case Failed(error: E)
+	case failed(error: E)
 	
 	var loading: Bool {
 		if case .Loading = self {
@@ -35,7 +35,7 @@ enum LoadingState<E: ErrorType> {
 	}
 	
 	var error: E? {
-		if case .Failed(let error) = self {
+		if case .failed(let error) = self {
 			return error
 		}
 		return nil
@@ -45,17 +45,17 @@ enum LoadingState<E: ErrorType> {
 extension Action {
 	var loadingState: SignalProducer<LoadingState<Error>, NoError> {
 		// Produces .Loading when Loading
-		let loadingProducer = self.executing.producer
+		let loadingProducer = self.isExecuting.producer
 			.filter { $0 }
 			.map { _ in LoadingState<Error>.Loading }
 		// Produces error, or default if no error
 		let errorProducer = self.events.map {
 			(event: Event<Output, Error>) -> LoadingState<Error> in
 			switch event {
-			case .Failed(let error):
-				return LoadingState<Error>.Failed(error: error)
+			case .failed(let error):
+				return LoadingState<Error>.failed(error: error)
 			default:
-				return LoadingState<Error>.Default
+				return LoadingState<Error>.default
 			}
 		}
 		return loadingProducer.lift { Signal<LoadingState<Error>, NoError>.merge([$0, errorProducer]) }
