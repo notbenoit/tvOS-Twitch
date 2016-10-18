@@ -49,13 +49,19 @@ extension SignalProducerProtocol {
 		}
 	}
 	
-	
 	func delayStart(_ interval: TimeInterval, onScheduler scheduler: DateSchedulerProtocol)
 		-> ReactiveSwift.SignalProducer<Value, Error>
 	{
 		return SignalProducer<(), Error>(value: ())
 			.delay(interval, on: scheduler)
 			.flatMap(.latest) { _ in self.producer }
+	}
+	
+	func start<T: AnyObject>(_ object: T, function: @escaping (T) -> (Value) -> Void) -> Disposable {
+		return startWithResult { [weak object] in
+			guard let object = object, let value = try? $0.dematerialize() else { return }
+			function(object)(value)
+		}
 	}
 }
 

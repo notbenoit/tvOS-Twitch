@@ -49,7 +49,7 @@ final class GameCell: CollectionViewCell {
 		disposable += self.cellModel.producer
 			.map { $0 as? GameCellViewModel }
 			.skipNil()
-			.startWithValues { [weak self] in self?.configure(with: $0) }
+			.start(self, function: GameCell.configure)
 	}
 	
 	fileprivate func configure(with item: GameCellViewModel) {

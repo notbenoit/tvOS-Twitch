@@ -58,10 +58,10 @@ class StreamCell: CollectionViewCell {
 		disposable += cellModel.producer
 			.map { $0 as? StreamViewModel }
 			.skipNil()
-			.startWithValues { [weak self] in self?.configureWithItem($0) }
+			.start(self, function: StreamCell.configure)
 	}
 	
-	fileprivate func configureWithItem(_ item: StreamViewModel) {
+	fileprivate func configure(withItem item: StreamViewModel) {
 		streamNameLabel.text = item.streamTitle
 		viewersCountLabel.text = item.viewersCount
 		if let url = URL(string: item.streamImageURL) {
