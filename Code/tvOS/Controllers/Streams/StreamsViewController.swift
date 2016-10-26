@@ -21,6 +21,7 @@
 import UIKit
 import AVKit
 import ReactiveSwift
+import ReactiveCocoa
 import DataSource
 import Result
 import COLORAdFramework
@@ -55,7 +56,7 @@ final class StreamsViewController: UIViewController {
 			fatalError()
 		}
 
-		disposable += loadingStreamView.rac_hidden <~ presentStream.isExecuting.producer.map(!)
+		disposable += loadingStreamView.reactive.isHidden <~ presentStream.isExecuting.producer.map(!)
 		disposable += presentStream.isExecuting.producer.startWithValues {
 			loading in
 			if loading {
@@ -65,7 +66,7 @@ final class StreamsViewController: UIViewController {
 			}
 		}
 		
-		disposable += loadingMessage.rac_text <~ presentStream.isExecuting.producer
+		disposable += loadingMessage.reactive.text <~ presentStream.isExecuting.producer
 			.filter { $0 }
 			.map { _ in LoadingMessages.randomMessage }
 		
@@ -74,7 +75,7 @@ final class StreamsViewController: UIViewController {
 		collectionView.dataSource = collectionDataSource
 
 		noItemsLabel.text = NSLocalizedString("No game selected yet. Pick a game in the upper list.", comment: "")
-		noItemsLabel.rac_hidden <~ viewModel.producer.map { $0 != nil }
+		noItemsLabel.reactive.isHidden <~ viewModel.producer.map { $0 != nil }
 
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .vertical
@@ -92,7 +93,7 @@ final class StreamsViewController: UIViewController {
 		loadingView.loadingState <~ viewModel.producer.skipNil().chain { $0.paginator.loadingState }
 		loadingView.isEmpty <~ viewModel.producer.skipNil().chain { $0.viewModels }.map { $0.isEmpty }
 		loadingView.retry = { [weak self] in self?.viewModel.value?.paginator.loadFirst() }
-
+		
 		disposable += presentStream.values
 			.observe(on: UIScheduler())
 			.observeValues { [weak self] in self?.present($0, animated: true, completion: nil) }

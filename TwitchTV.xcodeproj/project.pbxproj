@@ -19,6 +19,8 @@
 		FC30AF891DA8494C003438E3 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC30AF881DA8494C003438E3 /* Result.framework */; };
 		FC30AF901DA84BAC003438E3 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC30AF8F1DA84BAC003438E3 /* ReactiveSwift.framework */; };
 		FC5163DC1CFB386300203FE3 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */; };
+		FCBA4B6D1DC0A6A200425DE9 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCBA4B6C1DC0A6A200425DE9 /* WebImage.framework */; };
+		FCBA4B6E1DC0A6AC00425DE9 /* WebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294091DAAC2AA00B748EE /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCC261DD1D04B7CA00AAFDCB /* COLORAdFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */; };
 		FCC261DE1D04B7D400AAFDCB /* COLORAdFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCC261E11D04BDA700AAFDCB /* ColorTVExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */; };
@@ -63,8 +65,6 @@
 		FCD293F61DA906EE00B748EE /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293F41DA906EE00B748EE /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCD293F81DA906EE00B748EE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293F71DA906EE00B748EE /* Alamofire.framework */; };
 		FCD293F91DA906EE00B748EE /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293F71DA906EE00B748EE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCD293FB1DA906EE00B748EE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293FA1DA906EE00B748EE /* SDWebImage.framework */; };
-		FCD293FC1DA906EE00B748EE /* SDWebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293FA1DA906EE00B748EE /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCD293FE1DA9079500B748EE /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */; };
 		FCD293FF1DA9079500B748EE /* ReactiveSwift.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCD294011DA907A800B748EE /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294001DA907A800B748EE /* ReactiveSwift.framework */; };
@@ -77,8 +77,6 @@
 		FCE5DAA11CA98D42002AB4ED /* StreamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE769EC1BECFF6500119B19 /* StreamCell.swift */; };
 		FCE5DAEB1CA9ADC9002AB4ED /* RACExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAE91CA9ADC9002AB4ED /* RACExtensions.swift */; };
 		FCE5DAEC1CA9ADC9002AB4ED /* RACExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAE91CA9ADC9002AB4ED /* RACExtensions.swift */; };
-		FCE5DAED1CA9ADC9002AB4ED /* RACTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAEA1CA9ADC9002AB4ED /* RACTerminal.swift */; };
-		FCE5DAEE1CA9ADC9002AB4ED /* RACTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAEA1CA9ADC9002AB4ED /* RACTerminal.swift */; };
 		FCE5DAFB1CA9C889002AB4ED /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAF11CA9C889002AB4ED /* AccessToken.swift */; };
 		FCE5DAFC1CA9C889002AB4ED /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAF11CA9C889002AB4ED /* AccessToken.swift */; };
 		FCE5DAFD1CA9C889002AB4ED /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5DAF21CA9C889002AB4ED /* Channel.swift */; };
@@ -174,11 +172,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FCBA4B6E1DC0A6AC00425DE9 /* WebImage.framework in Copy Frameworks */,
 				FCD293EA1DA906EE00B748EE /* ReactiveCocoa.framework in Copy Frameworks */,
 				FCD293F91DA906EE00B748EE /* Alamofire.framework in Copy Frameworks */,
 				FCD293F01DA906EE00B748EE /* DataSource.framework in Copy Frameworks */,
 				FCD293F61DA906EE00B748EE /* Result.framework in Copy Frameworks */,
-				FCD293FC1DA906EE00B748EE /* SDWebImage.framework in Copy Frameworks */,
 				FCD293ED1DA906EE00B748EE /* JSONParsing.framework in Copy Frameworks */,
 				FCD293F31DA906EE00B748EE /* ReactiveSwift.framework in Copy Frameworks */,
 			);
@@ -246,6 +244,7 @@
 		FC30AF8F1DA84BAC003438E3 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = "Carthage/Checkouts/ReactiveSwift/build/Debug-appletvos/ReactiveSwift.framework"; sourceTree = "<group>"; };
 		FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCBA4B6C1DC0A6A200425DE9 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = "Carthage/Checkouts/SDWebImage/build/Debug-iphoneos/WebImage.framework"; sourceTree = "<group>"; };
 		FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = COLORAdFramework.framework; path = Vendor/COLORAdFramework.framework; sourceTree = "<group>"; };
 		FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTVExtension.swift; sourceTree = "<group>"; };
 		FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarDelegate.swift; sourceTree = "<group>"; };
@@ -288,7 +287,6 @@
 		FCD294091DAAC2AA00B748EE /* WebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE5DA8D1CA98674002AB4ED /* JSONParsing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONParsing.framework; path = "../../Library/Developer/Xcode/DerivedData/TwitchTV-dwvtydeuohanipbgeuocuoxcbiml/Build/Products/Debug-appletvsimulator/JSONParsing.framework"; sourceTree = "<group>"; };
 		FCE5DAE91CA9ADC9002AB4ED /* RACExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RACExtensions.swift; sourceTree = "<group>"; };
-		FCE5DAEA1CA9ADC9002AB4ED /* RACTerminal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RACTerminal.swift; sourceTree = "<group>"; };
 		FCE5DAF11CA9C889002AB4ED /* AccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		FCE5DAF21CA9C889002AB4ED /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		FCE5DAF31CA9C889002AB4ED /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -339,11 +337,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCBA4B6D1DC0A6A200425DE9 /* WebImage.framework in Frameworks */,
 				FCD293E91DA906EE00B748EE /* ReactiveCocoa.framework in Frameworks */,
 				FCD293F81DA906EE00B748EE /* Alamofire.framework in Frameworks */,
 				FCD293EF1DA906EE00B748EE /* DataSource.framework in Frameworks */,
 				FCD293F51DA906EE00B748EE /* Result.framework in Frameworks */,
-				FCD293FB1DA906EE00B748EE /* SDWebImage.framework in Frameworks */,
 				FCD293EC1DA906EE00B748EE /* JSONParsing.framework in Frameworks */,
 				FCD293F21DA906EE00B748EE /* ReactiveSwift.framework in Frameworks */,
 			);
@@ -482,7 +480,6 @@
 		FC858B051B7E40FF007A9B54 = {
 			isa = PBXGroup;
 			children = (
-				FCD294091DAAC2AA00B748EE /* WebImage.framework */,
 				FC1D62F51BEA06A400403CC4 /* xcconfigs */,
 				FCCC2FFF1BE7E039009DEEC7 /* Code */,
 				FCBAD4411B7E48DB00B8A7BD /* Frameworks */,
@@ -503,6 +500,8 @@
 		FCBAD4411B7E48DB00B8A7BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FCD294091DAAC2AA00B748EE /* WebImage.framework */,
+				FCBA4B6C1DC0A6A200425DE9 /* WebImage.framework */,
 				FCD294071DAABABA00B748EE /* Alamofire.framework */,
 				FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */,
 				FCD294001DA907A800B748EE /* ReactiveSwift.framework */,
@@ -567,7 +566,6 @@
 			children = (
 				FCE5DB0F1CA9CB70002AB4ED /* LoadingState.swift */,
 				FCE5DAE91CA9ADC9002AB4ED /* RACExtensions.swift */,
-				FCE5DAEA1CA9ADC9002AB4ED /* RACTerminal.swift */,
 				FCCC30421BE94152009DEEC7 /* UIColor+RGB.swift */,
 				FCE76A021BEE26A900119B19 /* UIKitHelpers.swift */,
 				FCE769F91BED275100119B19 /* UIView+MotionEffect.swift */,
@@ -977,7 +975,6 @@
 				FCE5DB171CA9CF1B002AB4ED /* LoadMoreCellViewModel.swift in Sources */,
 				FCCC30851BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
 				FCE5DB101CA9CB70002AB4ED /* LoadingState.swift in Sources */,
-				FCE5DAED1CA9ADC9002AB4ED /* RACTerminal.swift in Sources */,
 				FCE76A031BEE26A900119B19 /* UIKitHelpers.swift in Sources */,
 				FCE5DAFD1CA9C889002AB4ED /* Channel.swift in Sources */,
 				FCE5DB091CA9C889002AB4ED /* TwitchError.swift in Sources */,
@@ -1037,7 +1034,6 @@
 				FCCC30861BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
 				FCCC30561BE9458D009DEEC7 /* Constants.swift in Sources */,
 				FCE5DB381CAD4824002AB4ED /* NibDesignable.swift in Sources */,
-				FCE5DAEE1CA9ADC9002AB4ED /* RACTerminal.swift in Sources */,
 				FCC261E11D04BDA700AAFDCB /* ColorTVExtension.swift in Sources */,
 				FC2DCB561CBB83040059DDFE /* BaseViewModel.swift in Sources */,
 				FCD294041DAA93F600B748EE /* AdService.swift in Sources */,

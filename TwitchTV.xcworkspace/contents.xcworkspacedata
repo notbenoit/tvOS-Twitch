@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:TwitchTV.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Carthage/Checkouts/ReactiveCocoa/ReactiveCocoa.xcodeproj">
    </FileRef>
    <FileRef
@@ -21,8 +24,5 @@
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:TwitchTV.xcodeproj">
    </FileRef>
 </Workspace>
