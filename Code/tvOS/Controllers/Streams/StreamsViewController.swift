@@ -57,14 +57,6 @@ final class StreamsViewController: UIViewController {
 		}
 
 		disposable += loadingStreamView.reactive.isHidden <~ presentStream.isExecuting.producer.map(!)
-		disposable += presentStream.isExecuting.producer.startWithValues {
-			loading in
-			if loading {
-				UIApplication.shared.beginIgnoringInteractionEvents()
-			} else {
-				UIApplication.shared.endIgnoringInteractionEvents()
-			}
-		}
 		
 		disposable += loadingMessage.reactive.text <~ presentStream.isExecuting.producer
 			.filter { $0 }
@@ -122,6 +114,7 @@ extension StreamsViewController: UICollectionViewDelegate {
 
 private func controllerProducerForStream(_ stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, NSError> {
 	return TwitchAPIClient.sharedInstance.m3u8URLForChannel(stream.channel.channelName)
+		.on(started: { UIApplication.shared.beginIgnoringInteractionEvents() })
 		.map { $0.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) }
 		.map { $0.flatMap { URL(string: $0) } }
 		.skipNil()
@@ -132,6 +125,8 @@ private func controllerProducerForStream(_ stream: Stream, inController: UIViewC
 			playerController.player = avPlayer
 			return playerController
 	}
+		.on(value: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
+		.on(terminated: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
 		.flatMap(.latest) {
 			(controller: AVPlayerViewController) -> SignalProducer<AVPlayerViewController, NSError> in
 			return adProducerBeforeController(controller, inController: inController, placement: AdService.shared.nextPlacement)
