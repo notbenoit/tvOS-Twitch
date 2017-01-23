@@ -1157,7 +1157,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0.1;
-				TVOS_APP_VERSION = 1.1.4;
+				TVOS_APP_VERSION = 1.1.5;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1202,7 +1202,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0.1;
-				TVOS_APP_VERSION = 1.1.4;
+				TVOS_APP_VERSION = 1.1.5;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
