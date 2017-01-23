@@ -53,7 +53,7 @@ class BaseViewModel<Response: ListResponseType, ViewModel: Equatable> {
 		dataSource = ProxyDataSource(CompositeDataSource([autoDiffDs, loadMoreDataSource]), animateChanges: false)
 
 		#if os(iOS)
-			disposable += UIApplication.shared.rac_networkIndicatorVisible <~ paginator.loadingState.map { $0.loading }
+			disposable += UIApplication.shared.reactive.isNetworkIndicatorVisible <~ paginator.loadingState.map { $0.loading }
 		#endif
 	}
 

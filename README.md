@@ -12,6 +12,13 @@ Then, build and run the tvOS target, you're done.
 
 - [Benoît Layer](http://github.com/notbenoit) ([@notbenoit](https://twitter.com/notbenoit))
 
+## Third party libraries
+- [DataSource](https://github.com/Vadim-Yelagin/DataSource)
+- [JSONParsing](https://github.com/Vadim-Yelagin/JSONParsing)
+- [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)
+- [Alamofire](https://github.com/Alamofire/Alamofire)
+- [SDWebImage](https://github.com/rs/SDWebImage)
+
 ## License
 
 Released under the New BSD License. See LICENSE for details.

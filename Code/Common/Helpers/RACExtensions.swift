@@ -18,8 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 import ReactiveSwift
+import ReactiveCocoa
 import Result
 
 func scheduleAfter(_ timeInterval: TimeInterval, action: @escaping ()->()) -> Disposable? {
@@ -49,13 +50,19 @@ extension SignalProducerProtocol {
 		}
 	}
 	
-	
 	func delayStart(_ interval: TimeInterval, onScheduler scheduler: DateSchedulerProtocol)
 		-> ReactiveSwift.SignalProducer<Value, Error>
 	{
 		return SignalProducer<(), Error>(value: ())
 			.delay(interval, on: scheduler)
 			.flatMap(.latest) { _ in self.producer }
+	}
+	
+	func start<T: AnyObject>(_ object: T, function: @escaping (T) -> (Value) -> Void) -> Disposable {
+		return startWithResult { [weak object] in
+			guard let object = object, let value = try? $0.dematerialize() else { return }
+			function(object)(value)
+		}
 	}
 }
 
@@ -114,3 +121,20 @@ extension PropertyProtocol {
 	}
 	
 }
+
+extension Reactive where Base: NSObject {
+	public func target<U>(scheduler: SchedulerProtocol = UIScheduler(), action: @escaping (Base, U) -> Void) -> BindingTarget<U> {
+		return BindingTarget(on: scheduler, lifetime: lifetime) { [weak base = self.base] value in
+			guard let base = base else { return }
+			action(base, value)
+		}
+	}
+}
+
+#if os(iOS)
+extension Reactive where Base: UIApplication {
+	var isNetworkIndicatorVisible: BindingTarget<Bool> {
+		return target { $0.0.isNetworkActivityIndicatorVisible = $0.1 }
+	}
+}
+#endif
