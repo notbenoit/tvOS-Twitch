@@ -21,9 +21,6 @@
 		FC5163DC1CFB386300203FE3 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5163DA1CFB386300203FE3 /* SearchResultsViewController.swift */; };
 		FCBA4B6D1DC0A6A200425DE9 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCBA4B6C1DC0A6A200425DE9 /* WebImage.framework */; };
 		FCBA4B6E1DC0A6AC00425DE9 /* WebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294091DAAC2AA00B748EE /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCC261DD1D04B7CA00AAFDCB /* COLORAdFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */; };
-		FCC261DE1D04B7D400AAFDCB /* COLORAdFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FCC261E11D04BDA700AAFDCB /* ColorTVExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */; };
 		FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */; };
 		FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
 		FCCC302C1BE7E039009DEEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC300D1BE7E039009DEEC7 /* AppDelegate.swift */; };
@@ -68,7 +65,6 @@
 		FCD293FE1DA9079500B748EE /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */; };
 		FCD293FF1DA9079500B748EE /* ReactiveSwift.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FCD294011DA907A800B748EE /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294001DA907A800B748EE /* ReactiveSwift.framework */; };
-		FCD294041DAA93F600B748EE /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD294031DAA93F500B748EE /* AdService.swift */; };
 		FCD294061DAAAFBE00B748EE /* LoadingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD294051DAAAFBE00B748EE /* LoadingMessages.swift */; };
 		FCD294081DAABABA00B748EE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294071DAABABA00B748EE /* Alamofire.framework */; };
 		FCD2940A1DAAC2AA00B748EE /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD294091DAAC2AA00B748EE /* WebImage.framework */; };
@@ -189,7 +185,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FCC261DE1D04B7D400AAFDCB /* COLORAdFramework.framework in Copy Frameworks */,
 				FCD293DB1DA9060F00B748EE /* ReactiveCocoa.framework in Copy Frameworks */,
 				FCD293E11DA9065600B748EE /* Result.framework in Copy Frameworks */,
 				FCD293FF1DA9079500B748EE /* ReactiveSwift.framework in Copy Frameworks */,
@@ -246,7 +241,6 @@
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBA4B6C1DC0A6A200425DE9 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = "Carthage/Checkouts/SDWebImage/build/Debug-iphoneos/WebImage.framework"; sourceTree = "<group>"; };
 		FCC261DB1D04B7A600AAFDCB /* COLORAdFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = COLORAdFramework.framework; path = Vendor/COLORAdFramework.framework; sourceTree = "<group>"; };
-		FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTVExtension.swift; sourceTree = "<group>"; };
 		FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarDelegate.swift; sourceTree = "<group>"; };
 		FCCC2FE61BE7DC80009DEEC7 /* Game Theater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Theater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCCC30011BE7E039009DEEC7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -281,7 +275,6 @@
 		FCD293FA1DA906EE00B748EE /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD293FD1DA9079500B748EE /* ReactiveSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReactiveSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD294001DA907A800B748EE /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/TwitchTV-dwvtydeuohanipbgeuocuoxcbiml/Build/Products/Debug-appletvsimulator/ReactiveSwift.framework"; sourceTree = "<group>"; };
-		FCD294031DAA93F500B748EE /* AdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdService.swift; sourceTree = "<group>"; };
 		FCD294051DAAAFBE00B748EE /* LoadingMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingMessages.swift; sourceTree = "<group>"; };
 		FCD294071DAABABA00B748EE /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/TwitchTV-dwvtydeuohanipbgeuocuoxcbiml/Build/Products/Debug-appletvsimulator/Alamofire.framework"; sourceTree = "<group>"; };
 		FCD294091DAAC2AA00B748EE /* WebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -360,7 +353,6 @@
 				FC30AF891DA8494C003438E3 /* Result.framework in Frameworks */,
 				FCD2940A1DAAC2AA00B748EE /* WebImage.framework in Frameworks */,
 				FC30AF641DA84890003438E3 /* Alamofire.framework in Frameworks */,
-				FCC261DD1D04B7CA00AAFDCB /* COLORAdFramework.framework in Frameworks */,
 				FCCC30911BE984E3009DEEC7 /* AVKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,7 +526,6 @@
 		FCC261DF1D04BDA700AAFDCB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				FCC261E01D04BDA700AAFDCB /* ColorTVExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -660,7 +651,6 @@
 		FCD294021DAA92A300B748EE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FCD294031DAA93F500B748EE /* AdService.swift */,
 				FCD294051DAAAFBE00B748EE /* LoadingMessages.swift */,
 			);
 			path = Models;
@@ -1034,9 +1024,7 @@
 				FCCC30861BE972FE009DEEC7 /* StreamViewModel.swift in Sources */,
 				FCCC30561BE9458D009DEEC7 /* Constants.swift in Sources */,
 				FCE5DB381CAD4824002AB4ED /* NibDesignable.swift in Sources */,
-				FCC261E11D04BDA700AAFDCB /* ColorTVExtension.swift in Sources */,
 				FC2DCB561CBB83040059DDFE /* BaseViewModel.swift in Sources */,
-				FCD294041DAA93F600B748EE /* AdService.swift in Sources */,
 				FCE5DB311CAD4804002AB4ED /* LoadingStateView.swift in Sources */,
 				FCE5DB261CA9D479002AB4ED /* GameCellViewModel.swift in Sources */,
 				FCE5DAFC1CA9C889002AB4ED /* AccessToken.swift in Sources */,
@@ -1258,11 +1246,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 43SXS7JQ42;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Code/tvOS/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch;
@@ -1286,10 +1272,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 43SXS7JQ42;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Code/tvOS/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notbenoit.Twitch;
