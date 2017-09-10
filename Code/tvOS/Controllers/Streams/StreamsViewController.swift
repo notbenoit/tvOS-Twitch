@@ -46,7 +46,7 @@ final class StreamsViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.twitchDarkColor()
+		view.backgroundColor = UIColor.twitchDark
 
 		collectionDataSource.reuseIdentifierForItem = { _, item in
 			if let item = item as? ReuseIdentifierProvider {

@@ -47,7 +47,7 @@ final class StreamCell: CollectionViewCell {
 		imageView.layer.borderWidth = 1.0
 		imageView.layer.borderColor = UIColor.clear.cgColor
 		placeholder.image = placeholder.image?.withRenderingMode(.alwaysTemplate)
-		placeholder.tintColor = UIColor.twitchDarkColor()
+		placeholder.tintColor = .twitchDark
 		streamNameLabel.textColor = defaultTextColor
 		viewersCountLabel.textColor = defaultTextColor
 		streamNameLabel.font = defaultStreamFont

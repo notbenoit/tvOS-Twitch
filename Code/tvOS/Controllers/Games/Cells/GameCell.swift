@@ -36,15 +36,16 @@ final class GameCell: CollectionViewCell {
 	override func prepareForReuse() {
 		imageView.image = nil
 		labelName.text = nil
+		super.prepareForReuse()
 	}
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		imageView.adjustsImageWhenAncestorFocused = true
-		self.labelName.font = textDefaultFont
-		self.labelName.textColor = textDefaultColor
-		self.labelName.shadowOffset = CGSize(width: 0, height: 1)
-		self.backgroundColor = UIColor.twitchLightColor()
+		labelName.font = textDefaultFont
+		labelName.textColor = textDefaultColor
+		labelName.shadowOffset = CGSize(width: 0, height: 1)
+		backgroundColor = UIColor.twitchLight
 		
 		reactive.configure <~ cellModel.producer
 			.map { $0 as? GameCellViewModel }

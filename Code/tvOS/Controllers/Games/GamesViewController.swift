@@ -22,13 +22,13 @@ import UIKit
 import ReactiveSwift
 import DataSource
 
-class GamesViewController: UIViewController {
+final class GamesViewController: UIViewController {
 
 	let gameCellWidth: CGFloat = 148.0
 	let horizontalSpacing: CGFloat = 51.0
 	let verticalSpacing: CGFloat = 100.0
 	
-	var onGameSelected: ((Game) -> ())?
+	var onGameSelected: ((Game) -> Void)?
 	
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingStateView: LoadingStateView!
@@ -39,7 +39,7 @@ class GamesViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.white
+		view.backgroundColor = .white
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .horizontal
 		layout.itemSize = CGSize(width: gameCellWidth, height: gameCellWidth/Constants.gameImageRatio)
