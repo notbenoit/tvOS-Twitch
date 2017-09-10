@@ -32,7 +32,7 @@ final class GameCell: CollectionViewCell {
 	
 	fileprivate let textDefaultFont = UIFont.boldSystemFont(ofSize: 22)
 	fileprivate let textDefaultColor = UIColor.lightGray
-	fileprivate let disposable = CompositeDisposable()
+
 	override func prepareForReuse() {
 		imageView.image = nil
 		labelName.text = nil
@@ -46,10 +46,9 @@ final class GameCell: CollectionViewCell {
 		self.labelName.shadowOffset = CGSize(width: 0, height: 1)
 		self.backgroundColor = UIColor.twitchLightColor()
 		
-		disposable += self.cellModel.producer
+		reactive.configure <~ cellModel.producer
 			.map { $0 as? GameCellViewModel }
 			.skipNil()
-			.start(self, function: GameCell.configure)
 	}
 	
 	fileprivate func configure(with item: GameCellViewModel) {
@@ -68,5 +67,11 @@ final class GameCell: CollectionViewCell {
 			self.labelName.shadowColor = labelShadowColor
 			self.labelName.textColor = labelTextColor
 		}, completion: nil)
+	}
+}
+
+extension Reactive where Base: GameCell {
+	var configure: BindingTarget<GameCellViewModel> {
+		return makeBindingTarget { $0.0.configure(with: $0.1) }
 	}
 }

@@ -45,7 +45,7 @@ final class TwitchAPIClient {
 					parse(response.result.value, observer)
 				}
 			}
-			disposable.add {
+			disposable.observeEnded {
 				request.cancel()
 			}
 		}
@@ -67,7 +67,7 @@ final class TwitchAPIClient {
 					parse(response.result.value, observer)
 				}
 			}
-			disposable.add {
+			disposable.observeEnded {
 				request.cancel()
 			}
 		}.observe(on: UIScheduler())
@@ -87,7 +87,7 @@ final class TwitchAPIClient {
 	}
 }
 
-private func parseError<T: JSONParsing> (_ data: Data?, _ error: NSError, _ sink: Observer<T, NSError>) {
+private func parseError<T: JSONParsing> (_ data: Data?, _ error: NSError, _ sink: Signal<T, NSError>.Observer) {
 	guard let data = data else {
 		sink.send(error: error)
 		return
@@ -101,7 +101,7 @@ private func parseError<T: JSONParsing> (_ data: Data?, _ error: NSError, _ sink
 	}
 }
 
-private func parse<T: JSONParsing> (_ object: Any?, _ sink: Observer<T, NSError>) {
+private func parse<T: JSONParsing> (_ object: Any?, _ sink: Signal<T, NSError>.Observer) {
 	let errorDomain = "JSONParsing"
 	do {
 		let result = try T.parse(JSON(object as? NSDictionary))

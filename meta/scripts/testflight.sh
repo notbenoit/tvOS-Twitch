@@ -1,7 +1,6 @@
 #!/bin/sh
 if [[ $TRAVIS_BRANCH == *"release"* ]]
 then
-  pilot upload \
-  -u $DELIVER_USER \
+  fastlane pilot upload \
   -p $APPLE_APP_ID
 fi

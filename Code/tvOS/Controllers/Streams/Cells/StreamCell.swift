@@ -23,21 +23,19 @@ import ReactiveSwift
 import WebImage
 import DataSource
 
-class StreamCell: CollectionViewCell {
+final class StreamCell: CollectionViewCell {
 	static let identifier: String = "cellIdentifierStream"
 	static let nib: UINib = UINib(nibName: "StreamCell", bundle: nil)
 	
-	@IBOutlet weak var imageView: UIImageView!
-	@IBOutlet weak var placeholder: UIImageView!
-	@IBOutlet weak var streamNameLabel: UILabel!
-	@IBOutlet weak var viewersCountLabel: UILabel!
+	@IBOutlet var imageView: UIImageView!
+	@IBOutlet var placeholder: UIImageView!
+	@IBOutlet var streamNameLabel: UILabel!
+	@IBOutlet var viewersCountLabel: UILabel!
 	
 	fileprivate let defaultTextColor = UIColor.lightGray
 	fileprivate let focusedTextColor = UIColor.white
 	fileprivate let defaultStreamFont = UIFont.boldSystemFont(ofSize: 22)
 	fileprivate let defaultViewersFont = UIFont.systemFont(ofSize: 22)
-	
-	private let disposable = CompositeDisposable()
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
@@ -55,10 +53,9 @@ class StreamCell: CollectionViewCell {
 		streamNameLabel.font = defaultStreamFont
 		viewersCountLabel.font = defaultViewersFont
 		
-		disposable += cellModel.producer
+		reactive.configure <~ cellModel.producer
 			.map { $0 as? StreamViewModel }
 			.skipNil()
-			.start(self, function: StreamCell.configure)
 	}
 	
 	fileprivate func configure(withItem item: StreamViewModel) {
@@ -84,4 +81,12 @@ class StreamCell: CollectionViewCell {
 			self?.imageView.layer.borderColor = borderColor
 			}, completion: nil)
 	}
+}
+
+extension Reactive where Base: StreamCell {
+
+	var configure: BindingTarget<StreamViewModel> {
+		return makeBindingTarget { $0.0.configure(withItem: $0.1) }
+	}
+
 }
