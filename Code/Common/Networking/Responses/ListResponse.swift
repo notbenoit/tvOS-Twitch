@@ -101,9 +101,9 @@ class Paginator<Response: ListResponseType> {
 
 	init(_ initialRoute: TwitchRouter) {
 		self.initialRoute = initialRoute
-		loadURLAction = Action(TwitchAPIClient.sharedInstance.request)
-		loadRouteAction = Action(TwitchAPIClient.sharedInstance.request)
-		loadingState = SignalProducer(values: [loadURLAction.loadingState, loadRouteAction.loadingState]).flatten(.merge)
+		loadURLAction = Action(execute: TwitchAPIClient.sharedInstance.request)
+		loadRouteAction = Action(execute: TwitchAPIClient.sharedInstance.request)
+		loadingState = SignalProducer([loadURLAction.loadingState, loadRouteAction.loadingState]).flatten(.merge)
 
 		allLoaded <~ SignalProducer.combineLatest(totalCount.producer.skipNil(), objects.producer).map {
 			return $0.0 <= $0.1.count

@@ -1,5 +1,5 @@
 #!/bin/sh
-gym \
+fastlane gym \
 -w $WORKSPACE_PATH \
 -s $SCHEME_NAME \
 -c \

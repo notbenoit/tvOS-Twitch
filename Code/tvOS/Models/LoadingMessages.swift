@@ -25,7 +25,7 @@ struct LoadingMessages {
 		"Loading your show...",
 		"Loading... We promess the video will start before Star Citizen is released...",
 		"Loading... We promess the video will start before Half-Life 3 is released...",
-		"Loading... We might show you an ad before, sorry about that..."
+		"Loading... This will not take long."
 	]
 	
 	static var randomMessage: String {

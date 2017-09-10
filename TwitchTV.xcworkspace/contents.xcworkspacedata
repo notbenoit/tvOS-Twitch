@@ -4,25 +4,4 @@
    <FileRef
       location = "container:TwitchTV.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/ReactiveCocoa/ReactiveCocoa.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/JSONParsing/JSONParsing.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/DataSource/DataSource.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/ReactiveSwift/ReactiveSwift.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/Result/Result.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/SDWebImage/SDWebImage.xcodeproj">
-   </FileRef>
 </Workspace>

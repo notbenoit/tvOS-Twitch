@@ -24,7 +24,6 @@ import ReactiveSwift
 import ReactiveCocoa
 import DataSource
 import Result
-import COLORAdFramework
 
 final class StreamsViewController: UIViewController {
 
@@ -32,7 +31,7 @@ final class StreamsViewController: UIViewController {
 	let horizontalSpacing: CGFloat = 50.0
 	let verticalSpacing: CGFloat = 100.0
 
-	let presentStream: Action<(stream: Stream, controller: UIViewController), AVPlayerViewController, NSError> = Action(controllerProducerForStream)
+	let presentStream: Action<(stream: Stream, controller: UIViewController), AVPlayerViewController, NSError> = Action(execute: controllerProducerForStream)
 
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingView: LoadingStateView!
@@ -127,10 +126,6 @@ private func controllerProducerForStream(_ stream: Stream, inController: UIViewC
 	}
 		.on(value: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
 		.on(terminated: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
-		.flatMap(.latest) {
-			(controller: AVPlayerViewController) -> SignalProducer<AVPlayerViewController, NSError> in
-			return adProducerBeforeController(controller, inController: inController, placement: AdService.shared.nextPlacement)
-		}
 		.observe(on: UIScheduler())
 		.on(value: { $0.player?.play() })
 }
