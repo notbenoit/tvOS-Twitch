@@ -86,7 +86,7 @@ final class StreamCell: CollectionViewCell {
 extension Reactive where Base: StreamCell {
 
 	var configure: BindingTarget<StreamViewModel> {
-		return makeBindingTarget { $0.0.configure(withItem: $0.1) }
+		return makeBindingTarget { $0.configure(withItem: $1) }
 	}
 
 }

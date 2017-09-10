@@ -117,15 +117,15 @@ private func controllerProducerForStream(_ stream: Stream, inController: UIViewC
 		.map { $0.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) }
 		.map { $0.flatMap { URL(string: $0) } }
 		.skipNil()
-		.map {
+		.map { (url: URL) -> AVPlayerViewController in
 			let playerController = AVPlayerViewController()
 			playerController.view.frame = UIScreen.main.bounds
-			let avPlayer = AVPlayer(url: $0)
+			let avPlayer = AVPlayer(url: url)
 			playerController.player = avPlayer
 			return playerController
 	}
-		.on(value: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
-		.on(terminated: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
+		.on() { _ in UIApplication.shared.endIgnoringInteractionEvents() }
+		.on(terminated: { UIApplication.shared.endIgnoringInteractionEvents() })
 		.observe(on: UIScheduler())
-		.on(value: { $0.player?.play() })
+		.on() { $0.player?.play() }
 }

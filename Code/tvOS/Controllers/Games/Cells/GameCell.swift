@@ -72,6 +72,6 @@ final class GameCell: CollectionViewCell {
 
 extension Reactive where Base: GameCell {
 	var configure: BindingTarget<GameCellViewModel> {
-		return makeBindingTarget { $0.0.configure(with: $0.1) }
+		return makeBindingTarget { $0.configure(with: $1) }
 	}
 }
