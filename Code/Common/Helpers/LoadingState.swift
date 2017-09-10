@@ -50,7 +50,7 @@ extension Action {
 			.map { _ in LoadingState<Error>.Loading }
 		// Produces error, or default if no error
 		let errorProducer = self.events.map {
-			(event: Event<Output, Error>) -> LoadingState<Error> in
+			(event: Signal<Output, Error>.Event) -> LoadingState<Error> in
 			switch event {
 			case .failed(let error):
 				return LoadingState<Error>.failed(error: error)

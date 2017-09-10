@@ -23,57 +23,14 @@ import ReactiveSwift
 import ReactiveCocoa
 import Result
 
-func scheduleAfter(_ timeInterval: TimeInterval, action: @escaping ()->()) -> Disposable? {
-	let scheduler = QueueScheduler.main
-	let date = scheduler.currentDate.addingTimeInterval(timeInterval)
-	return scheduler.schedule(after: date, action: action)
-}
-
-extension SignalProtocol {
-	
-	func mergeWith(_ signal2: Signal<Value, Error>) -> Signal<Value, Error> {
-		return Signal { observer in
-			let disposable = CompositeDisposable()
-			disposable += self.observe(observer)
-			disposable += signal2.observe(observer)
-			return disposable
-		}
-	}
-	
-}
-
-extension SignalProducerProtocol {
-	
-	func ignoreError() -> SignalProducer<Value, NoError> {
-		return self.flatMapError { _ in
-			SignalProducer<Value, NoError>.empty
-		}
-	}
-	
-	func delayStart(_ interval: TimeInterval, onScheduler scheduler: DateSchedulerProtocol)
-		-> ReactiveSwift.SignalProducer<Value, Error>
-	{
-		return SignalProducer<(), Error>(value: ())
-			.delay(interval, on: scheduler)
-			.flatMap(.latest) { _ in self.producer }
-	}
-	
-	func start<T: AnyObject>(_ object: T, function: @escaping (T) -> (Value) -> Void) -> Disposable {
-		return startWithResult { [weak object] in
-			guard let object = object, let value = try? $0.dematerialize() else { return }
-			function(object)(value)
-		}
-	}
-}
-
-extension SignalProducerProtocol where Error == NoError {
+extension SignalProducer where Error == NoError {
 	
 	func chain<U>(_ transform: @escaping (Value) -> Signal<U, NoError>) -> SignalProducer<U, NoError> {
-		return flatMap(.latest, transform: transform)
+		return flatMap(.latest, transform)
 	}
 	
 	func chain<U>(_ transform: @escaping (Value) -> SignalProducer<U, NoError>) -> SignalProducer<U, NoError> {
-		return flatMap(.latest, transform: transform)
+		return flatMap(.latest, transform)
 	}
 	
 	func chain<P: PropertyProtocol>(_ transform: @escaping (Value) -> P) -> SignalProducer<P.Value, NoError> {
@@ -120,15 +77,6 @@ extension PropertyProtocol {
 		return producer.chain(transform)
 	}
 	
-}
-
-extension Reactive where Base: NSObject {
-	public func target<U>(scheduler: SchedulerProtocol = UIScheduler(), action: @escaping (Base, U) -> Void) -> BindingTarget<U> {
-		return BindingTarget(on: scheduler, lifetime: lifetime) { [weak base = self.base] value in
-			guard let base = base else { return }
-			action(base, value)
-		}
-	}
 }
 
 #if os(iOS)
