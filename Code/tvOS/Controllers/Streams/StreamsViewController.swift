@@ -42,8 +42,6 @@ final class StreamsViewController: UIViewController {
 	let viewModel = MutableProperty<StreamList.ViewModelType?>(nil)
 	let collectionDataSource = CollectionViewDataSource()
 
-	fileprivate let disposable = CompositeDisposable()
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = UIColor.twitchDark
@@ -55,9 +53,9 @@ final class StreamsViewController: UIViewController {
 			fatalError()
 		}
 
-		disposable += loadingStreamView.reactive.isHidden <~ presentStream.isExecuting.producer.map(!)
+		loadingStreamView.reactive.isHidden <~ presentStream.isExecuting.producer.map(!)
 		
-		disposable += loadingMessage.reactive.text <~ presentStream.isExecuting.producer
+		loadingMessage.reactive.text <~ presentStream.isExecuting.producer
 			.filter { $0 }
 			.map { _ in LoadingMessages.randomMessage }
 		
@@ -81,11 +79,11 @@ final class StreamsViewController: UIViewController {
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
 
-		loadingView.loadingState <~ viewModel.producer.skipNil().chain { $0.paginator.loadingState }
-		loadingView.isEmpty <~ viewModel.producer.skipNil().chain { $0.viewModels }.map { $0.isEmpty }
+		loadingView.reactive.loadingState <~ viewModel.producer.skipNil().chain { $0.paginator.loadingState }
+		loadingView.reactive.isEmpty <~ viewModel.producer.skipNil().chain { $0.viewModels }.map { $0.isEmpty }
 		loadingView.retry = { [weak self] in self?.viewModel.value?.paginator.loadFirst() }
 		
-		disposable += presentStream.values
+		presentStream.values
 			.observe(on: UIScheduler())
 			.observeValues { [weak self] in self?.present($0, animated: true, completion: nil) }
 	}
