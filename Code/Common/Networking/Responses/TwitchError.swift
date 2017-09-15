@@ -19,23 +19,9 @@
 // THE SOFTWARE.
 
 import Foundation
-import JSONParsing
 
-struct TwitchError {
+struct TwitchError: Error, Codable {
 	let message: String
 	let status: Int
 	let error: String
-	
-	var toError: NSError {
-		return NSError(domain: "com.twitch", code: status, userInfo: [NSLocalizedDescriptionKey: message, NSLocalizedFailureReasonErrorKey: message])
-	}
-}
-
-extension TwitchError: JSONParsing {
-	static func parse(_ json: JSON) throws -> TwitchError {
-		return try TwitchError(
-			message: json["message"]^,
-			status: json["status"]^,
-			error: json["error"]^)
-	}
 }

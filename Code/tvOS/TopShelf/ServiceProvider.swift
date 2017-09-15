@@ -58,10 +58,10 @@ private func item(from topGame: TopGame) -> TVContentItem {
 	let components = NSURLComponents()
 	components.scheme = "twitch"
 	components.path = "game"
-	components.queryItems = [URLQueryItem(name: "name", value: topGame.game.gameNameString)]
+	components.queryItems = [URLQueryItem(name: "name", value: topGame.game.name)]
 	item?.imageShape = .poster
 	item?.displayURL = components.url!
 	item?.imageURL = URL(string: topGame.game.box.large)!
-	item?.title = topGame.game.gameNameString
+	item?.title = topGame.game.name
 	return item!
 }

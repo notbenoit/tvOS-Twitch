@@ -31,7 +31,7 @@ final class StreamsViewController: UIViewController {
 	let horizontalSpacing: CGFloat = 50.0
 	let verticalSpacing: CGFloat = 100.0
 
-	let presentStream: Action<(stream: Stream, controller: UIViewController), AVPlayerViewController, NSError> = Action(execute: controllerProducerForStream)
+	let presentStream: Action<(stream: Stream, controller: UIViewController), AVPlayerViewController, AnyError> = Action(execute: controllerProducerForStream)
 
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingView: LoadingStateView!
@@ -111,7 +111,7 @@ extension StreamsViewController: UICollectionViewDelegate {
 	}
 }
 
-private func controllerProducerForStream(_ stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, NSError> {
+private func controllerProducerForStream(_ stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, AnyError> {
 	return TwitchAPIClient.sharedInstance.m3u8URLForChannel(stream.channel.channelName)
 		.on(started: { UIApplication.shared.beginIgnoringInteractionEvents() })
 		.map { $0.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) }

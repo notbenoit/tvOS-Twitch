@@ -19,35 +19,29 @@
 // THE SOFTWARE.
 
 import Foundation
-import JSONParsing
 import ReactiveSwift
 
-struct Game {
-	let gameNameString: String
-	let id: Int
-	let giantBombId: Int
+struct Game: Codable {
 	let box: Preview
+	let giantBombId: Int
+	let id: Int
 	let logo: Preview
+	let name: String
 	let popularity: Int?
+
+	enum CodingKeys: String, CodingKey {
+		case box
+		case giantBombId = "giantbomb_id"
+		case id = "_id"
+		case logo
+		case name
+		case popularity
+	}
 }
 
 extension Game: CustomStringConvertible {
 	internal var description: String {
-		return gameNameString
-	}
-}
-
-// MARK: JSONParsing
-
-extension Game: JSONParsing {
-	static func parse(_ json: JSON) throws -> Game {
-		return try Game(
-			gameNameString: json["name"]^,
-			id: json["_id"]^,
-			giantBombId: json["giantbomb_id"]^,
-			box: json["box"]^,
-			logo: json["logo"]^,
-			popularity: json["popularity"].optional.map(^))
+		return name
 	}
 }
 

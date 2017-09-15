@@ -31,7 +31,7 @@ struct GameCellViewModel: ReuseIdentifierProvider {
 	init(game: Game) {
 		self.game = game
 		self.gameImageURL = game.box.medium
-		self.gameName = game.gameNameString
+		self.gameName = game.name
 	}
 }
 

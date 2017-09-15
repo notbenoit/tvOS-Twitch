@@ -20,11 +20,12 @@
 
 import UIKit
 import ReactiveSwift
+import Result
 
 final class LoadingStateView: NibDesignable {
 	var retry: (() -> ())? = nil
 	
-	let loadingState = MutableProperty<LoadingState<NSError>>(.Loading)
+	let loadingState = MutableProperty<LoadingState<AnyError>>(.Loading)
 	let isEmpty = MutableProperty(false)
 	
 	fileprivate let disposable = CompositeDisposable()
@@ -50,7 +51,7 @@ final class LoadingStateView: NibDesignable {
 		retry?()
 	}
 	
-	fileprivate func updateErrorMessage(_ error: NSError) {
+	fileprivate func updateErrorMessage(_ error: AnyError) {
 		errorLabel.text = errorText ?? error.localizedDescription
 	}
 	
@@ -65,7 +66,7 @@ final class LoadingStateView: NibDesignable {
 //		retryButton.setTitleColor(textColor, forState: .Normal)
 	}
 	
-	func updatedState(_ loadingState: LoadingState<NSError>, isContentEmpty: Bool) {
+	func updatedState(_ loadingState: LoadingState<AnyError>, isContentEmpty: Bool) {
 		var isEmpty = false
 		var isError = false
 		var isLoading = false

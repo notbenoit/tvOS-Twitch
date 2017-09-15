@@ -21,8 +21,8 @@
 import UIKit
 
 struct Constants {
-	static let API_URL = "https://api.twitch.tv/kraken"
-	static let API_URL_TOKEN = "https://api.twitch.tv/api"
+	static let ApiURL = "https://api.twitch.tv/kraken"
+	static let ApiURLToken = "https://api.twitch.tv/api"
 	static let gameImageRatio: CGFloat = 0.716
 	static let streamImageRatio: CGFloat = 1.739
 	static let genericError = NSError(domain: "com.twitch.tv", code: 0, userInfo: nil)

@@ -46,7 +46,7 @@ class TwitchHomeViewController: UIViewController {
 	func onGameSelected() -> (Game) -> () {
 		return {
 			[weak self] game in
-			self?.selectGame(game.gameNameString)
+			self?.selectGame(game.name)
 		}
 	}
 }

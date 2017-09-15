@@ -19,10 +19,8 @@
 // THE SOFTWARE.
 
 import Foundation
-import ReactiveSwift
-import JSONParsing
 
-struct TopGame {
+struct TopGame: Codable {
 	let game: Game
 	let viewers: Int
 	let channels: Int
@@ -30,18 +28,7 @@ struct TopGame {
 
 extension TopGame: CustomStringConvertible {
 	internal var description: String {
-		return game.gameNameString + "\nViewers =>" + String(viewers)
-	}
-}
-
-// MARK: JSONParsing
-
-extension TopGame: JSONParsing {
-	static func parse(_ json: JSON) throws -> TopGame {
-		return try TopGame(
-			game: json["game"]^,
-			viewers: json["viewers"]^,
-			channels: json["channels"]^)
+		return game.name + "\nViewers =>" + String(viewers)
 	}
 }
 

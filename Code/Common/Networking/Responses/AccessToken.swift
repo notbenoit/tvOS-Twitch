@@ -19,21 +19,15 @@
 // THE SOFTWARE.
 
 import Foundation
-import JSONParsing
 
-struct AccessToken {
+struct AccessToken: Codable {
 	let token: String
 	let sig: String
 	let mobileRestricted: Bool
-}
 
-// MARK: JSONParsing
-
-extension AccessToken: JSONParsing {
-	static func parse(_ json: JSON) throws -> AccessToken {
-		return try AccessToken(
-			token: json["token"]^,
-			sig: json["sig"]^,
-			mobileRestricted: json["mobile_restricted"]^)
+	enum CodingKeys: String, CodingKey {
+		case token
+		case sig
+		case mobileRestricted = "mobile_restricted"
 	}
 }

@@ -19,27 +19,23 @@
 // THE SOFTWARE.
 
 import Foundation
-import JSONParsing
 import ReactiveSwift
 import Result
 
 // MARK: - Links
-struct Links {
+struct Links: Codable {
 	let current: String?
 	let next: String?
-}
 
-extension Links: JSONParsing {
-	static func parse(_ json: JSON) throws -> Links {
-		return try Links(
-			current: json["self"].optional.map(^),
-			next: json["next"].optional.map(^))
+	enum CodingKeys: String, CodingKey {
+		case current = "self"
+		case next
 	}
 }
 
 // MARK: - List Response
-protocol ListResponseType: JSONParsing {
-	associatedtype Element: JSONParsing
+protocol ListResponseType: Decodable {
+	associatedtype Element: Decodable
 	var objects: [Element] { get }
 	var count: Int { get }
 	var links: Links { get }
@@ -49,13 +45,48 @@ protocol ListResponseType: JSONParsing {
 	init(objects: [Element], count: Int, links: Links)
 }
 
-extension ListResponseType {
-	static func parse(_ json: JSON) throws -> Self {
-		return try Self(
-			objects: json[self.rootPath].array.map(^),
-			count: json["_total"]^,
-			links: json["_links"]^)
+enum ListResponseKeys: CodingKey {
+	case root(String)
+	case total
+	case links
+
+	var intValue: Int? { return nil }
+
+	var stringValue: String {
+		switch self {
+		case let .root(value):
+			return value
+		case .total:
+			return "_total"
+		case .links:
+			return "_links"
+		}
 	}
+
+	init?(intValue: Int) { return nil }
+
+	init?(stringValue: String) {
+		switch stringValue {
+		case "_total":
+			self = .total
+		case "_links":
+			self = .links
+		default:
+			self = .root(stringValue)
+		}
+	}
+}
+
+extension ListResponseType {
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: ListResponseKeys.self)
+		try self.init(
+			objects: container.decode([Element].self, forKey: .root(Self.rootPath)),
+			count: container.decode(Int.self, forKey: .total),
+			links: container.decode(Links.self, forKey: .links))
+	}
+
 }
 
 struct TopGamesResponse: ListResponseType {
@@ -84,8 +115,8 @@ struct GamesResponse: ListResponseType {
 
 final class Paginator<Response: ListResponseType> {
 	let objects = MutableProperty<[Response.Element]>([])
-	let loadURLAction: Action<String, Response, NSError>
-	let loadRouteAction: Action<TwitchRouter, Response, NSError>
+	let loadURLAction: Action<String, Response, AnyError>
+	let loadRouteAction: Action<TwitchRouter, Response, AnyError>
 	let initialRoute: TwitchRouter
 
 	let lastResponse = MutableProperty<Response?>(nil)
@@ -95,7 +126,7 @@ final class Paginator<Response: ListResponseType> {
 	let nextLink = MutableProperty<String?>(nil)
 	var currentLink = MutableProperty<String?>(nil)
 
-	let loadingState: SignalProducer<LoadingState<NSError>, NoError>
+	let loadingState: SignalProducer<LoadingState<AnyError>, NoError>
 
 	init(_ initialRoute: TwitchRouter) {
 		self.initialRoute = initialRoute
