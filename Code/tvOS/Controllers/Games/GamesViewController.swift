@@ -62,7 +62,7 @@ final class GamesViewController: UIViewController {
 		
 		loadingStateView.reactive.loadingState <~ gameListViewModel.paginator.loadingState
 		loadingStateView.reactive.isEmpty <~ gameListViewModel.viewModels.producer.map { $0.isEmpty }
-		loadingStateView.retry = { [weak self] in self?.gameListViewModel.loadMore() }
+		loadingStateView.retry = { [weak self] in self?.gameListViewModel.reload() }
 	}
 }
 
