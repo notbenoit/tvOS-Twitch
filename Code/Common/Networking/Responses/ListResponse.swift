@@ -142,6 +142,7 @@ final class Paginator<Response: ListResponseType> {
 		lastResponse <~ anyOutput
 		nextLink <~ anyOutput.map { $0.links.next }
 		currentLink <~ anyOutput.map { $0.links.current }
+		totalCount <~ anyOutput.map { $0.count }
 
 		loadRouteAction.values.observeValues { [weak self] in
 			self?.objects.value = $0.objects
