@@ -78,6 +78,7 @@ final class StreamsViewController: UIViewController {
 
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
+		collectionView.remembersLastFocusedIndexPath = true
 
 		loadingView.reactive.loadingState <~ viewModel.producer.skipNil().chain { $0.paginator.loadingState }
 		loadingView.reactive.isEmpty <~ viewModel.producer.skipNil().chain { $0.viewModels }.map { $0.isEmpty }

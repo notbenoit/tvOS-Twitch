@@ -59,7 +59,9 @@ final class GamesViewController: UIViewController {
 		collectionView.register(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
-		
+
+		collectionView.remembersLastFocusedIndexPath = true
+
 		loadingStateView.reactive.loadingState <~ gameListViewModel.paginator.loadingState
 		loadingStateView.reactive.isEmpty <~ gameListViewModel.viewModels.producer.map { $0.isEmpty }
 		loadingStateView.retry = { [weak self] in self?.gameListViewModel.reload() }
