@@ -36,6 +36,8 @@ final class GameCell: CollectionViewCell {
 	override func prepareForReuse() {
 		imageView.image = nil
 		labelName.text = nil
+		labelName.transform = .identity
+		labelName.alpha = 0.0
 		super.prepareForReuse()
 	}
 	
@@ -45,6 +47,7 @@ final class GameCell: CollectionViewCell {
 		labelName.font = textDefaultFont
 		labelName.textColor = textDefaultColor
 		labelName.shadowOffset = CGSize(width: 0, height: 1)
+		labelName.alpha = 0.0
 		backgroundColor = UIColor.twitchLight
 		
 		reactive.configure <~ cellModel.producer
@@ -58,17 +61,22 @@ final class GameCell: CollectionViewCell {
 			imageView.sd_setImage(with: url)
 		}
 	}
-	
+
 	override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-		let transform = isFocused ? CGAffineTransform(translationX: 0, y: 35) : CGAffineTransform.identity
+		let transform = isFocused ? CGAffineTransform(translationX: 0, y: 35) : .identity
 		let labelShadowColor = isFocused ? UIColor.darkGray : UIColor.clear
 		let labelTextColor = isFocused ? UIColor.white : textDefaultColor
+		let labelAlpha: CGFloat = isFocused ? 1.0 : 0.0
+		if !isFocused { labelName.alpha = 0.0 }
+
 		coordinator.addCoordinatedAnimations({
 			self.labelName.transform = transform
 			self.labelName.shadowColor = labelShadowColor
 			self.labelName.textColor = labelTextColor
+			self.labelName.alpha = labelAlpha
 		}, completion: nil)
 	}
+
 }
 
 extension Reactive where Base: GameCell {
