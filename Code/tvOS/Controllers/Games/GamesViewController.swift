@@ -22,13 +22,12 @@ import UIKit
 import ReactiveSwift
 import DataSource
 
-class GamesViewController: UIViewController {
+final class GamesViewController: UIViewController {
 
 	let gameCellWidth: CGFloat = 148.0
 	let horizontalSpacing: CGFloat = 51.0
-	let verticalSpacing: CGFloat = 100.0
-	
-	var onGameSelected: ((Game) -> ())?
+
+	var onGameSelected: ((Game) -> Void)?
 	
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingStateView: LoadingStateView!
@@ -39,14 +38,12 @@ class GamesViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.white
+		view.backgroundColor = .white
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .horizontal
 		layout.itemSize = CGSize(width: gameCellWidth, height: gameCellWidth/Constants.gameImageRatio)
-		layout.sectionInset = UIEdgeInsets(top: 60, left: 90, bottom: 60, right: 90)
 		layout.minimumInteritemSpacing = horizontalSpacing
-		layout.minimumLineSpacing = verticalSpacing
-		
+		layout.minimumLineSpacing = horizontalSpacing
 		
 		collectionDataSource.reuseIdentifierForItem = { _, item in
 			if let item = item as? ReuseIdentifierProvider {
@@ -62,16 +59,20 @@ class GamesViewController: UIViewController {
 		collectionView.register(LoadMoreCell.nib, forCellWithReuseIdentifier: LoadMoreCell.identifier)
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
-		
-		loadingStateView.loadingState <~ gameListViewModel.paginator.loadingState
-		loadingStateView.isEmpty <~ gameListViewModel.viewModels.producer.map { $0.isEmpty }
-		loadingStateView.retry = { [weak self] in self?.gameListViewModel.loadMore() }
+
+		collectionView.remembersLastFocusedIndexPath = true
+
+		loadingStateView.reactive.loadingState <~ gameListViewModel.paginator.loadingState
+		loadingStateView.reactive.isEmpty <~ gameListViewModel.viewModels.producer.map { $0.isEmpty }
+		loadingStateView.retry = { [weak self] in self?.gameListViewModel.reload() }
 	}
 }
 
 extension GamesViewController: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-		if collectionDataSource.dataSource.item(at: indexPath) is LoadMoreCellItem {
+
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let currentRight = scrollView.contentOffset.x + scrollView.frame.size.width
+		if currentRight >= (scrollView.contentSize.width - 200.0) {
 			gameListViewModel.loadMore()
 		}
 	}

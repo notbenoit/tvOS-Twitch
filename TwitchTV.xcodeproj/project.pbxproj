@@ -27,9 +27,6 @@
 		FC9B89A71F657C6600C19EAC /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B898E1F657C0F00C19EAC /* WebImage.framework */; };
 		FC9B89A81F657C6600C19EAC /* WebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B898E1F657C0F00C19EAC /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FC9B89AC1F657C9E00C19EAC /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B89611F657C0800C19EAC /* ReactiveSwift.framework */; };
-		FC9B89AD1F657E1A00C19EAC /* JSONParsing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B892F1F657BFF00C19EAC /* JSONParsing.framework */; };
-		FC9B89AE1F657E1A00C19EAC /* JSONParsing.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B892F1F657BFF00C19EAC /* JSONParsing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FC9B89B11F657E2700C19EAC /* JSONParsing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9B892F1F657BFF00C19EAC /* JSONParsing.framework */; };
 		FCC826B11C2237ED0005BF14 /* HomeTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC826B01C2237ED0005BF14 /* HomeTabBarDelegate.swift */; };
 		FCCC30251BE7E039009DEEC7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC30011BE7E039009DEEC7 /* Constants.swift */; };
 		FCCC302C1BE7E039009DEEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCC300D1BE7E039009DEEC7 /* AppDelegate.swift */; };
@@ -198,13 +195,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 022B0FA41B2F2AE500DD4DCD;
 			remoteInfo = DataSourceTests;
-		};
-		FC9B892E1F657BFF00C19EAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FC9B89281F657BFF00C19EAC /* JSONParsing.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 02A66A2B1C6CD82E00387AA1;
-			remoteInfo = "JSONParsing-iOS";
 		};
 		FC9B893E1F657C0300C19EAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -430,13 +420,6 @@
 			remoteGlobalIDString = 00733A4B1BC487C000A5A117;
 			remoteInfo = "WebImage tvOS";
 		};
-		FC9B89AF1F657E1A00C19EAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FC9B89281F657BFF00C19EAC /* JSONParsing.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 02A66A2A1C6CD82E00387AA1;
-			remoteInfo = JSONParsing;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -467,7 +450,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FC9B89AE1F657E1A00C19EAC /* JSONParsing.framework in Copy Frameworks */,
 				FC9B89901F657C6600C19EAC /* Alamofire.framework in Copy Frameworks */,
 				FC9B89A01F657C6600C19EAC /* ReactiveSwift.framework in Copy Frameworks */,
 				FC9B89A41F657C6600C19EAC /* Result.framework in Copy Frameworks */,
@@ -516,7 +498,6 @@
 		FC858B0E1B7E40FF007A9B54 /* TwitchTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC9B89031F657BF600C19EAC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		FC9B891C1F657BFA00C19EAC /* DataSource.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DataSource.xcodeproj; path = Carthage/Checkouts/DataSource/DataSource.xcodeproj; sourceTree = "<group>"; };
-		FC9B89281F657BFF00C19EAC /* JSONParsing.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSONParsing.xcodeproj; path = Carthage/Checkouts/JSONParsing/JSONParsing.xcodeproj; sourceTree = "<group>"; };
 		FC9B89341F657C0300C19EAC /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = Carthage/Checkouts/ReactiveCocoa/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		FC9B894C1F657C0800C19EAC /* ReactiveSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveSwift.xcodeproj; path = Carthage/Checkouts/ReactiveSwift/ReactiveSwift.xcodeproj; sourceTree = "<group>"; };
 		FC9B89641F657C0B00C19EAC /* Result.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Result.xcodeproj; path = Carthage/Checkouts/Result/Result.xcodeproj; sourceTree = "<group>"; };
@@ -581,7 +562,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC9B89B11F657E2700C19EAC /* JSONParsing.framework in Frameworks */,
 				FC9B89AC1F657C9E00C19EAC /* ReactiveSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,7 +583,6 @@
 				FC9B899B1F657C6600C19EAC /* ReactiveCocoa.framework in Frameworks */,
 				FC9B899F1F657C6600C19EAC /* ReactiveSwift.framework in Frameworks */,
 				FC9B89A71F657C6600C19EAC /* WebImage.framework in Frameworks */,
-				FC9B89AD1F657E1A00C19EAC /* JSONParsing.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,14 +742,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FC9B89291F657BFF00C19EAC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FC9B892F1F657BFF00C19EAC /* JSONParsing.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		FC9B89351F657C0300C19EAC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,7 +801,6 @@
 			children = (
 				FC9B89031F657BF600C19EAC /* Alamofire.xcodeproj */,
 				FC9B891C1F657BFA00C19EAC /* DataSource.xcodeproj */,
-				FC9B89281F657BFF00C19EAC /* JSONParsing.xcodeproj */,
 				FC9B89341F657C0300C19EAC /* ReactiveCocoa.xcodeproj */,
 				FC9B894C1F657C0800C19EAC /* ReactiveSwift.xcodeproj */,
 				FC9B89641F657C0B00C19EAC /* Result.xcodeproj */,
@@ -1150,7 +1120,6 @@
 				FC9B89A21F657C6600C19EAC /* PBXTargetDependency */,
 				FC9B89A61F657C6600C19EAC /* PBXTargetDependency */,
 				FC9B89AA1F657C6600C19EAC /* PBXTargetDependency */,
-				FC9B89B01F657E1A00C19EAC /* PBXTargetDependency */,
 			);
 			name = "TwitchTV-tvOS";
 			productName = "TwitchTV-tvOS";
@@ -1164,13 +1133,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Benoit Layer";
 				TargetAttributes = {
 					FC09EA011BF40322009E7DB6 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 43SXS7JQ42;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 					FC858B0D1B7E40FF007A9B54 = {
@@ -1180,7 +1149,7 @@
 					FCCC2FE51BE7DC80009DEEC7 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 43SXS7JQ42;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1204,10 +1173,6 @@
 				{
 					ProductGroup = FC9B891D1F657BFA00C19EAC /* Products */;
 					ProjectRef = FC9B891C1F657BFA00C19EAC /* DataSource.xcodeproj */;
-				},
-				{
-					ProductGroup = FC9B89291F657BFF00C19EAC /* Products */;
-					ProjectRef = FC9B89281F657BFF00C19EAC /* JSONParsing.xcodeproj */;
 				},
 				{
 					ProductGroup = FC9B89351F657C0300C19EAC /* Products */;
@@ -1304,13 +1269,6 @@
 			fileType = wrapper.cfbundle;
 			path = DataSourceTests.xctest;
 			remoteRef = FC9B89261F657BFA00C19EAC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FC9B892F1F657BFF00C19EAC /* JSONParsing.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = JSONParsing.framework;
-			remoteRef = FC9B892E1F657BFF00C19EAC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		FC9B893F1F657C0300C19EAC /* ReactiveCocoa.framework */ = {
@@ -1676,11 +1634,6 @@
 			name = "WebImage tvOS";
 			targetProxy = FC9B89A91F657C6600C19EAC /* PBXContainerItemProxy */;
 		};
-		FC9B89B01F657E1A00C19EAC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = JSONParsing;
-			targetProxy = FC9B89AF1F657E1A00C19EAC /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1726,7 +1679,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Twitch Extension Development Profile";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
@@ -1747,7 +1700,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Twitch Extension";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;
@@ -1760,20 +1713,26 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 151109223717;
+				CURRENT_PROJECT_VERSION = 171102221538;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1798,8 +1757,9 @@
 				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0.1;
-				TVOS_APP_VERSION = 1.1.5;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+				TVOS_APP_VERSION = 1.1.6;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1812,20 +1772,26 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 151109223717;
+				CURRENT_PROJECT_VERSION = 171102221538;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1843,8 +1809,9 @@
 				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0.1;
-				TVOS_APP_VERSION = 1.1.5;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+				TVOS_APP_VERSION = 1.1.6;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1898,7 +1865,7 @@
 				PROVISIONING_PROFILE = "39839593-bf8f-4123-85a6-7920dea96e1f";
 				PROVISIONING_PROFILE_SPECIFIER = "Twitch Development Profile";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
@@ -1922,7 +1889,7 @@
 				PROVISIONING_PROFILE = "d79eed6c-9c9c-4c3a-a74d-2fb180091515";
 				PROVISIONING_PROFILE_SPECIFIER = "Twitch App Store";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};

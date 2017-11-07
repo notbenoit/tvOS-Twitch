@@ -2,8 +2,13 @@
   "images" : [
     {
       "idiom" : "tv",
-      "filename" : "icon_small_bg.png",
+      "filename" : "Icon Small.png",
       "scale" : "1x"
+    },
+    {
+      "idiom" : "tv",
+      "filename" : "Icon Small@2x.png",
+      "scale" : "2x"
     }
   ],
   "info" : {

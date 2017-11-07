@@ -19,23 +19,10 @@
 // THE SOFTWARE.
 
 import Foundation
-import JSONParsing
 
-struct Preview {
+struct Preview: Codable {
 	let small: String
 	let medium: String
 	let large: String
 	let template: String
-}
-
-// MARK: JSONParsing
-
-extension Preview: JSONParsing {
-	static func parse(_ json: JSON) throws -> Preview {
-		return try Preview(
-			small: json["small"]^,
-			medium: json["medium"]^,
-			large: json["large"]^,
-			template: json["template"]^)
-	}
 }

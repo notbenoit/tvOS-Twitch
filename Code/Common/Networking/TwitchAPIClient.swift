@@ -21,7 +21,7 @@
 import UIKit
 import Alamofire
 import ReactiveSwift
-import JSONParsing
+import Result
 
 final class TwitchAPIClient {
 
@@ -34,15 +34,15 @@ final class TwitchAPIClient {
 		return Alamofire.SessionManager(configuration: sessionConfiguration)
 	}()
 
-	func request<T: JSONParsing>(_ urlString: String) -> SignalProducer<T, NSError> {
+	func request<T: Decodable>(_ urlString: String) -> SignalProducer<T, AnyError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
 			let request = self.manager.request(urlString, method: .get, headers: ["Client-ID": Constants.clientId])
 			print(request.debugDescription)
-			request.responseJSON { response in
-				if case .failure(let error as NSError) = response.result {
-					parseError(response.data, error, observer)
+			request.validate().responseJSON { response in
+				if case .failure(let error) = response.result {
+					parseError(response.data, AnyError(error), observer)
 				} else {
-					parse(response.result.value, observer)
+					parse(response.data!, observer)
 				}
 			}
 			disposable.observeEnded {
@@ -51,7 +51,7 @@ final class TwitchAPIClient {
 		}
 	}
 
-	func request<T: JSONParsing>(_ route: TwitchRouter) -> SignalProducer<T, NSError> {
+	func request<T: Decodable>(_ route: TwitchRouter) -> SignalProducer<T, AnyError> {
 		return SignalProducer { [unowned self] (observer, disposable) in
 			let request = self.manager.request(
 				route.URLString,
@@ -61,10 +61,10 @@ final class TwitchAPIClient {
 				headers: ["Client-ID": Constants.clientId])
 			print(request.debugDescription)
 			request.validate().responseJSON { response in
-				if case .failure(let error as NSError) = response.result {
-					parseError(response.data, error, observer)
+				if case .failure(let error) = response.result {
+					parseError(response.data, AnyError(error), observer)
 				} else {
-					parse(response.result.value, observer)
+					parse(response.data!, observer)
 				}
 			}
 			disposable.observeEnded {
@@ -73,57 +73,39 @@ final class TwitchAPIClient {
 		}.observe(on: UIScheduler())
 	}
 
-	fileprivate func accessTokenForChannel(_ channelName: String) -> SignalProducer<AccessToken, NSError> {
+	fileprivate func accessTokenForChannel(_ channelName: String) -> SignalProducer<AccessToken, AnyError> {
 		return request(TwitchRouter.accessToken(channelName: channelName))
 	}
 
-	func m3u8URLForChannel(_ channelName: String) -> SignalProducer<String, NSError> {
+	func m3u8URLForChannel(_ channelName: String) -> SignalProducer<String, AnyError> {
 		return accessTokenForChannel(channelName)
 			.map { return "http://usher.justin.tv/api/channel/hls/\(channelName)?allow_source=true&token=\($0.token)&sig=\($0.sig)" }
 	}
 
-	func getTopGames(_ page: Int) -> SignalProducer<TopGamesResponse, NSError> {
+	func getTopGames(_ page: Int) -> SignalProducer<TopGamesResponse, AnyError> {
 		return request(TwitchRouter.gamesTop(page: page))
 	}
 }
 
-private func parseError<T: JSONParsing> (_ data: Data?, _ error: NSError, _ sink: Signal<T, NSError>.Observer) {
+private func parseError<T: Decodable> (_ data: Data?, _ error: AnyError, _ sink: Signal<T, AnyError>.Observer) {
 	guard let data = data else {
 		sink.send(error: error)
 		return
 	}
 	do {
-		let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-		let error = try TwitchError.parse(JSON(json as AnyObject))
-		sink.send(error: error.toError)
+		let error = try JSONDecoder().decode(TwitchError.self, from: data)
+		sink.send(error: AnyError(error))
 	} catch _ {
 		sink.send(error: error)
 	}
 }
 
-private func parse<T: JSONParsing> (_ object: Any?, _ sink: Signal<T, NSError>.Observer) {
-	let errorDomain = "JSONParsing"
+private func parse<T: Decodable> (_ data: Data, _ sink: Signal<T, AnyError>.Observer) {
 	do {
-		let result = try T.parse(JSON(object as? NSDictionary))
+		let result: T = try JSONDecoder().decode(T.self, from: data)
 		sink.send(value: result)
 		sink.sendCompleted()
-	} catch JSON.Error.noValue(let json) {
-		let desc = "JSON value not found at key path \(json.pathFromRoot)"
-		let error = NSError(domain: errorDomain,
-		                    code: (-2),
-		                    userInfo: [NSLocalizedDescriptionKey: desc])
-		sink.send(error: error)
-	} catch JSON.Error.typeMismatch(let json) {
-		let desc = "JSON value type mismatch at key path \(json.pathFromRoot)"
-		let error = NSError(domain: errorDomain,
-		                    code: (-3),
-		                    userInfo: [NSLocalizedDescriptionKey: desc])
-		sink.send(error: error)
-	} catch _ {
-		let desc = "Unknown error while parsing server response"
-		let error = NSError(domain: errorDomain,
-		                    code: (-1),
-		                    userInfo: [NSLocalizedDescriptionKey: desc])
-		sink.send(error: error)
+	} catch {
+		sink.send(error: AnyError(error))
 	}
 }

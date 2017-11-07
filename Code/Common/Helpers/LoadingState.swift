@@ -24,11 +24,11 @@ import Result
 
 enum LoadingState<E: Error> {
 	case `default`
-	case Loading
+	case loading
 	case failed(error: E)
 	
 	var loading: Bool {
-		if case .Loading = self {
+		if case .loading = self {
 			return true
 		}
 		return false
@@ -44,12 +44,10 @@ enum LoadingState<E: Error> {
 
 extension Action {
 	var loadingState: SignalProducer<LoadingState<Error>, NoError> {
-		// Produces .Loading when Loading
-		let loadingProducer = self.isExecuting.producer
+		let loading = self.isExecuting.producer
 			.filter { $0 }
-			.map { _ in LoadingState<Error>.Loading }
-		// Produces error, or default if no error
-		let errorProducer = self.events.map {
+			.map { _ in LoadingState<Error>.loading }
+		let states = SignalProducer(self.events).map {
 			(event: Signal<Output, Error>.Event) -> LoadingState<Error> in
 			switch event {
 			case .failed(let error):
@@ -58,6 +56,6 @@ extension Action {
 				return LoadingState<Error>.default
 			}
 		}
-		return loadingProducer.lift { Signal<LoadingState<Error>, NoError>.merge([$0, errorProducer]) }
+		return SignalProducer.merge(loading, states)
 	}
 }

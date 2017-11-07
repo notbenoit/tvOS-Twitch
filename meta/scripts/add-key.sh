@@ -10,3 +10,4 @@ security import ./meta/scripts/certs/dist.p12 -k ~/Library/Keychains/ios-build.k
 security import ./meta/scripts/certs/dev.p12 -k ~/Library/Keychains/ios-build.keychain -P $KEY_PASSWORD -T /usr/bin/codesign
 mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
 cp ./meta/scripts/profiles/*.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+security set-key-partition-list -S apple-tool:,apple: -s -k travis ios-build.keychain

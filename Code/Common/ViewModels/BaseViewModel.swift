@@ -26,15 +26,13 @@ class BaseViewModel<Response: ListResponseType, ViewModel: Equatable> {
 	let paginator: Paginator<Response>
 	let viewModels: MutableProperty<[ViewModel]>
 	let dataSource: DataSource
-	fileprivate let disposable = CompositeDisposable()
 
 	init(_ apiRoute: TwitchRouter, transform: @escaping ((Response.Element) -> ViewModel?)) {
 		paginator = Paginator<Response>(apiRoute)
 
-		let autoDiffDs = AutoDiffDataSource<ViewModel>(compare: ==)
-		viewModels = autoDiffDs.items
-		disposable += viewModels <~ paginator.lastResponse.producer.combinePrevious(nil).scan([]) {
-			objects, previousAndNext in
+		let autoDiff = AutoDiffDataSource<ViewModel>(compare: ==)
+		viewModels = autoDiff.items
+		viewModels <~ paginator.lastResponse.producer.combinePrevious(nil).scan([]) { objects, previousAndNext in
 			switch (previousAndNext.0, previousAndNext.1) {
 			case (.none, .some(let response)):
 				return response.objects.flatMap(transform)
@@ -47,18 +45,14 @@ class BaseViewModel<Response: ListResponseType, ViewModel: Equatable> {
 
 		let loadMoreItem = LoadMoreCellItem()
 		let loadMoreDataSource = ProxyDataSource()
-		disposable += loadMoreDataSource.innerDataSource <~ paginator.allLoaded.producer
+		loadMoreDataSource.innerDataSource <~ paginator.allLoaded.producer
 			.map { $0 ? EmptyDataSource() : StaticDataSource(items: [loadMoreItem]) as DataSource }
 
-		dataSource = ProxyDataSource(CompositeDataSource([autoDiffDs, loadMoreDataSource]), animateChanges: false)
+		dataSource = ProxyDataSource(CompositeDataSource([autoDiff, loadMoreDataSource]), animateChanges: false)
 
 		#if os(iOS)
-			disposable += UIApplication.shared.reactive.isNetworkIndicatorVisible <~ paginator.loadingState.map { $0.loading }
+			UIApplication.shared.reactive.isNetworkIndicatorVisible <~ paginator.loadingState.map { $0.loading }
 		#endif
-	}
-
-	deinit {
-		disposable.dispose()
 	}
 
 	func loadMore() {

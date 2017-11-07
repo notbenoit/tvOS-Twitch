@@ -19,40 +19,35 @@
 // THE SOFTWARE.
 
 import Foundation
-import JSONParsing
 
-struct Stream {
-	let id: Int
-	let gameNameString: String?
-	let viewers: Int
+struct Stream: Codable {
 	let averageFPS: Double
-	let delay: Int
-	let videoHeight: Int
-	let isPlaylist: Bool
 	let channel: Channel
+	let delay: Int
+	let gameName: String?
+	let id: Int
+	let isPlaylist: Bool
 	let preview: Preview
+	let videoHeight: Int
+	let viewers: Int
+
+	enum CodingKeys: String, CodingKey {
+		case averageFPS = "average_fps"
+		case channel
+		case delay
+		case gameName = "game"
+		case id = "_id"
+		case isPlaylist = "is_playlist"
+		case preview
+		case videoHeight = "video_height"
+		case viewers
+	}
+
 }
 
 extension Stream: CustomStringConvertible {
 	internal var description: String {
 		return ""
-	}
-}
-
-// MARK: JSONParsing
-
-extension Stream: JSONParsing {
-	static func parse(_ json: JSON) throws -> Stream {
-		return try Stream(
-			id: json["_id"]^,
-			gameNameString: json["game"].optional.map(^),
-			viewers: json["viewers"]^,
-			averageFPS: json["average_fps"]^,
-			delay: json["delay"]^,
-			videoHeight: json["video_height"]^,
-			isPlaylist: json["is_playlist"]^,
-			channel: json["channel"]^,
-			preview: json["preview"]^)
 	}
 }
 

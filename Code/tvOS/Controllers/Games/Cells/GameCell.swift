@@ -36,15 +36,19 @@ final class GameCell: CollectionViewCell {
 	override func prepareForReuse() {
 		imageView.image = nil
 		labelName.text = nil
+		labelName.transform = .identity
+		labelName.alpha = 0.0
+		super.prepareForReuse()
 	}
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		imageView.adjustsImageWhenAncestorFocused = true
-		self.labelName.font = textDefaultFont
-		self.labelName.textColor = textDefaultColor
-		self.labelName.shadowOffset = CGSize(width: 0, height: 1)
-		self.backgroundColor = UIColor.twitchLightColor()
+		labelName.font = textDefaultFont
+		labelName.textColor = textDefaultColor
+		labelName.shadowOffset = CGSize(width: 0, height: 1)
+		labelName.alpha = 0.0
+		backgroundColor = UIColor.twitchLight
 		
 		reactive.configure <~ cellModel.producer
 			.map { $0 as? GameCellViewModel }
@@ -57,21 +61,26 @@ final class GameCell: CollectionViewCell {
 			imageView.sd_setImage(with: url)
 		}
 	}
-	
+
 	override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-		let transform = isFocused ? CGAffineTransform(translationX: 0, y: 35) : CGAffineTransform.identity
+		let transform = isFocused ? CGAffineTransform(translationX: 0, y: 35) : .identity
 		let labelShadowColor = isFocused ? UIColor.darkGray : UIColor.clear
 		let labelTextColor = isFocused ? UIColor.white : textDefaultColor
+		let labelAlpha: CGFloat = isFocused ? 1.0 : 0.0
+		if !isFocused { labelName.alpha = 0.0 }
+
 		coordinator.addCoordinatedAnimations({
 			self.labelName.transform = transform
 			self.labelName.shadowColor = labelShadowColor
 			self.labelName.textColor = labelTextColor
+			self.labelName.alpha = labelAlpha
 		}, completion: nil)
 	}
+
 }
 
 extension Reactive where Base: GameCell {
 	var configure: BindingTarget<GameCellViewModel> {
-		return makeBindingTarget { $0.0.configure(with: $0.1) }
+		return makeBindingTarget { $0.configure(with: $1) }
 	}
 }

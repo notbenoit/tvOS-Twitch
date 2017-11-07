@@ -43,15 +43,15 @@ extension UIColor {
 		self.init(red:(rgbValue >> 16) & 0xff, green:(rgbValue >> 8) & 0xff, blue:rgbValue & 0xff)
 	}
 	
-	static func twitchColor() -> UIColor {
+	static var twitchPurple: UIColor {
 		return UIColor(rgbValue: 0x512B94)
 	}
 	
-	static func twitchDarkColor() -> UIColor {
+	static var twitchDark: UIColor {
 		return UIColor(rgbValue: 0x19191F)
 	}
 	
-	static func twitchLightColor() -> UIColor {
+	static var twitchLight: UIColor {
 		return UIColor(rgbValue: 0x888898)
 	}
 }

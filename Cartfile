@@ -2,4 +2,3 @@ github "Alamofire/Alamofire" ~> 4.0
 github "rs/SDWebImage" ~> 3.8
 github "jspahrsummers/xcconfigs" "master"
 github "Vadim-Yelagin/DataSource" "master"
-github "notbenoit/JSONParsing" "master"

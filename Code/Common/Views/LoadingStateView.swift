@@ -20,14 +20,13 @@
 
 import UIKit
 import ReactiveSwift
+import Result
 
 final class LoadingStateView: NibDesignable {
 	var retry: (() -> ())? = nil
 	
-	let loadingState = MutableProperty<LoadingState<NSError>>(.Loading)
-	let isEmpty = MutableProperty(false)
-	
-	fileprivate let disposable = CompositeDisposable()
+	fileprivate let loadingState = MutableProperty<LoadingState<AnyError>>(.loading)
+	fileprivate let isEmpty = MutableProperty(false)
 	
 	@IBInspectable var emptyImage: UIImage? = UIImage(named: "No-Search-Results") { didSet { updateEmptyImage() } }
 	@IBInspectable var emptyText: String = "NOTHING HERE" { didSet { updateLabels() } }
@@ -50,7 +49,7 @@ final class LoadingStateView: NibDesignable {
 		retry?()
 	}
 	
-	fileprivate func updateErrorMessage(_ error: NSError) {
+	fileprivate func updateErrorMessage(_ error: AnyError) {
 		errorLabel.text = errorText ?? error.localizedDescription
 	}
 	
@@ -62,17 +61,16 @@ final class LoadingStateView: NibDesignable {
 		emptyLabel.textColor = textColor
 		errorLabel.textColor = textColor
 		errorTitleLabel.textColor = textColor
-//		retryButton.setTitleColor(textColor, forState: .Normal)
 	}
 	
-	func updatedState(_ loadingState: LoadingState<NSError>, isContentEmpty: Bool) {
+	func updatedState(_ loadingState: LoadingState<AnyError>, isContentEmpty: Bool) {
 		var isEmpty = false
 		var isError = false
 		var isLoading = false
 		switch (loadingState, isContentEmpty) {
 		case (.default, true):
 			isEmpty = true
-		case (.Loading, true):
+		case (.loading, true):
 			isLoading = true
 		case (.failed(let error), true):
 			isError = true
@@ -97,10 +95,23 @@ final class LoadingStateView: NibDesignable {
 		super.awakeFromNib()
 		updateEmptyImage()
 		updateLabels()
-		disposable += SignalProducer.combineLatest(loadingState.producer, isEmpty.producer).startWithValues(updatedState)
+		loadingState.combineLatest(with: isEmpty)
+			.producer
+			.startWithValues { [weak self] in
+				self?.updatedState($0.0, isContentEmpty: $0.1)
+		}
 	}
-	
-	deinit {
-		disposable.dispose()
+
+}
+
+extension Reactive where Base: LoadingStateView {
+
+	var loadingState: BindingTarget<LoadingState<AnyError>> {
+		return makeBindingTarget { $0.loadingState.value = $1 }
 	}
+
+	var isEmpty: BindingTarget<Bool> {
+		return makeBindingTarget { $0.isEmpty.value = $1 }
+	}
+
 }

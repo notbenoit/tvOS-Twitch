@@ -1,0 +1,16 @@
+# For more information about this configuration visit
+# https://github.com/fastlane/fastlane/tree/master/gym#gymfile
+scheme ENV['SCHEME_NAME']
+include_symbols true
+include_bitcode true
+configuration ENV['BUILD_CONFIG']
+output_directory "./"
+output_name ENV['IPA_NAME']
+clean true
+export_options(
+  method: "app-store",
+  provisioningProfiles: {
+    "com.notbenoit.Twitch.TopShelf" => "Twitch Extension",
+    "com.notbenoit.Twitch" => "Twitch App Store"
+  }
+)

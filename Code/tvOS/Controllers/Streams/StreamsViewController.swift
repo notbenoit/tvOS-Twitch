@@ -31,7 +31,7 @@ final class StreamsViewController: UIViewController {
 	let horizontalSpacing: CGFloat = 50.0
 	let verticalSpacing: CGFloat = 100.0
 
-	let presentStream: Action<(stream: Stream, controller: UIViewController), AVPlayerViewController, NSError> = Action(execute: controllerProducerForStream)
+	let presentStream: Action<(stream: Stream, controller: UIViewController), AVPlayerViewController, AnyError> = Action(execute: controllerProducerForStream)
 
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var loadingView: LoadingStateView!
@@ -42,11 +42,9 @@ final class StreamsViewController: UIViewController {
 	let viewModel = MutableProperty<StreamList.ViewModelType?>(nil)
 	let collectionDataSource = CollectionViewDataSource()
 
-	fileprivate let disposable = CompositeDisposable()
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.twitchDarkColor()
+		view.backgroundColor = UIColor.twitchDark
 
 		collectionDataSource.reuseIdentifierForItem = { _, item in
 			if let item = item as? ReuseIdentifierProvider {
@@ -55,9 +53,9 @@ final class StreamsViewController: UIViewController {
 			fatalError()
 		}
 
-		disposable += loadingStreamView.reactive.isHidden <~ presentStream.isExecuting.producer.map(!)
+		loadingStreamView.reactive.isHidden <~ presentStream.isExecuting.producer.map(!)
 		
-		disposable += loadingMessage.reactive.text <~ presentStream.isExecuting.producer
+		loadingMessage.reactive.text <~ presentStream.isExecuting.producer
 			.filter { $0 }
 			.map { _ in LoadingMessages.randomMessage }
 		
@@ -80,12 +78,13 @@ final class StreamsViewController: UIViewController {
 
 		collectionView.collectionViewLayout = layout
 		collectionView.delegate = self
+		collectionView.remembersLastFocusedIndexPath = true
 
-		loadingView.loadingState <~ viewModel.producer.skipNil().chain { $0.paginator.loadingState }
-		loadingView.isEmpty <~ viewModel.producer.skipNil().chain { $0.viewModels }.map { $0.isEmpty }
+		loadingView.reactive.loadingState <~ viewModel.producer.skipNil().chain { $0.paginator.loadingState }
+		loadingView.reactive.isEmpty <~ viewModel.producer.skipNil().chain { $0.viewModels }.map { $0.isEmpty }
 		loadingView.retry = { [weak self] in self?.viewModel.value?.paginator.loadFirst() }
 		
-		disposable += presentStream.values
+		presentStream.values
 			.observe(on: UIScheduler())
 			.observeValues { [weak self] in self?.present($0, animated: true, completion: nil) }
 	}
@@ -111,21 +110,21 @@ extension StreamsViewController: UICollectionViewDelegate {
 	}
 }
 
-private func controllerProducerForStream(_ stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, NSError> {
+private func controllerProducerForStream(_ stream: Stream, inController: UIViewController) -> SignalProducer<AVPlayerViewController, AnyError> {
 	return TwitchAPIClient.sharedInstance.m3u8URLForChannel(stream.channel.channelName)
 		.on(started: { UIApplication.shared.beginIgnoringInteractionEvents() })
 		.map { $0.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) }
 		.map { $0.flatMap { URL(string: $0) } }
 		.skipNil()
-		.map {
+		.map { (url: URL) -> AVPlayerViewController in
 			let playerController = AVPlayerViewController()
 			playerController.view.frame = UIScreen.main.bounds
-			let avPlayer = AVPlayer(url: $0)
+			let avPlayer = AVPlayer(url: url)
 			playerController.player = avPlayer
 			return playerController
 	}
-		.on(value: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
-		.on(terminated: { _ in UIApplication.shared.endIgnoringInteractionEvents() })
+		.on() { _ in UIApplication.shared.endIgnoringInteractionEvents() }
+		.on(terminated: { UIApplication.shared.endIgnoringInteractionEvents() })
 		.observe(on: UIScheduler())
-		.on(value: { $0.player?.play() })
+		.on() { $0.player?.play() }
 }

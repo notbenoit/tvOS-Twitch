@@ -19,32 +19,28 @@
 // THE SOFTWARE.
 
 import Foundation
-import JSONParsing
 
-struct Channel {
+struct Channel: Codable {
 	let id: Int
 	let mature: Bool?
 	let status: String?
 	let displayName: String
 	let gameName: String?
 	let channelName: String
+
+	enum CodingKeys: String, CodingKey {
+		case id = "_id"
+		case mature
+		case status
+		case displayName = "display_name"
+		case gameName = "game"
+		case channelName = "name"
+	}
 }
 
 extension Channel: CustomStringConvertible {
 	internal var description: String {
 		return channelName + (gameName.map { "on " + $0 } ?? "")
-	}
-}
-
-extension Channel: JSONParsing {
-	static func parse(_ json: JSON) throws -> Channel {
-		return try Channel(
-			id: json["_id"]^,
-			mature: json["mature"].optional.map(^),
-			status: json["status"].optional.map(^),
-			displayName: json["display_name"]^,
-			gameName: json["game"].optional.map(^),
-			channelName: json["name"]^)
 	}
 }
 

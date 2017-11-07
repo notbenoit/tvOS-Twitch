@@ -22,8 +22,8 @@ import Foundation
 import Alamofire
 
 enum TwitchRouter {
-	static let baseURLString = Constants.API_URL
-	static let tokenURLString = Constants.API_URL_TOKEN
+	static let baseURLString = Constants.ApiURL
+	static let tokenURLString = Constants.ApiURLToken
 	static let perPage: Int = 20
 	
 	case gamesTop(page: Int)

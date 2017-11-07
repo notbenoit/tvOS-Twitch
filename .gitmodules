@@ -13,9 +13,6 @@
 [submodule "Carthage/Checkouts/SDWebImage"]
 	path = Carthage/Checkouts/SDWebImage
 	url = https://github.com/rs/SDWebImage.git
-[submodule "Carthage/Checkouts/JSONParsing"]
-	path = Carthage/Checkouts/JSONParsing
-	url = https://github.com/notbenoit/JSONParsing.git
 [submodule "Carthage/Checkouts/DataSource"]
 	url = https://github.com/Vadim-Yelagin/DataSource.git
     path = Carthage/Checkouts/DataSource
